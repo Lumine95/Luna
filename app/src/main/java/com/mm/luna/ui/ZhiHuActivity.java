@@ -1,23 +1,21 @@
 package com.mm.luna.ui;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.ZhiHuEntity;
-import com.scwang.smartrefresh.header.FlyRefreshHeader;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
-import com.scwang.smartrefresh.layout.header.FalsifyHeader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> implements ZhiHuContract.View {
 
@@ -26,7 +24,7 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
     private List<ZhiHuEntity.StoriesBean> listData = new ArrayList<>();
-
+    private String currentDate;
 
     private ZhiHuAdapter mAdapter;
 
@@ -44,25 +42,24 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
     public void initView() {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        presenter.getData();
+        presenter.getTodayData();
         mAdapter = new ZhiHuAdapter(R.layout.item_zhihu, listData);
         recyclerView.setAdapter(mAdapter);
-
+        mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Log.d("", "onItemClick: " + position);
+            startActivity(new Intent(this, ZhiHuDetailActivity.class).putExtra("id", listData.get(position).getId()));
+        });
+        mAdapter.setOnLoadMoreListener(() -> presenter.getBeforeData(currentDate), recyclerView);
         refreshLayout.setRefreshHeader(new PhoenixHeader(this));
-    }
-
-    @Override
-    public void setData(List<ZhiHuEntity.StoriesBean> listData) {
-        listData.addAll(listData);
-        mAdapter = new ZhiHuAdapter(R.layout.item_zhihu, listData);
-        recyclerView.setAdapter(mAdapter);
 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void setData(ZhiHuEntity zhiHuEntity) {
+        listData.addAll(zhiHuEntity.getStories());
+        currentDate = zhiHuEntity.getDate();
+        mAdapter.addData(zhiHuEntity.getStories());
+        mAdapter.loadMoreComplete();
     }
 }

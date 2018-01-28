@@ -46,7 +46,9 @@ dependencies {
     // BRVAH
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     // SmartRefreshLayout
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-7'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    // TapBarMenu
+    compile 'com.github.michaldrabik:tapbarmenu:1.0.5'
 
 }
