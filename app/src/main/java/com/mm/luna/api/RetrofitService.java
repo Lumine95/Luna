@@ -18,4 +18,7 @@ public interface RetrofitService {
 
     @GET("stories/before/{date}")
     Observable<ZhiHuEntity> getBeforeNews(@Path("date") String date);
+
+    @GET("news/{id}")
+    Observable<ZhiHuEntity> getNewsDetail(@Path("id") String id);
 }
