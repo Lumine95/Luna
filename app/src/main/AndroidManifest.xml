@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ZhiHuDetailActivity" />
+        <activity android:name=".ui.TestActivity" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.mm.luna.api;
 
+import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.bean.ZhiHuEntity;
 
 import io.reactivex.Observable;
@@ -20,5 +21,5 @@ public interface RetrofitService {
     Observable<ZhiHuEntity> getBeforeNews(@Path("date") String date);
 
     @GET("news/{id}")
-    Observable<ZhiHuEntity> getNewsDetail(@Path("id") String id);
+    Observable<ZhiHuDetailEntity> getNewsDetail(@Path("id") int id);
 }

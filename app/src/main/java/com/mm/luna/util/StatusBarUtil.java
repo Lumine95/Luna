@@ -1,4 +1,4 @@
-package com.mm.luna.view;
+package com.mm.luna.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
