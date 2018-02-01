@@ -1,5 +1,6 @@
 package com.mm.luna.ui;
 
+import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
 import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.util.HtmlUtils;
+import com.mm.luna.util.StatusBarCompat;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,10 +64,18 @@ public class ZhiHuDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        StatusBarCompat.translucentStatusBar(this);
         setSupportActionBar(toolbar);
-        TapBarMenu tapBar = findViewById(R.id.tap_bar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tapBar.setOnClickListener(v -> tapBar.toggle());
         int id = getIntent().getIntExtra("id", 0);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
+
+        collapsingToolbarLayout.setTitle("知乎日报");
+        collapsingToolbarLayout.setTitleEnabled(true);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
+
         Api.getInstance().getNewsDetail(id)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> ShowLoadingDialog("正在加载"))

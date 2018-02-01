@@ -1,6 +1,7 @@
 package com.mm.luna.ui;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,8 +13,12 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.ZhiHuEntity;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,10 +31,15 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
     RecyclerView recyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
     private List<ZhiHuEntity.StoriesBean> listData = new ArrayList<>();
     private String currentDate;
-
     private ZhiHuAdapter mAdapter;
+
+    private int mYear = Calendar.getInstance().get(Calendar.YEAR);
+    private int mMonth = Calendar.getInstance().get(Calendar.MONTH);
+    private int mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
     @Override
     public int getLayoutId() {
@@ -45,28 +55,65 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
     public void initView() {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        presenter.getTodayData();
+        presenter.getTodayData(true);
         mAdapter = new ZhiHuAdapter(R.layout.item_zhihu, listData);
         recyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             Log.d("", "onItemClick: " + position);
-            startActivity(new Intent(this, TestActivity.class).putExtra("id", listData.get(position).getId()));
+            startActivity(new Intent(this, ZhiHuDetailActivity.class).putExtra("id", listData.get(position).getId()));
         });
-        mAdapter.setOnLoadMoreListener(() -> presenter.getBeforeData(currentDate), recyclerView);
+        mAdapter.setOnLoadMoreListener(() -> presenter.getBeforeData(currentDate, false), recyclerView);
         refreshLayout.setRefreshHeader(new PhoenixHeader(this));
-
-        toolbar.setTitle("知乎日报");
+        refreshLayout.setOnRefreshListener(refreshLayout -> presenter.getTodayData(true));
+        toolbar.setTitle(R.string.ZhiHuDaily);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
+
+        fab.setOnClickListener(v -> selectData());
     }
 
     @Override
-    public void setData(ZhiHuEntity zhiHuEntity) {
-        listData.addAll(zhiHuEntity.getStories());
+    public void setData(ZhiHuEntity zhiHuEntity, boolean isClear) {
         currentDate = zhiHuEntity.getDate();
-        mAdapter.addData(zhiHuEntity.getStories());
+        if (isClear) {
+            listData.clear();
+            mAdapter.setNewData(zhiHuEntity.getStories());
+        } else {
+            mAdapter.addData(zhiHuEntity.getStories());
+        }
+        listData.addAll(zhiHuEntity.getStories());
         mAdapter.loadMoreComplete();
+        refreshLayout.finishRefresh(true);
+    }
+
+    /**
+     * 时间选择
+     */
+    private void selectData() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(mYear, mMonth, mDay);
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
+            Calendar temp = Calendar.getInstance();
+            temp.clear();
+            temp.set(year, monthOfYear, dayOfMonth);
+
+            String date = new SimpleDateFormat("yyyyMMdd").format(new Date(temp.getTimeInMillis() + 24 * 60 * 60 * 1000));
+            Log.d("date======", date);
+            presenter.getBeforeData(date, true);
+            recyclerView.smoothScrollToPosition(0);
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        // 设置日历可选区间
+        datePickerDialog.setMaxDate(Calendar.getInstance());
+        Calendar minDate = Calendar.getInstance();
+        minDate.set(2013, 5, 20);
+        datePickerDialog.setMinDate(minDate);
+        datePickerDialog.vibrate(false);
+        datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
     }
 }

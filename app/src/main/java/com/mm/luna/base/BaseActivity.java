@@ -2,10 +2,11 @@ package com.mm.luna.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mm.luna.R;
-import com.mm.luna.util.StatusBarUtil;
+import com.mm.luna.util.StatusBarCompat;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,10 +22,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
         // 设置透明状态栏
-       // StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
-        //    StatusBarUtil.setTranslucent(this);
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
+        setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
         presenter = initPresenter();
         initView();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -69,7 +69,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:minHeight="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:contentInsetStart="7dp"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.ToolbarPopupOverlay" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -81,7 +84,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <WebView
-            android:id="@+id/web_view" android:visibility="gone"
+            android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:isScrollContainer="false"
@@ -92,9 +95,9 @@
         android:id="@+id/tap_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_gravity="bottom"
         android:layout_marginBottom="15dp"
         android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:tbm_backgroundColor="@color/colorPrimary"
         app:tbm_buttonMarginRight="15dp"
         app:tbm_buttonPosition="right"
@@ -135,4 +138,4 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
     </com.michaldrabik.tapbarmenulib.TapBarMenu>
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

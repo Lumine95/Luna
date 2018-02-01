@@ -10,11 +10,11 @@ import com.mm.luna.bean.ZhiHuEntity;
 
 public interface ZhiHuContract {
     interface View extends BaseView {
-        void setData(ZhiHuEntity zhiHuEntity);
+        void setData(ZhiHuEntity zhiHuEntity, boolean isClear);
     }
 
     interface Presenter extends BasePresenter {
-        void getTodayData();
-        void getBeforeData(String date);
+        void getTodayData(boolean isClear);
+        void getBeforeData(String date, boolean isClear);
     }
 }

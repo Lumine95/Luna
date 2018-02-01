@@ -52,5 +52,6 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
     // TapBarMenu
     compile 'com.github.michaldrabik:tapbarmenu:1.0.5'
-
+    // MaterialPicker
+    compile 'com.wdullaer:materialdatetimepicker:3.5.0'
 }
