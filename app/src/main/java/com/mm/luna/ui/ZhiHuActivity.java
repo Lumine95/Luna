@@ -1,13 +1,16 @@
 package com.mm.luna.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.ZhiHuEntity;
@@ -25,6 +28,8 @@ import butterknife.BindView;
 
 public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> implements ZhiHuContract.View {
 
+    @BindView(R.id.drawer)
+    DrawerLayout drawer;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recycler_view)
@@ -53,7 +58,7 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
 
     @Override
     public void initView() {
-
+        StatusBarUtil.setColorForDrawerLayout(this, drawer, Color.TRANSPARENT, 0);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         presenter.getTodayData(true);
         mAdapter = new ZhiHuAdapter(R.layout.item_zhihu, listData);

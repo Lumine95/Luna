@@ -16,7 +16,6 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
 import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.util.HtmlUtils;
-import com.mm.luna.util.StatusBarCompat;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -64,7 +63,7 @@ public class ZhiHuDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        StatusBarCompat.translucentStatusBar(this);
+        //StatusBarCompat.translucentStatusBar(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tapBar.setOnClickListener(v -> tapBar.toggle());
