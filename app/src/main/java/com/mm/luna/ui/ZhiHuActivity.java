@@ -77,7 +77,8 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
 
-        fab.setOnClickListener(v -> selectData());
+//        fab.setOnClickListener(v -> selectData());
+        fab.setOnClickListener(v -> startActivity(new Intent(this, TestActivity.class)));
     }
 
     @Override
