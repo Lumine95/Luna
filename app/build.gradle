@@ -10,6 +10,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' ,'armeabi-v7a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     buildTypes {
         release {
@@ -54,6 +59,12 @@ dependencies {
     compile 'com.github.michaldrabik:tapbarmenu:1.0.5'
     // MaterialPicker
     compile 'com.wdullaer:materialdatetimepicker:3.5.0'
+    // Logger
+    compile 'com.orhanobut:logger:2.1.1'
+    // StatusBarUtil
     compile 'com.jaeger.statusbarutil:library:1.4.0'
+    // Bugly
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile 'cn.yc:YCVideoPlayerLib:2.2'
 }

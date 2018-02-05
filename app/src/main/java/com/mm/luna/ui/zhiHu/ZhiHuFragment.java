@@ -1,19 +1,17 @@
-package com.mm.luna.ui;
+package com.mm.luna.ui.zhiHu;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
-import com.mm.luna.base.BaseActivity;
+import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.ZhiHuEntity;
+import com.mm.luna.ui.TestActivity;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -26,12 +24,12 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> implements ZhiHuContract.View {
+/**
+ * Created by ZMM on 2018/2/5.
+ */
 
-    @BindView(R.id.drawer)
-    DrawerLayout drawer;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> implements ZhiHuContract.View {
+
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.refresh_layout)
@@ -45,40 +43,42 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
     private int mYear = Calendar.getInstance().get(Calendar.YEAR);
     private int mMonth = Calendar.getInstance().get(Calendar.MONTH);
     private int mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    private LinearLayoutManager layoutManager;
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.fragment_zhihu;
     }
 
     @Override
-    public ZhiHuContract.Presenter initPresenter() {
+    protected ZhiHuContract.Presenter initPresenter() {
         return new ZhiHuPresenter(this);
     }
 
     @Override
-    public void initView() {
-        StatusBarUtil.setColorForDrawerLayout(this, drawer, Color.TRANSPARENT, 0);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    protected void initView(View view) {
+        recyclerView = view.findViewById(R.id.recycler_view);
+        refreshLayout = view.findViewById(R.id.refresh_layout);
+        fab = view.findViewById(R.id.fab);
+
+        layoutManager = new LinearLayoutManager(mActivity);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
         presenter.getTodayData(true);
         mAdapter = new ZhiHuAdapter(R.layout.item_zhihu, listData);
         recyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+        mAdapter.setOnItemClickListener((adapter, v, position) -> {
             Log.d("", "onItemClick: " + position);
-            startActivity(new Intent(this, ZhiHuDetailActivity.class).putExtra("id", listData.get(position).getId()));
+            startActivity(new Intent(mContext, ZhiHuDetailActivity.class).putExtra("id", listData.get(position).getId()));
         });
         mAdapter.setOnLoadMoreListener(() -> presenter.getBeforeData(currentDate, false), recyclerView);
-        refreshLayout.setRefreshHeader(new PhoenixHeader(this));
+        refreshLayout.setRefreshHeader(new PhoenixHeader(mContext));
         refreshLayout.setOnRefreshListener(refreshLayout -> presenter.getTodayData(true));
-        toolbar.setTitle(R.string.ZhiHuDaily);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
 
 //        fab.setOnClickListener(v -> selectData());
-        fab.setOnClickListener(v -> startActivity(new Intent(this, TestActivity.class)));
+        fab.setOnClickListener(v -> startActivity(new Intent(mContext, TestActivity.class)));
     }
 
     @Override
@@ -95,9 +95,6 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
         refreshLayout.finishRefresh(true);
     }
 
-    /**
-     * 时间选择
-     */
     private void selectData() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(mYear, mMonth, mDay);
@@ -120,6 +117,7 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
         minDate.set(2013, 5, 20);
         datePickerDialog.setMinDate(minDate);
         datePickerDialog.vibrate(false);
-        datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+        datePickerDialog.show(mActivity.getFragmentManager(), "DatePickerDialog");
     }
+
 }

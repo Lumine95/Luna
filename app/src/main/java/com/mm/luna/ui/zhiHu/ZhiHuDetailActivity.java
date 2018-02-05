@@ -1,4 +1,4 @@
-package com.mm.luna.ui;
+package com.mm.luna.ui.zhiHu;
 
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;

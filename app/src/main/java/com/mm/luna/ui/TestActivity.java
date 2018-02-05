@@ -6,6 +6,7 @@ import android.util.Log;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
+import com.orhanobut.logger.Logger;
 
 import org.yczbj.ycvideoplayerlib.VideoPlayer;
 import org.yczbj.ycvideoplayerlib.VideoPlayerController;
@@ -63,7 +64,7 @@ public class TestActivity extends BaseActivity {
 
             String str = new String(buffer.toByteArray(), "utf-8");
             String[] split = str.split(",");
-            Log.d("", "initView:--- " + split.length);
+            Logger.d(split);
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("", "initView:--- " + e.getMessage());
