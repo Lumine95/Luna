@@ -7,36 +7,37 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:scrollbars="none"
-    tools:context="com.mm.luna.ui.zhiHu.ZhiHuActivity">
+    tools:context="com.mm.luna.ui.zhihu.ZhiHuActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:contentInsetStart="7dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.ToolbarPopupOverlay" />
-    </android.support.design.widget.AppBarLayout>
+            android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:contentInsetStart="7dp"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/AppTheme.ToolbarPopupOverlay" />
+            </android.support.design.widget.AppBarLayout>
+        </android.support.constraint.ConstraintLayout>
 
         <fragment
             android:id="@+id/fragment"
-            android:name="com.mm.luna.ui.zhiHu.ZhiHuFragment"
+            android:name="com.mm.luna.ui.zhihu.ZhiHuFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jaeger.library.StatusBarUtil;
+import com.mm.luna.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -22,7 +23,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         super.onCreate(savedInstanceState);
         // 设置透明状态栏
         //StatusBarUtils.setTransparent(this);
-       StatusBarUtil.setTranslucent(this);
+        StatusBarUtil.setTranslucent(this);
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
         presenter = initPresenter();
@@ -34,6 +35,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public abstract P initPresenter();
 
     public abstract void initView();
+
+    public void setStatusBarColor() {
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
+    }
 
     @Override
     public void ShowLoadingDialog(String msg) {

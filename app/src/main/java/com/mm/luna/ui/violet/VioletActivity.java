@@ -1,0 +1,116 @@
+package com.mm.luna.ui.violet;
+
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.mm.luna.R;
+import com.mm.luna.base.BaseActivity;
+import com.orhanobut.logger.Logger;
+
+import org.yczbj.ycvideoplayerlib.VideoPlayer;
+import org.yczbj.ycvideoplayerlib.VideoPlayerController;
+import org.yczbj.ycvideoplayerlib.VideoPlayerManager;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
+
+/**
+ * Created by ZMM on 2018/2/4.
+ */
+
+public class VioletActivity extends BaseActivity<VioletContract.Presenter> implements VioletContract.View {
+
+    @BindView(R.id.rv_video)
+    RecyclerView rvVideo;
+    @BindView(R.id.video_player)
+    VideoPlayer videoPlayer;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    private VioletAdapter mAdapter;
+
+    ArrayList<String> listData = new ArrayList<>();
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_violet;
+    }
+
+    @Override
+    public VioletContract.Presenter initPresenter() {
+        return new VioletPresenter(this);
+    }
+
+    @Override
+    public void initView() {
+        setStatusBarColor();
+        toolbar.setTitle(R.string.violet_evergarden);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
+        presenter.getVideoList();
+        rvVideo.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new VioletAdapter(R.layout.item_violet, new ArrayList<>());
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
+        rvVideo.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener((adapter, v, position) -> videoPlayer(position));
+
+        // videoPlayer();
+    }
+
+    @Override
+    public void setData(ArrayList<String> videos) {
+        listData = videos;
+        runOnUiThread(() -> {
+            videoPlayer(0);
+            mAdapter.addData(videos);
+        });
+    }
+
+    private void videoPlayer(int position) {
+        VideoPlayerManager.instance().releaseVideoPlayer();
+        //设置播放类型 :IjkPlayer or MediaPlayer
+        videoPlayer.setPlayerType(VideoPlayer.TYPE_NATIVE);
+        //网络视频地址
+        //设置视频地址和请求头部
+        videoPlayer.setUp(listData.get(position), null);
+        //是否从上一次的位置继续播放
+        videoPlayer.continueFromLastPosition(true);
+        //设置播放速度
+        videoPlayer.setSpeed(1.0f);
+        //创建视频控制器
+        VideoPlayerController controller = new VideoPlayerController(this);
+        controller.setTitle("第" + (position + 1) + "集");
+        //设置视频时长
+        // controller.setLength(0);
+        //设置5秒不操作后则隐藏头部和底部布局视图
+        controller.setHideTime(5000);
+        controller.setImage(R.mipmap.violet);
+        // ImageUtil.loadImgByPicasso(this, R.drawable.image_default, R.drawable.image_default, controller.imageView());
+        //设置视频控制器
+        videoPlayer.setController(controller);
+
+    }
+
+    @Override
+    public void ShowLoadingDialog(String msg) {
+        Logger.d(msg);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        VideoPlayerManager.instance().releaseVideoPlayer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (VideoPlayerManager.instance().onBackPressed()) return;
+        super.onBackPressed();
+    }
+}

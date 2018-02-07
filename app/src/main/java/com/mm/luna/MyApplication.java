@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.bugly.Bugly;
 
 /**
  * Created by ZMM on 2018/2/5.
@@ -38,6 +38,7 @@ public class MyApplication extends Application {
         mContext = this.getApplicationContext();
 
         Logger.addLogAdapter(new AndroidLogAdapter());  // 初始化Logger
-        CrashReport.initCrashReport(getApplicationContext(), "e18d5ba117", false);
+      //  CrashReport.initCrashReport(getApplicationContext(), "e18d5ba117", false);
+        Bugly.init(getApplicationContext(), "e18d5ba117", false);
     }
 }

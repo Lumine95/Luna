@@ -1,4 +1,4 @@
-package com.mm.luna.ui.zhiHu;
+package com.mm.luna.ui.zhihu;
 
 import com.mm.luna.base.BasePresenter;
 import com.mm.luna.base.BaseView;

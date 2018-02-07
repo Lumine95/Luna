@@ -1,4 +1,4 @@
-package com.mm.luna.ui.zhiHu;
+package com.mm.luna.ui.zhihu;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.ZhiHuEntity;
-import com.mm.luna.ui.TestActivity;
+import com.mm.luna.ui.violet.VioletActivity;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -78,7 +78,7 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
         refreshLayout.setOnRefreshListener(refreshLayout -> presenter.getTodayData(true));
 
 //        fab.setOnClickListener(v -> selectData());
-        fab.setOnClickListener(v -> startActivity(new Intent(mContext, TestActivity.class)));
+        fab.setOnClickListener(v -> startActivity(new Intent(mContext, VioletActivity.class)));
     }
 
     @Override

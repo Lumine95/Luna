@@ -1,4 +1,4 @@
-package com.mm.luna.ui.zhiHu;
+package com.mm.luna.ui.zhihu;
 
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -63,7 +63,6 @@ public class ZhiHuDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        //StatusBarCompat.translucentStatusBar(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tapBar.setOnClickListener(v -> tapBar.toggle());

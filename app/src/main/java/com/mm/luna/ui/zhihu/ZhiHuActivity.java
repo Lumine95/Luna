@@ -1,4 +1,4 @@
-package com.mm.luna.ui.zhiHu;
+package com.mm.luna.ui.zhihu;
 
 import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
@@ -35,7 +35,7 @@ public class ZhiHuActivity extends BaseActivity<ZhiHuContract.Presenter> impleme
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
+       toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
     }
 
     @Override
