@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.ZhiHuEntity;
-import com.mm.luna.ui.violet.VioletActivity;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -36,6 +35,8 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+
+    FloatingActionButton fabTop;
     private List<ZhiHuEntity.StoriesBean> listData = new ArrayList<>();
     private String currentDate;
     private ZhiHuAdapter mAdapter;
@@ -44,6 +45,7 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     private int mMonth = Calendar.getInstance().get(Calendar.MONTH);
     private int mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     private LinearLayoutManager layoutManager;
+    private boolean isTop;
 
     @Override
     public int getLayoutId() {
@@ -60,11 +62,11 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
         recyclerView = view.findViewById(R.id.recycler_view);
         refreshLayout = view.findViewById(R.id.refresh_layout);
         fab = view.findViewById(R.id.fab);
+        fabTop = view.findViewById(R.id.fab_top);
 
         layoutManager = new LinearLayoutManager(mActivity);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-
         presenter.getTodayData(true);
         mAdapter = new ZhiHuAdapter(R.layout.item_zhihu, listData);
         recyclerView.setAdapter(mAdapter);
@@ -77,8 +79,25 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
         refreshLayout.setRefreshHeader(new PhoenixHeader(mContext));
         refreshLayout.setOnRefreshListener(refreshLayout -> presenter.getTodayData(true));
 
-//        fab.setOnClickListener(v -> selectData());
-        fab.setOnClickListener(v -> startActivity(new Intent(mContext, VioletActivity.class)));
+        setRVListener();
+        fab.setOnClickListener(v -> selectData());
+        fabTop.setOnClickListener(v -> recyclerView.smoothScrollToPosition(0));
+        //   fab.setOnClickListener(v -> startActivity(new Intent(mContext, VioletActivity.class)));
+    }
+
+    /**
+     * 监听recyclerView滚动
+     */
+    private void setRVListener() {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                isTop = !recyclerView.canScrollVertically(-1);
+                fabTop.setVisibility(isTop ? View.GONE : View.VISIBLE);
+                fab.setVisibility(isTop ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     @Override

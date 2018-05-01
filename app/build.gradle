@@ -7,8 +7,8 @@ android {
         applicationId "com.mm.luna"
         minSdkVersion 21
         targetSdkVersion 24
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 1
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -64,7 +64,7 @@ dependencies {
     // StatusBarUtil
     compile 'com.jaeger.statusbarutil:library:1.4.0'
     // Bugly
-    compile 'com.tencent.bugly:crashreport:latest.release'
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    compile 'com.tencent.bugly:crashreport:2.6.6.1'
+    compile 'com.tencent.bugly:nativecrashreport:3.3.1'
     compile 'cn.yc:YCVideoPlayerLib:2.2'
 }

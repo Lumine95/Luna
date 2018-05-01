@@ -1,5 +1,6 @@
 package com.mm.luna.api;
 
+import com.mm.luna.bean.ComicEntity;
 import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.bean.ZhiHuEntity;
 
@@ -22,4 +23,7 @@ public interface RetrofitService {
 
     @GET("news/{id}")
     Observable<ZhiHuDetailEntity> getNewsDetail(@Path("id") int id);
+
+    @GET("http://www.wanandroid.com/tools/mockapi/4060/comics")
+    Observable<ComicEntity> getComicsList();
 }

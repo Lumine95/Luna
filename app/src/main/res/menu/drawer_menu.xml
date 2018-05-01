@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="常用">
+        <menu>
+            <item
+                android:id="@+id/drawer_zhihu"
+                android:checkable="true"
+                android:checked="true"
+                android:icon="@mipmap/ic_drawer_zhihu"
+                android:title="@string/zhihu_daily" />
+            <item
+                android:id="@+id/drawer_commics"
+                android:checkable="true"
+                android:icon="@mipmap/ic_movie"
+                android:title="@string/comics" />
+        </menu>
+    </item>
+</menu>

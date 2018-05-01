@@ -39,6 +39,5 @@ public class ZhiHuPresenter extends BasePresenterImpl<ZhiHuContract.View> implem
                     view.dismissLoadingDialog();
                     view.setData(zhiHuEntity, isClear);
                 }, throwable -> view.dismissLoadingDialog());
-
     }
 }
