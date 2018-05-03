@@ -13,6 +13,11 @@
                 android:checkable="true"
                 android:icon="@mipmap/ic_movie"
                 android:title="@string/comics" />
+            <item
+                android:id="@+id/drawer_douban"
+                android:checkable="true"
+                android:icon="@mipmap/ic_douban"
+                android:title="@string/douban_movie" />
         </menu>
     </item>
 </menu>
