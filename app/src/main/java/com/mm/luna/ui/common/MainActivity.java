@@ -3,6 +3,8 @@ package com.mm.luna.ui.common;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -12,8 +14,11 @@ import android.view.MenuItem;
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
+import com.mm.luna.ui.douban.DoubanFragment;
+import com.mm.luna.ui.gank.GankFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.zhihu.ZhiHuContract;
+import com.mm.luna.ui.zhihu.ZhiHuFragment;
 
 import butterknife.BindView;
 
@@ -26,7 +31,10 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
     private int which = 0;
-    private ActionBarDrawerToggle drawerToggle;
+    private Fragment mContent;
+    private ZhiHuFragment zhiHuFragment;
+    private GankFragment gankFragment;
+    private DoubanFragment doubanFragment;
 
     @Override
     public int getLayoutId() {
@@ -41,41 +49,69 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         StatusBarUtil.setColorForDrawerLayout(this, drawer, Color.TRANSPARENT, 0);
+        if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
+        switchContentFragment(zhiHuFragment);
+
         toolbar.setTitle(R.string.zhihu_daily);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
         toolbar.setNavigationOnClickListener(v -> startActivity(new Intent(this, VioletActivity.class)));
-        drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
         MenuItem itemZhihu = navigationView.getMenu().findItem(R.id.drawer_zhihu);
-        MenuItem itemComics = navigationView.getMenu().findItem(R.id.drawer_commics);
         navigationView.setNavigationItemSelectedListener(item -> {
+            itemZhihu.setChecked(false);
             switch (item.getItemId()) {
                 case R.id.drawer_zhihu:
-                    itemZhihu.setChecked(true);
-                    itemComics.setChecked(false);
+                    toolbar.setTitle(R.string.zhihu_daily);
+                    if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
+                    switchContentFragment(zhiHuFragment);
                     drawer.closeDrawers();
                     break;
                 case R.id.drawer_commics:
-                    itemZhihu.setChecked(false);
-                    itemComics.setChecked(true);
                     String[] comicArr = {"Violet Evergarden", "Tokyo Ghoul Ⅲ"};
                     new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("请选择")
+                            .setTitle(R.string.please_select)
                             .setSingleChoiceItems(comicArr, which, (dialogInterface, i) -> which = i)
-                            .setPositiveButton("确定", (dialogInterface, i) -> {
+                            .setPositiveButton(R.string.sure, (dialogInterface, i) -> {
                                 startActivity(new Intent(MainActivity.this, VioletActivity.class).putExtra("tag", which));
                                 dialogInterface.dismiss();
                             })
-                            .setNegativeButton("取消", (dialogInterface, i) -> dialogInterface.dismiss())
+                            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
                             .create().show();
+                    drawer.closeDrawers();
+                    break;
+                case R.id.drawer_douban:
+                    toolbar.setTitle(R.string.douban_movie);
+                    if (doubanFragment == null) doubanFragment = new DoubanFragment();
+                    switchContentFragment(doubanFragment);
                     drawer.closeDrawers();
                     break;
             }
             return true;
         });
+    }
+
+    /**
+     * Switch fragment.
+     *
+     * @param to
+     */
+    private void switchContentFragment(Fragment to) {
+        if (mContent == null) {
+            mContent = new Fragment();
+        }
+        if (mContent != to) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            if (!to.isAdded()) {
+                transaction.hide(mContent).add(R.id.fl_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
+            } else {
+                transaction.hide(mContent).show(to).commit(); // 隐藏当前的fragment，显示下一个
+            }
+            mContent = to;
+        }
     }
 }
