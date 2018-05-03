@@ -15,7 +15,6 @@ import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.ui.douban.DoubanFragment;
-import com.mm.luna.ui.gank.GankFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.zhihu.ZhiHuContract;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
@@ -33,7 +32,6 @@ public class MainActivity extends BaseActivity {
     private int which = 0;
     private Fragment mContent;
     private ZhiHuFragment zhiHuFragment;
-    private GankFragment gankFragment;
     private DoubanFragment doubanFragment;
 
     @Override

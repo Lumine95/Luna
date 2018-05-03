@@ -53,7 +53,6 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
     public void initView() {
         tag = getIntent().getIntExtra("tag", 0);
         setStatusBarColor();
-        //  toolbar.setTitle(R.string.violet_evergarden);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

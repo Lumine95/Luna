@@ -15,7 +15,7 @@ import com.mm.luna.ui.zhihu.ZhiHuPresenter;
 public class GankFragment extends BaseFragment<ZhiHuContract.Presenter> implements ZhiHuContract.View {
     @Override
     public int getLayoutId() {
-        return R.layout.custom_progress_dialog;
+        return R.layout.fragment_douban;
     }
 
 
