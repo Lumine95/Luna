@@ -19,12 +19,12 @@ public class VioletPresenter extends BasePresenterImpl<VioletContract.View> impl
     public void getVideoList() {
         Api.getInstance().getComicsList()
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> view.ShowLoadingDialog("正在加载"))
+                .doOnSubscribe(disposable -> view.onLoading( ))
                 .map(entity -> entity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(entity -> {
-                    view.dismissLoadingDialog();
+                    view.onFinish();
                     view.setData(entity);
-                }, throwable -> view.dismissLoadingDialog());
+                }, throwable -> view.onError());
     }
 }

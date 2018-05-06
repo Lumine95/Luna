@@ -76,13 +76,13 @@ public class ZhiHuDetailActivity extends BaseActivity {
 
         Api.getInstance().getNewsDetail(id)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> ShowLoadingDialog("正在加载"))
+                .doOnSubscribe(disposable -> onLoading())
                 .map(ZhiHuDetailEntity -> ZhiHuDetailEntity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ZhiHuDetailEntity -> {
-                    dismissLoadingDialog();
+                    onFinish();
                     setData(ZhiHuDetailEntity);
-                }, throwable -> dismissLoadingDialog());
+                }, throwable -> onError());
 
     }
 
@@ -95,4 +95,18 @@ public class ZhiHuDetailActivity extends BaseActivity {
         webView.loadData(htmlData, HtmlUtils.MIME_TYPE, HtmlUtils.ENCODING);
     }
 
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
 }

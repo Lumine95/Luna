@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
+
     private int which = 0;
     private Fragment mContent;
     private ZhiHuFragment zhiHuFragment;
@@ -111,5 +112,20 @@ public class MainActivity extends BaseActivity {
             }
             mContent = to;
         }
+    }
+
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

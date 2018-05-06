@@ -10,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.ComicEntity;
-import com.orhanobut.logger.Logger;
 
 import org.yczbj.ycvideoplayerlib.VideoPlayer;
 import org.yczbj.ycvideoplayerlib.VideoPlayerController;
@@ -107,11 +106,6 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
     }
 
     @Override
-    public void ShowLoadingDialog(String msg) {
-        Logger.d(msg);
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         VideoPlayerManager.instance().releaseVideoPlayer();
@@ -121,5 +115,20 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
     public void onBackPressed() {
         if (VideoPlayerManager.instance().onBackPressed()) return;
         super.onBackPressed();
+    }
+
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

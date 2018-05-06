@@ -39,17 +39,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public void setStatusBarColor() {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
     }
-
-    @Override
-    public void ShowLoadingDialog(String msg) {
-
-    }
-
-    @Override
-    public void dismissLoadingDialog() {
-
-    }
-
     @Override
     protected void onDestroy() {
         unbinder.unbind();

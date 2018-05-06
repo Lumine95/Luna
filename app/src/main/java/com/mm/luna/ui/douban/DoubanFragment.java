@@ -110,7 +110,7 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
                 Field mTabStripField = tabLayout.getClass().getDeclaredField("mTabStrip");
                 mTabStripField.setAccessible(true);
                 LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(tabLayout);
-                int dp10 = DensityUtil.dip2px(mContext, 20);
+                int dp  = DensityUtil.dip2px(mContext, 24);
                 for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                     View tabView = mTabStrip.getChildAt(i);
 
@@ -133,20 +133,32 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
                     // 设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
                     params.width = width;
-                    params.leftMargin = dp10;
-                    params.rightMargin = dp10;
+                    params.leftMargin = dp;
+                    params.rightMargin = dp;
                     tabView.setLayoutParams(params);
 
                     tabView.invalidate();
                 }
-
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
         });
     }
 
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
 }

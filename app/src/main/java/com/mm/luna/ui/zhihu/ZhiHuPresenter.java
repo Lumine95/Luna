@@ -19,25 +19,25 @@ public class ZhiHuPresenter extends BasePresenterImpl<ZhiHuContract.View> implem
     public void getTodayData(boolean isClear) {
         Api.getInstance().getNews()
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> view.ShowLoadingDialog("正在加载"))
+                .doOnSubscribe(disposable -> view.onLoading())
                 .map(zhiHuEntity -> zhiHuEntity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(zhiHuEntity -> {
-                    view.dismissLoadingDialog();
-                    view.setData(zhiHuEntity,isClear);
-                }, throwable -> view.dismissLoadingDialog());
+                    view.onFinish();
+                    view.setData(zhiHuEntity, isClear);
+                }, throwable -> view.onError());
     }
 
     @Override
     public void getBeforeData(String date, boolean isClear) {
         Api.getInstance().getBeforeNews(date)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> view.ShowLoadingDialog("正在加载"))
+                .doOnSubscribe(disposable -> view.onLoading())
                 .map(zhiHuEntity -> zhiHuEntity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(zhiHuEntity -> {
-                    view.dismissLoadingDialog();
+                    view.onFinish();
                     view.setData(zhiHuEntity, isClear);
-                }, throwable -> view.dismissLoadingDialog());
+                }, throwable -> view.onError());
     }
 }

@@ -5,7 +5,9 @@ package com.mm.luna.base;
  */
 
 public interface BaseView {
-    void ShowLoadingDialog(String msg);
+    void onLoading();
 
-    void dismissLoadingDialog();
+    void onFinish();
+
+    void onError();
 }

@@ -34,4 +34,19 @@ public class GankFragment extends BaseFragment<ZhiHuContract.Presenter> implemen
     public void setData(ZhiHuEntity zhiHuEntity, boolean isClear) {
 
     }
+
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
 }

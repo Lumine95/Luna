@@ -38,7 +38,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayoutId(), container, false);
-        unbinder = ButterKnife.bind(rootView);
+        unbinder = ButterKnife.bind(this,rootView);
         presenter = initPresenter();
         initView(rootView);
         return rootView;
@@ -55,21 +55,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected abstract void initView(View view);
 
-
-    @Override
-    public void ShowLoadingDialog(String msg) {
-
-    }
-
-    @Override
-    public void dismissLoadingDialog() {
-
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-       // unbinder.unbind();
+        unbinder.unbind();
         if (presenter != null) {
             presenter.detach();
             presenter = null;

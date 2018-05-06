@@ -1,6 +1,7 @@
 package com.mm.luna.ui.zhihu;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.ZhiHuEntity;
+import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -35,8 +37,11 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-
+    @BindView(R.id.cl_content)
+    ConstraintLayout content;
+    @BindView(R.id.fab_top)
     FloatingActionButton fabTop;
+
     private List<ZhiHuEntity.StoriesBean> listData = new ArrayList<>();
     private String currentDate;
     private ZhiHuAdapter mAdapter;
@@ -46,6 +51,8 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     private int mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     private LinearLayoutManager layoutManager;
     private boolean isTop;
+    private StatusLayoutManager statusLayoutManager;
+    private Calendar calendar;
 
     @Override
     public int getLayoutId() {
@@ -59,10 +66,11 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
 
     @Override
     protected void initView(View view) {
-        recyclerView = view.findViewById(R.id.recycler_view);
-        refreshLayout = view.findViewById(R.id.refresh_layout);
-        fab = view.findViewById(R.id.fab);
-        fabTop = view.findViewById(R.id.fab_top);
+        statusLayoutManager = new StatusLayoutManager.Builder(content)
+                .setOnStatusChildClickListener(view1 -> {
+                    presenter.getTodayData(true);
+                }).build();
+        statusLayoutManager.showLoadingLayout();
 
         layoutManager = new LinearLayoutManager(mActivity);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -82,7 +90,6 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
         setRVListener();
         fab.setOnClickListener(v -> selectData());
         fabTop.setOnClickListener(v -> recyclerView.smoothScrollToPosition(0));
-        //   fab.setOnClickListener(v -> startActivity(new Intent(mContext, VioletActivity.class)));
     }
 
     /**
@@ -115,7 +122,7 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     }
 
     private void selectData() {
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         calendar.set(mYear, mMonth, mDay);
         DatePickerDialog datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
             mYear = year;
@@ -139,4 +146,18 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
         datePickerDialog.show(mActivity.getFragmentManager(), "DatePickerDialog");
     }
 
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void onFinish() {
+        statusLayoutManager.showSuccessLayout();
+    }
+
+    @Override
+    public void onError() {
+        statusLayoutManager.showErrorLayout();
+    }
 }
