@@ -63,7 +63,6 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
         rvVideo.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((adapter, v, position) -> videoPlayer(position, true));
-
         // videoPlayer();
     }
 

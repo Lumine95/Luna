@@ -14,6 +14,6 @@ public interface DoubanContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getVideoList();
+        void getMovieList(int position);
     }
 }

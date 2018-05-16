@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity {
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
         MenuItem itemZhihu = navigationView.getMenu().findItem(R.id.drawer_zhihu);
+        navigationView.getHeaderView(0).setOnClickListener(v -> violet());
         navigationView.setNavigationItemSelectedListener(item -> {
             itemZhihu.setChecked(false);
             switch (item.getItemId()) {
@@ -68,19 +69,6 @@ public class MainActivity extends BaseActivity {
                     toolbar.setTitle(R.string.zhihu_daily);
                     if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
                     switchContentFragment(zhiHuFragment);
-                    drawer.closeDrawers();
-                    break;
-                case R.id.drawer_commics:
-                    String[] comicArr = {"Violet Evergarden", "Tokyo Ghoul Ⅲ"};
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle(R.string.please_select)
-                            .setSingleChoiceItems(comicArr, which, (dialogInterface, i) -> which = i)
-                            .setPositiveButton(R.string.sure, (dialogInterface, i) -> {
-                                startActivity(new Intent(MainActivity.this, VioletActivity.class).putExtra("tag", which));
-                                dialogInterface.dismiss();
-                            })
-                            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
-                            .create().show();
                     drawer.closeDrawers();
                     break;
                 case R.id.drawer_douban:
@@ -92,6 +80,19 @@ public class MainActivity extends BaseActivity {
             }
             return true;
         });
+    }
+
+    private void violet() {
+        String[] comicArr = {"Violet Evergarden", "Tokyo Ghoul Ⅲ"};
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(R.string.please_select)
+                .setSingleChoiceItems(comicArr, which, (dialogInterface, i) -> which = i)
+                .setPositiveButton(R.string.sure, (dialogInterface, i) -> {
+                    startActivity(new Intent(MainActivity.this, VioletActivity.class).putExtra("tag", which));
+                    dialogInterface.dismiss();
+                })
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
+                .create().show();
     }
 
     /**

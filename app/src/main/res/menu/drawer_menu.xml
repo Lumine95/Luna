@@ -8,12 +8,7 @@
                 android:checked="true"
                 android:icon="@mipmap/ic_drawer_zhihu"
                 android:title="@string/zhihu_daily" />
-            <item
-                android:id="@+id/drawer_commics"
-                android:checkable="true"
-                android:icon="@mipmap/ic_movie"
-                android:title="@string/comics" />
-            <item
+             <item
                 android:id="@+id/drawer_douban"
                 android:checkable="true"
                 android:icon="@mipmap/ic_douban"

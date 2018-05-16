@@ -13,7 +13,7 @@ import retrofit2.http.Path;
  */
 
 public interface RetrofitService {
-    String BASE_URL = "https://news-at.zhihu.com/api/4/";
+    String ZHIHU_BASE_URL = "https://news-at.zhihu.com/api/4/";
 
     @GET("news/latest")
     Observable<ZhiHuEntity> getNews();
@@ -26,4 +26,7 @@ public interface RetrofitService {
 
     @GET("http://www.wanandroid.com/tools/mockapi/4060/comics")
     Observable<ComicEntity> getComicsList();
+
+//    @GET("http://www.wanandroid.com/tools/mockapi/4060/comics")
+//    Observable<ComicEntity> getComicsList();
 }

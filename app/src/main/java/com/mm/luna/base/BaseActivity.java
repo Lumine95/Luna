@@ -22,7 +22,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 设置透明状态栏
-        //StatusBarUtils.setTransparent(this);
         StatusBarUtil.setTranslucent(this);
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);

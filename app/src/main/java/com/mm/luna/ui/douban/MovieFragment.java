@@ -14,6 +14,7 @@ import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implements DoubanContract.View {
 
     private StatusLayoutManager statusLayoutManager;
+    private int position;
 
     @Override
     public void setData(DoubanEntity entity) {
@@ -32,6 +33,10 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
 
     @Override
     protected void initView(View view) {
+        if (getArguments() != null) {
+            position = getArguments().getInt("position");
+        }
+        presenter.getMovieList(position);
 //        statusLayoutManager = new StatusLayoutManager.Builder(content)
 //                .setOnStatusChildClickListener(v -> {
 //

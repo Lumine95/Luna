@@ -5,7 +5,7 @@ package com.mm.luna.api;
  */
 
 public class Api extends BaseApiImpl {
-    private static Api api = new Api(RetrofitService.BASE_URL);
+    private static Api api = new Api(RetrofitService.ZHIHU_BASE_URL);
 
     public Api(String baseUrl) {
         super(baseUrl);
