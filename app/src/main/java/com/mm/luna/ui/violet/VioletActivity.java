@@ -78,6 +78,9 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
     }
 
     private void videoPlayer(int position, boolean isPlay) {
+//        if (!U.isWifiConnected(this)) {
+//            SBUtil.showShort(toolbar, "流量不要钱的啊");
+//        }
         VideoPlayerManager.instance().releaseVideoPlayer();
         //设置播放类型 :IjkPlayer or MediaPlayer
         videoPlayer.setPlayerType(VideoPlayer.TYPE_NATIVE);

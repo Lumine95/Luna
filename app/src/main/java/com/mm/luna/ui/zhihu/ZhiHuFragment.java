@@ -96,7 +96,7 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
      * 监听recyclerView滚动
      */
     private void setRVListener() {
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
