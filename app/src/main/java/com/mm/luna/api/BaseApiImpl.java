@@ -19,10 +19,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class BaseApiImpl implements BaseApi {
     private volatile static Retrofit retrofit = null;
-    protected Retrofit.Builder retrofitBuilder = new Retrofit.Builder();
-    protected OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+    private Retrofit.Builder retrofitBuilder = new Retrofit.Builder();
+    private OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
-    public BaseApiImpl(String baseUrl) {
+    BaseApiImpl(String baseUrl) {
         retrofitBuilder.addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -60,8 +60,7 @@ public class BaseApiImpl implements BaseApi {
     /**
      * 日志拦截
      */
-    public HttpLoggingInterceptor getLogInterceptor() {
-
+    private HttpLoggingInterceptor getLogInterceptor() {
         // 日志显示级别
         HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
         // 新建日志拦截器

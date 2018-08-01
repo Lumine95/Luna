@@ -6,6 +6,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/ic_may"
+        android:background="@mipmap/ic_month"
         android:scaleType="centerCrop" />
 </android.support.constraint.ConstraintLayout>

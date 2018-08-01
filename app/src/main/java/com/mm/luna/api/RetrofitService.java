@@ -26,7 +26,4 @@ public interface RetrofitService {
 
     @GET("http://www.wanandroid.com/tools/mockapi/4060/comics")
     Observable<ComicEntity> getComicsList();
-
-//    @GET("http://www.wanandroid.com/tools/mockapi/4060/comics")
-//    Observable<ComicEntity> getComicsList();
 }
