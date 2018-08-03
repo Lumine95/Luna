@@ -14,7 +14,7 @@ public interface ZhiHuContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getTodayData(boolean isClear);
+        void getTodayData();
         void getBeforeData(String date, boolean isClear);
     }
 }

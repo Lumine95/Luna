@@ -29,7 +29,9 @@
         <activity android:name=".ui.zhihu.ZhiHuDetailActivity" />
         <activity
             android:name=".ui.violet.VioletActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.douban.MovieDetailActivity"
             android:screenOrientation="portrait" />
 
         <provider

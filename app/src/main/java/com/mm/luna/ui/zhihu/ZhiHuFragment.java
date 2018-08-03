@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.ZhiHuEntity;
+import com.mm.luna.ui.adapter.ZhiHuAdapter;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -49,7 +50,6 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     private int mYear = Calendar.getInstance().get(Calendar.YEAR);
     private int mMonth = Calendar.getInstance().get(Calendar.MONTH);
     private int mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-    private LinearLayoutManager layoutManager;
     private boolean isTop;
     private StatusLayoutManager statusLayoutManager;
     private Calendar calendar;
@@ -67,15 +67,15 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     @Override
     protected void initView(View view) {
         statusLayoutManager = new StatusLayoutManager.Builder(content)
-                .setOnStatusChildClickListener(view1 -> {
-                    presenter.getTodayData(true);
+                .setOnStatusChildClickListener(v -> {
+                    presenter.getTodayData();
                 }).build();
         statusLayoutManager.showLoadingLayout();
 
-        layoutManager = new LinearLayoutManager(mActivity);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        presenter.getTodayData(true);
+        presenter.getTodayData();
         mAdapter = new ZhiHuAdapter(R.layout.item_zhihu, listData);
         recyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
@@ -85,7 +85,7 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
         });
         mAdapter.setOnLoadMoreListener(() -> presenter.getBeforeData(currentDate, false), recyclerView);
         refreshLayout.setRefreshHeader(new PhoenixHeader(mContext));
-        refreshLayout.setOnRefreshListener(refreshLayout -> presenter.getTodayData(true));
+        refreshLayout.setOnRefreshListener(refreshLayout -> presenter.getTodayData());
 
         setRVListener();
         fab.setOnClickListener(v -> selectData());

@@ -1,21 +1,23 @@
-package com.mm.luna.ui.douban;
+package com.mm.luna.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ZMM on 2017/12/22.
  */
 
-public class DoubanFragmentAdapter extends FragmentPagerAdapter {
-    ArrayList<MovieFragment> fragmentList = new ArrayList<>();
-    ArrayList<String> titleList = new ArrayList<>();
+public class CommonFragmentAdapter extends FragmentPagerAdapter {
+    private List<Fragment> fragmentList = new ArrayList<>();
+    private List<String> titleList = new ArrayList<>();
 
-    public DoubanFragmentAdapter(FragmentManager fm, ArrayList<MovieFragment> fragmentList, ArrayList<String> titleList) {
+    public CommonFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {
         super(fm);
         this.fragmentList = fragmentList;
         this.titleList = titleList;
@@ -36,8 +38,7 @@ public class DoubanFragmentAdapter extends FragmentPagerAdapter {
         return titleList.get(position);
     }
 
-    // 刷新fragment
-    public void setFragments(FragmentManager fm, ArrayList<MovieFragment> fragments) {
+    public void setFragments(FragmentManager fm, List<Fragment> fragments) {
         if (fragmentList != null) {
             FragmentTransaction ft = fm.beginTransaction();
             for (Fragment f : fragmentList) {
@@ -48,5 +49,10 @@ public class DoubanFragmentAdapter extends FragmentPagerAdapter {
         }
         this.fragmentList = fragments;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        // super.destroyItem(container, position, object);
     }
 }

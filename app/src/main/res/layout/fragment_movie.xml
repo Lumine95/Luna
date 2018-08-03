@@ -4,21 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_content"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_layout"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/item_movie" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </android.support.constraint.ConstraintLayout>
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_movie" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </android.support.constraint.ConstraintLayout>

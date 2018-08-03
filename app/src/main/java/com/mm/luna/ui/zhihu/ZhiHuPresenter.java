@@ -16,15 +16,15 @@ public class ZhiHuPresenter extends BasePresenterImpl<ZhiHuContract.View> implem
     }
 
     @Override
-    public void getTodayData(boolean isClear) {
+    public void getTodayData() {
         Api.getInstance().getNews()
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> view.onLoading())
+                
                 .map(zhiHuEntity -> zhiHuEntity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(zhiHuEntity -> {
                     view.onFinish();
-                    view.setData(zhiHuEntity, isClear);
+                    view.setData(zhiHuEntity, true);
                 }, throwable -> view.onError());
     }
 

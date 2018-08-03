@@ -20,6 +20,7 @@ import com.mm.luna.ui.zhihu.ZhiHuContract;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
 
 import butterknife.BindView;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 public class MainActivity extends BaseActivity {
 
@@ -47,6 +48,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        initRetrofitDomain();
         StatusBarUtil.setColorForDrawerLayout(this, drawer, Color.TRANSPARENT, 0);
         if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
         switchContentFragment(zhiHuFragment);
@@ -116,7 +118,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onLoading() {
-
+        
     }
 
     @Override
@@ -127,5 +129,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onError() {
 
+    }
+
+    private void initRetrofitDomain() {
+        RetrofitUrlManager.getInstance().putDomain("zhihu", "https://news-at.zhihu.com");
+        RetrofitUrlManager.getInstance().putDomain("douban", "https://api.douban.com");
     }
 }

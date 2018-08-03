@@ -26,8 +26,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ZhiHuDetailActivity extends BaseActivity {
-
-
     @BindView(R.id.iv_header)
     ImageView ivHeader;
     @BindView(R.id.tv_title)

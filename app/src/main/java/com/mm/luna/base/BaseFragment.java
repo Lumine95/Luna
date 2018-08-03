@@ -22,6 +22,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public Context mContext;
     public BaseActivity mActivity;
 
+    public int pageIndex = 0;
+    public int pageSize = 20;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayoutId(), container, false);
-        unbinder = ButterKnife.bind(this,rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         presenter = initPresenter();
         initView(rootView);
         return rootView;

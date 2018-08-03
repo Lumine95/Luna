@@ -2,7 +2,7 @@ package com.mm.luna.ui.douban;
 
 import com.mm.luna.base.BasePresenter;
 import com.mm.luna.base.BaseView;
-import com.mm.luna.bean.DoubanEntity;
+import com.mm.luna.bean.HotMovieBean;
 
 /**
  * Created by ZMM on 2018/5/3  22:31.
@@ -10,10 +10,10 @@ import com.mm.luna.bean.DoubanEntity;
 
 public interface DoubanContract {
     interface View extends BaseView {
-        void setData(DoubanEntity entity);
+        void setData(HotMovieBean bean, boolean isClear);
     }
 
     interface Presenter extends BasePresenter {
-        void getMovieList(int position);
+        void getMovieList(int pageIndex, boolean isClear, int position);
     }
 }

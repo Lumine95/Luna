@@ -11,20 +11,49 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> implements DoubanContract.Presenter {
-    public DoubanPresenter(DoubanContract.View view) {
+    DoubanPresenter(DoubanContract.View view) {
         super(view);
     }
 
     @Override
-    public void getMovieList(int position) {
-        Api.getInstance().getComicsList()
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> view.onLoading())
-                .map(entity -> entity)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(entity -> {
-                    view.onFinish();
-                //    view.setData(entity);
-                }, throwable -> view.onError());
+    public void getMovieList(int pageIndex, boolean isClear, int position) {
+        switch (position) {
+            case 0:
+                Api.getInstance().getMovieInTheater(pageIndex * 20, 20)
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(disposable -> {
+                        })
+                        .map(entity -> entity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(entity -> {
+                            view.onFinish();
+                            view.setData(entity, isClear);
+                        }, throwable -> view.onError());
+                break;
+            case 1:
+                Api.getInstance().getMovieComing(pageIndex * 20, 20)
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(disposable -> {
+                        })
+                        .map(entity -> entity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(entity -> {
+                            view.onFinish();
+                            view.setData(entity, isClear);
+                        }, throwable -> view.onError());
+                break;
+            case 2:
+                Api.getInstance().getMovieTop(pageIndex * 20, 20)
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(disposable -> {
+                        })
+                        .map(entity -> entity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(entity -> {
+                            view.onFinish();
+                            view.setData(entity, isClear);
+                        }, throwable -> view.onError());
+                break;
+        }
     }
 }

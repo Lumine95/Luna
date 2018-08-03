@@ -37,8 +37,8 @@ public class MyApplication extends Application {
         super.onCreate();
         mContext = this.getApplicationContext();
 
-        Logger.addLogAdapter(new AndroidLogAdapter());  // 初始化Logger
-      //  CrashReport.initCrashReport(getApplicationContext(), "e18d5ba117", false);
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        //  CrashReport.initCrashReport(getApplicationContext(), "e18d5ba117", false);
         Bugly.init(getApplicationContext(), "e18d5ba117", true);
     }
-}
+ }

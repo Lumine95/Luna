@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -20,7 +21,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class BaseApiImpl implements BaseApi {
     private volatile static Retrofit retrofit = null;
     private Retrofit.Builder retrofitBuilder = new Retrofit.Builder();
-    private OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+    // private OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+    private OkHttpClient.Builder okHttpBuilder = RetrofitUrlManager.getInstance().with(new OkHttpClient.Builder());
 
     BaseApiImpl(String baseUrl) {
         retrofitBuilder.addConverterFactory(ScalarsConverterFactory.create())

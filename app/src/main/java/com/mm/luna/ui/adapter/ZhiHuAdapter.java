@@ -1,4 +1,4 @@
-package com.mm.luna.ui.zhihu;
+package com.mm.luna.ui.adapter;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;

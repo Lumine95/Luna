@@ -2,6 +2,7 @@ package com.mm.luna.ui.douban;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -10,10 +11,11 @@ import android.widget.TextView;
 import com.android.library.utils.DensityUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
-import com.mm.luna.bean.DoubanEntity;
+import com.mm.luna.ui.adapter.CommonFragmentAdapter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -23,14 +25,14 @@ import static android.support.design.widget.TabLayout.MODE_FIXED;
  * Created by ZMM on 2018/5/3 11:43.
  */
 
-public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> implements DoubanContract.View {
+public class DoubanFragment extends BaseFragment {
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.pager)
     ViewPager viewPager;
-    private ArrayList<String> mTitleList = new ArrayList<>();
-    private ArrayList<MovieFragment> fragmentList = new ArrayList<>();
-    private DoubanFragmentAdapter fragmentAdapter;
+    private List<String> mTitleList = new ArrayList<>();
+    private List<Fragment> fragmentList = new ArrayList<>();
+    private CommonFragmentAdapter fragmentAdapter;
 
     @Override
     public int getLayoutId() {
@@ -40,7 +42,7 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
 
     @Override
     protected DoubanContract.Presenter initPresenter() {
-        return new DoubanPresenter(this);
+        return null;
     }
 
 
@@ -55,29 +57,11 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
             fragmentList.add(createFragments(i));
         }
         if (fragmentAdapter == null) {
-            fragmentAdapter = new DoubanFragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, mTitleList);
+            fragmentAdapter = new CommonFragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, mTitleList);
         } else {
-            // 刷新fragment
-            fragmentAdapter.setFragments(mActivity.getSupportFragmentManager(), fragmentList);
+           fragmentAdapter.setFragments(mActivity.getSupportFragmentManager(), fragmentList);
         }
         viewPager.setAdapter(fragmentAdapter);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
         // 设置TabLayout的模式
         tabLayout.setTabMode(MODE_FIXED);
         for (int i = 0; i < mTitleList.size(); i++) {
@@ -85,8 +69,7 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
         }
         setWidth();  // 通过反射设置tabLayout的宽度
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(0, true);
-        viewPager.setOffscreenPageLimit(3);
+//        viewPager.setOffscreenPageLimit(3);
     }
 
     private MovieFragment createFragments(int position) {
@@ -97,11 +80,6 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
         return fragment;
     }
 
-    @Override
-    public void setData(DoubanEntity entity) {
-
-    }
-
     private void setWidth() {
         //  源码得知 线的宽度是根据 tabView的宽度来设置的
         tabLayout.post(() -> {
@@ -110,7 +88,7 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
                 Field mTabStripField = tabLayout.getClass().getDeclaredField("mTabStrip");
                 mTabStripField.setAccessible(true);
                 LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(tabLayout);
-                int dp  = DensityUtil.dip2px(mContext, 24);
+                int dp = DensityUtil.dip2px(mContext, 24);
                 for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                     View tabView = mTabStrip.getChildAt(i);
 
@@ -139,9 +117,7 @@ public class DoubanFragment extends BaseFragment<DoubanContract.Presenter> imple
 
                     tabView.invalidate();
                 }
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         });
