@@ -43,7 +43,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                         }, throwable -> view.onError());
                 break;
             case 2:
-                Api.getInstance().getMovieTop(pageIndex * 20, 20)
+                Api.getInstance().getMovieTop(pageIndex * 25, 25)
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(disposable -> {
                         })

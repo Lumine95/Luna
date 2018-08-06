@@ -1,5 +1,6 @@
 package com.mm.luna.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class HotMovieBean {
         this.subjects = subjects;
     }
 
-    public static class SubjectsBean {
+    public static class SubjectsBean implements Serializable {
         private RatingBean rating;
         private String title;
         private int collect_count;
@@ -159,7 +160,7 @@ public class HotMovieBean {
             this.casts = casts;
         }
 
-        public static class RatingBean {
+        public static class RatingBean implements Serializable {
             private int max;
             private double average;
             private String stars;
@@ -198,7 +199,7 @@ public class HotMovieBean {
             }
         }
 
-        public static class ImagesBean {
+        public static class ImagesBean implements Serializable {
             private String small;
             private String large;
             private String medium;
@@ -228,7 +229,7 @@ public class HotMovieBean {
             }
         }
 
-        public static class CastsBean {
+        public static class CastsBean implements Serializable {
             private String alt;
             private AvatarsBean avatars;
             private String name;
@@ -266,7 +267,7 @@ public class HotMovieBean {
                 this.id = id;
             }
 
-            public static class AvatarsBean {
+            public static class AvatarsBean implements Serializable {
                 private String small;
                 private String large;
                 private String medium;

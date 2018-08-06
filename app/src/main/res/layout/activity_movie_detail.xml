@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <com.mm.luna.view.CompatNestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="330dp"
+                android:background="@color/transparent">
+
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </com.mm.luna.view.CompatNestedScrollView>
+
+
     <ImageView
         android:id="@+id/iv_movie"
         android:layout_width="100dp"
         android:layout_height="135dp"
         android:background="@mipmap/ic_movie_default"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:transitionName="@string/transition_movie_img"
+        android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

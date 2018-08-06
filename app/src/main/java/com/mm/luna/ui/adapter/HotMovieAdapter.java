@@ -1,5 +1,6 @@
 package com.mm.luna.ui.adapter;
 
+import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
@@ -8,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mm.luna.R;
 import com.mm.luna.bean.HotMovieBean;
+import com.mm.luna.ui.douban.MovieDetailActivity;
 
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class HotMovieAdapter extends BaseQuickAdapter<HotMovieBean.SubjectsBean,
         helper.setText(R.id.tv_type, "类型：" + item.getGenres().toString());
         helper.setText(R.id.tv_score, "评分：" + item.getRating().getAverage());
         Glide.with(mContext).load(item.getImages().getLarge()).crossFade().into((ImageView) helper.getView(R.id.iv_movie));
+        helper.getConvertView().setOnClickListener(v -> {
+            MovieDetailActivity.start((Activity) mContext, item, helper.getView(R.id.iv_movie));
+        });
     }
 
     private String list2Str(List<HotMovieBean.SubjectsBean.CastsBean> list) {

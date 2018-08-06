@@ -1,5 +1,7 @@
 package com.mm.luna.ui.violet;
 
+import android.annotation.SuppressLint;
+
 import com.mm.luna.api.Api;
 import com.mm.luna.base.BasePresenterImpl;
 
@@ -12,9 +14,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class VioletPresenter extends BasePresenterImpl<VioletContract.View> implements VioletContract.Presenter {
 
-    public VioletPresenter(VioletContract.View view) {
+    VioletPresenter(VioletContract.View view) {
         super(view);
     }
+    @SuppressLint("CheckResult")
     @Override
     public void getVideoList() {
         Api.getInstance().getComicsList()

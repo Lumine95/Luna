@@ -3,7 +3,6 @@ package com.mm.luna.ui.douban;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import es.dmoral.toasty.Toasty;
 
 /**
  * Created by ZMM on 2018/5/3  23:30.
@@ -65,11 +63,6 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
             pageIndex++;
             presenter.getMovieList(pageIndex, false, position);
         }, recyclerView);
-        mAdapter.setOnItemClickListener((adapter, v, position) -> {
-            Toasty.info(mContext, "onItemClick: " + listData.get(position).getOriginal_title(), Toast.LENGTH_SHORT).show();
-            //  startActivity(new Intent(mContext, ZhiHuDetailActivity.class).putExtra("id", listData.get(position).getId()));
-            MovieDetailActivity.start(getActivity(), view.findViewById(R.id.iv_movie));
-        });
         refreshLayout.setRefreshHeader(new PhoenixHeader(mContext));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             pageIndex = 0;

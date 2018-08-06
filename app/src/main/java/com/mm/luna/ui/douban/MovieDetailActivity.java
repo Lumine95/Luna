@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
+import com.mm.luna.bean.HotMovieBean;
 
 import butterknife.BindView;
 
@@ -18,6 +19,7 @@ import butterknife.BindView;
 
 public class MovieDetailActivity extends BaseActivity {
     @BindView(R.id.iv_movie) ImageView ivMovie;
+    private HotMovieBean.SubjectsBean movieBean;
 
     @Override
     public void onLoading() {
@@ -46,15 +48,16 @@ public class MovieDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        if (getIntent() != null) {
+            movieBean = (HotMovieBean.SubjectsBean) getIntent().getSerializableExtra("data");
+        }
     }
 
-    public static void start(Activity context, ImageView imageView) {
+    public static void start(Activity context, HotMovieBean.SubjectsBean bean, ImageView imageView) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
-        // intent.putExtra(INTENT_KEY_MOVIE_SUBJECTBEAN, subjectsBean);
+        intent.putExtra("data", bean);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
-                (context, imageView, "test");
-        //与xml文件对应
+                (context, imageView, context.getString(R.string.transition_movie_img));
         ActivityCompat.startActivity(context, intent, options.toBundle());
     }
 }
