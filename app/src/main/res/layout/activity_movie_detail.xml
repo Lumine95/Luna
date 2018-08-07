@@ -9,6 +9,7 @@
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_f6"
         android:scrollbars="none">
 
         <LinearLayout
@@ -27,10 +28,9 @@
                     android:layout_height="match_parent"
                     android:scaleType="fitXY" />
 
-                <android.support.constraint.ConstraintLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin_size_15">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/iv_movie"
@@ -38,7 +38,6 @@
                         android:layout_height="165dp"
                         android:layout_marginStart="@dimen/margin_size_20"
                         android:layout_marginTop="95dp"
-                        android:background="@mipmap/ic_movie_default"
                         android:scaleType="fitXY"
                         android:transitionName="@string/transition_movie_img"
                         app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +49,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_size_15"
                         android:layout_marginTop="104dp"
+                        android:layout_toEndOf="@id/iv_movie"
                         android:gravity="center_vertical"
-                        app:layout_constraintStart_toEndOf="@id/iv_movie"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.mm.luna.view.MyRatingBar
@@ -78,114 +77,119 @@
                         android:id="@+id/tv_tag1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_star"
                         android:layout_marginStart="@dimen/margin_size_15"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/iv_movie"
                         android:text="导演："
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/iv_movie"
-                        app:layout_constraintTop_toBottomOf="@id/ll_star" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:id="@+id/tv_director"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_star"
+                        android:layout_marginEnd="@dimen/margin_size_15"
                         android:layout_marginStart="@dimen/margin_size_5"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/tv_tag1"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/tv_tag1"
-                        app:layout_constraintTop_toBottomOf="@id/ll_star" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_director"
                         android:layout_marginStart="@dimen/margin_size_15"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/iv_movie"
                         android:text="主演："
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/iv_movie"
-                        app:layout_constraintTop_toBottomOf="@id/tv_director" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:id="@+id/tv_actor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_director"
+                        android:layout_marginEnd="@dimen/margin_size_15"
                         android:layout_marginStart="@dimen/margin_size_5"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/tv_tag1"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/tv_tag1"
-                        app:layout_constraintTop_toBottomOf="@id/tv_director" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_actor"
                         android:layout_marginStart="@dimen/margin_size_15"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/iv_movie"
                         android:text="类型："
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/iv_movie"
-                        app:layout_constraintTop_toBottomOf="@id/tv_actor" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:id="@+id/tv_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_actor"
+                        android:layout_marginEnd="@dimen/margin_size_15"
                         android:layout_marginStart="@dimen/margin_size_5"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/tv_tag1"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/tv_tag1"
-                        app:layout_constraintTop_toBottomOf="@id/tv_actor" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:id="@+id/tv_tag2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_type"
                         android:layout_marginStart="@dimen/margin_size_15"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/iv_movie"
                         android:text="上映日期："
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/iv_movie"
-                        app:layout_constraintTop_toBottomOf="@id/tv_type" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:id="@+id/tv_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_type"
+                        android:layout_marginEnd="@dimen/margin_size_15"
                         android:layout_marginStart="@dimen/margin_size_5"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/tv_tag2"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/tv_tag2"
-                        app:layout_constraintTop_toBottomOf="@id/tv_type" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_date"
                         android:layout_marginStart="@dimen/margin_size_15"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/iv_movie"
                         android:text="国家地区："
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/iv_movie"
-                        app:layout_constraintTop_toBottomOf="@id/tv_date" />
+                        android:textSize="@dimen/text_size_14" />
 
                     <TextView
                         android:id="@+id/tv_country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_date"
+                        android:layout_marginEnd="@dimen/margin_size_15"
                         android:layout_marginStart="@dimen/margin_size_5"
                         android:layout_marginTop="@dimen/margin_size_4"
+                        android:layout_toEndOf="@id/tv_tag2"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toEndOf="@id/tv_tag2"
-                        app:layout_constraintTop_toBottomOf="@id/tv_date" />
-                </android.support.constraint.ConstraintLayout>
+                        android:textSize="@dimen/text_size_14" />
+                </RelativeLayout>
             </android.support.constraint.ConstraintLayout>
 
             <TextView
@@ -200,7 +204,78 @@
                 android:textColor="@color/color_3"
                 android:textSize="@dimen/text_size_16" />
 
+            <TextView
+                android:id="@+id/tv_alias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_size_12"
+                android:textColor="@color/color_3"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_5"
+                android:drawablePadding="@dimen/margin_size_4"
+                android:drawableStart="@mipmap/ic_movie_tag"
+                android:gravity="center"
+                android:text="剧情简介"
+                android:textColor="@color/color_3"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/tv_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_size_12"
+                android:textColor="@color/color_3"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_size_5"
+                android:drawablePadding="@dimen/margin_size_4"
+                android:drawableStart="@mipmap/ic_movie_tag"
+                android:gravity="center"
+                android:text="导演/演员"
+                android:textColor="@color/color_3"
+                android:textSize="@dimen/text_size_16" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_size_10"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="none" />
         </LinearLayout>
     </com.mm.luna.view.CompatNestedScrollView>
 
+    <!--Toolbar-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_toolbar_bg"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:alpha="0"
+            android:scaleType="fitXY" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.ToolbarPopupOverlay"
+                app:titleTextColor="@color/white" />
+        </FrameLayout>
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

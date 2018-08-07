@@ -1,5 +1,6 @@
 package com.mm.luna.ui.zhihu;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -59,6 +60,7 @@ public class ZhiHuDetailActivity extends BaseActivity {
         return null;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void initView() {
         setSupportActionBar(toolbar);
