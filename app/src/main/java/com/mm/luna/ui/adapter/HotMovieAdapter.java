@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.android.library.view.LabelView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -18,13 +19,18 @@ import java.util.List;
  */
 
 public class HotMovieAdapter extends BaseQuickAdapter<HotMovieBean.SubjectsBean, BaseViewHolder> {
-    public HotMovieAdapter(int layoutResId, @Nullable List<HotMovieBean.SubjectsBean> data) {
+    private int position;
+
+    public HotMovieAdapter(int layoutResId, @Nullable List<HotMovieBean.SubjectsBean> data, int position) {
         super(layoutResId, data);
+        this.position = position;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, HotMovieBean.SubjectsBean item) {
         helper.setText(R.id.tv_movie_title, item.getTitle());
+        helper.setVisible(R.id.label_view, position == 2);
+        ((LabelView) helper.getView(R.id.label_view)).setText("TOP" + (helper.getAdapterPosition() + 1));
         helper.setText(R.id.tv_director, "导演：" + list2Str(item.getDirectors()));
         helper.setText(R.id.tv_actor, "主演：" + list2Str(item.getCasts()));
         helper.setText(R.id.tv_type, "类型：" + item.getGenres().toString());

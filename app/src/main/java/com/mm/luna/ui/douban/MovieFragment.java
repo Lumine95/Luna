@@ -56,7 +56,7 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
         recyclerView.setLayoutManager(layoutManager);
         presenter.getMovieList(pageIndex, true, position);
 
-        mAdapter = new HotMovieAdapter(R.layout.item_movie, listData);
+        mAdapter = new HotMovieAdapter(R.layout.item_movie, listData,position);
         recyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mAdapter.setOnLoadMoreListener(() -> {

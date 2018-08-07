@@ -15,4 +15,5 @@
     <string name="status_layout_manager_error">电波无法到达</string>
     <string name="status_layout_manager_retry">重新加载</string>
     <string name="transition_movie_img">transition_movie_img</string>
+    <string name="score">分</string>
 </resources>
