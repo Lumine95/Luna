@@ -32,7 +32,6 @@ public class ZhiHuPresenter extends BasePresenterImpl<ZhiHuContract.View> implem
     public void getBeforeData(String date, boolean isClear) {
         Api.getInstance().getBeforeNews(date)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> view.onLoading())
                 .map(zhiHuEntity -> zhiHuEntity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(zhiHuEntity -> {

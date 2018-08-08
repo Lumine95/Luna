@@ -117,11 +117,6 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
     }
 
     @Override
-    public void onLoading() {
-
-    }
-
-    @Override
     public void onFinish() {
 
     }

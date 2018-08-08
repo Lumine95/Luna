@@ -36,11 +36,6 @@ public class GankFragment extends BaseFragment<ZhiHuContract.Presenter> implemen
     }
 
     @Override
-    public void onLoading() {
-
-    }
-
-    @Override
     public void onFinish() {
 
     }

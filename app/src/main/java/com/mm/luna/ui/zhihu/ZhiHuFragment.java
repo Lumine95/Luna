@@ -147,11 +147,6 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     }
 
     @Override
-    public void onLoading() {
-
-    }
-
-    @Override
     public void onFinish() {
         statusLayoutManager.showSuccessLayout();
     }

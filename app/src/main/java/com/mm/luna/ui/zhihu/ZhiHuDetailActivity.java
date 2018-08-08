@@ -76,7 +76,6 @@ public class ZhiHuDetailActivity extends BaseActivity {
 
         Api.getInstance().getNewsDetail(id)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> onLoading())
                 .map(ZhiHuDetailEntity -> ZhiHuDetailEntity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ZhiHuDetailEntity -> {
@@ -93,11 +92,6 @@ public class ZhiHuDetailActivity extends BaseActivity {
         webView.setDrawingCacheEnabled(true);
         String htmlData = HtmlUtils.createHtmlData(entity.getBody(), entity.getCss(), entity.getJs());
         webView.loadData(htmlData, HtmlUtils.MIME_TYPE, HtmlUtils.ENCODING);
-    }
-
-    @Override
-    public void onLoading() {
-
     }
 
     @Override

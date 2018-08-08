@@ -56,4 +56,16 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                 break;
         }
     }
+
+    @Override
+    public void getMovieDetail(String id) {
+        Api.getInstance().getMovieDetail(id)
+                .subscribeOn(Schedulers.io())
+                .map(entity -> entity)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(entity -> {
+                    view.onFinish();
+                    view.loadMovieDetail(entity);
+                }, throwable -> view.onError());
+    }
 }

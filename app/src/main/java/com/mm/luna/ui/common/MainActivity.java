@@ -117,11 +117,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onLoading() {
-
-    }
-
-    @Override
     public void onFinish() {
 
     }

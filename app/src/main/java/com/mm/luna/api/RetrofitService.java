@@ -2,6 +2,7 @@ package com.mm.luna.api;
 
 import com.mm.luna.bean.ComicEntity;
 import com.mm.luna.bean.HotMovieBean;
+import com.mm.luna.bean.MovieDetailBean;
 import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.bean.ZhiHuEntity;
 
@@ -44,4 +45,8 @@ public interface RetrofitService {
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/top250")
     Observable<HotMovieBean> getMovieTop(@Query("start") int start, @Query("count") int count);
+
+    @Headers({"Domain-Name: douban"})
+    @GET("v2/movie/subject/{id}")
+    Observable<MovieDetailBean> getMovieDetail(@Path("id") String id);
 }

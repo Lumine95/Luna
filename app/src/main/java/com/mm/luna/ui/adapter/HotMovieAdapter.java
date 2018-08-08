@@ -36,7 +36,7 @@ public class HotMovieAdapter extends BaseQuickAdapter<HotMovieBean.SubjectsBean,
         helper.setText(R.id.tv_type, "类型：" + item.getGenres().toString());
         helper.setText(R.id.tv_score, "评分：" + item.getRating().getAverage());
         Glide.with(mContext).load(item.getImages().getLarge()).crossFade().into((ImageView) helper.getView(R.id.iv_movie));
-        helper.getConvertView().setOnClickListener(v -> {
+        helper.itemView.setOnClickListener(v -> {
             MovieDetailActivity.start((Activity) mContext, item, helper.getView(R.id.iv_movie));
         });
     }

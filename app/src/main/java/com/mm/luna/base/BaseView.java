@@ -5,8 +5,6 @@ package com.mm.luna.base;
  */
 
 public interface BaseView {
-    void onLoading();
-
     void onFinish();
 
     void onError();

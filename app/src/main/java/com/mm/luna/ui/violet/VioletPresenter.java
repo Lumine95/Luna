@@ -22,7 +22,6 @@ public class VioletPresenter extends BasePresenterImpl<VioletContract.View> impl
     public void getVideoList() {
         Api.getInstance().getComicsList()
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(disposable -> view.onLoading( ))
                 .map(entity -> entity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(entity -> {

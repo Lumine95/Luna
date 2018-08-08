@@ -122,12 +122,6 @@ public class DoubanFragment extends BaseFragment {
             }
         });
     }
-
-    @Override
-    public void onLoading() {
-
-    }
-
     @Override
     public void onFinish() {
 

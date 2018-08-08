@@ -71,10 +71,6 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
     }
 
     @Override
-    public void onLoading() {
-    }
-
-    @Override
     public void onFinish() {
         statusLayoutManager.showSuccessLayout();
     }

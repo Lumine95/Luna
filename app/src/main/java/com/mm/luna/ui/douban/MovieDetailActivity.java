@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,8 +18,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
-import com.mm.luna.base.BasePresenter;
 import com.mm.luna.bean.HotMovieBean;
+import com.mm.luna.bean.MovieDetailBean;
+import com.mm.luna.ui.common.WebViewActivity;
 import com.mm.luna.util.DisplayUtils;
 import com.mm.luna.util.GlideUtil;
 import com.mm.luna.view.CompatNestedScrollView;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.mm.luna.util.StatusBarUtils.getStatusBarHeight;
 
@@ -35,7 +38,7 @@ import static com.mm.luna.util.StatusBarUtils.getStatusBarHeight;
  * Created by ZMM on 2018/8/2 16:43.
  */
 
-public class MovieDetailActivity extends BaseActivity {
+public class MovieDetailActivity extends BaseActivity<DoubanContract.Presenter> implements DoubanContract.View {
     @BindView(R.id.iv_movie) ImageView ivMovie;
     @BindView(R.id.iv_header_bg) ImageView ivHeaderBg;
     @BindView(R.id.rating_bar) MyRatingBar ratingBar;
@@ -53,11 +56,6 @@ public class MovieDetailActivity extends BaseActivity {
     private HotMovieBean.SubjectsBean movieBean;
 
     @Override
-    public void onLoading() {
-
-    }
-
-    @Override
     public void onFinish() {
 
     }
@@ -73,14 +71,15 @@ public class MovieDetailActivity extends BaseActivity {
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public DoubanContract.Presenter initPresenter() {
+        return new DoubanPresenter(this);
     }
 
     @Override
     public void initView() {
         if (getIntent() != null) {
             movieBean = (HotMovieBean.SubjectsBean) getIntent().getSerializableExtra("data");
+            presenter.getMovieDetail(movieBean.getId());
             setData();
         }
     }
@@ -88,7 +87,7 @@ public class MovieDetailActivity extends BaseActivity {
     @SuppressLint("SetTextI18n")
     private void setData() {
         toolbar.setTitle(movieBean.getTitle());
-        toolbar.setNavigationIcon(R.mipmap.ic_right_arrow_white);
+        toolbar.setNavigationIcon(R.mipmap.ic_left_arrow_white);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -124,7 +123,16 @@ public class MovieDetailActivity extends BaseActivity {
             protected void convert(BaseViewHolder helper, HotMovieBean.SubjectsBean.CastsBean item) {
                 helper.setText(R.id.tv_name, item.getName());
                 helper.setText(R.id.tv_type, helper.getAdapterPosition() < movieBean.getDirectors().size() ? "导演" : "演员");
-                GlideUtil.loadImage(mContext, item.getAvatars().getSmall(), helper.getView(R.id.iv_avatar), R.mipmap.ic_image_default);
+                if (item.getAvatars() != null) {
+                    GlideUtil.loadImage(mContext, item.getAvatars().getMedium(), helper.getView(R.id.iv_avatar), R.mipmap.ic_image_default);
+                }
+                helper.itemView.setOnClickListener(v -> {
+                    if (!TextUtils.isEmpty(item.getAlt())) {
+                        startActivity(new Intent(mContext, WebViewActivity.class)
+                                .putExtra("title", item.getName())
+                                .putExtra("url", item.getAlt()));
+                    }
+                });
             }
         });
     }
@@ -146,5 +154,22 @@ public class MovieDetailActivity extends BaseActivity {
             sb.append(bean.getName()).append("/");
         }
         return sb.substring(0, sb.length() - 1);
+    }
+
+    @OnClick(R.id.iv_movie)
+    public void onViewClicked() {
+        startActivity(new Intent(this, WebViewActivity.class)
+                .putExtra("title", movieBean.getTitle())
+                .putExtra("url", movieBean.getAlt()));
+    }
+
+    @Override
+    public void setData(HotMovieBean bean, boolean isClear) {
+
+    }
+
+    @Override
+    public void loadMovieDetail(MovieDetailBean bean) {
+
     }
 }

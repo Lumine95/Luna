@@ -16,4 +16,5 @@
     <string name="status_layout_manager_retry">重新加载</string>
     <string name="transition_movie_img">transition_movie_img</string>
     <string name="score">分</string>
+    <string name="play_android">玩安卓</string>
 </resources>
