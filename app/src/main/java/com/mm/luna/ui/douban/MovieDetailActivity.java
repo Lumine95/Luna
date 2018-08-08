@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +49,8 @@ public class MovieDetailActivity extends BaseActivity<DoubanContract.Presenter> 
     @BindView(R.id.tv_type) TextView tvType;
     @BindView(R.id.tv_date) TextView tvDate;
     @BindView(R.id.tv_country) TextView tvCountry;
+    @BindView(R.id.tv_alias) TextView tvAlias;
+    @BindView(R.id.tv_intro) TextView tvIntro;
     @BindView(R.id.scroll_view) CompatNestedScrollView scrollView;
     @BindView(R.id.iv_toolbar_bg) ImageView ivToolbarBg;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -91,7 +94,7 @@ public class MovieDetailActivity extends BaseActivity<DoubanContract.Presenter> 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(view -> finish());
+        toolbar.setNavigationOnClickListener(view -> ActivityCompat.finishAfterTransition(this));
         scrollView.bindAlphaView(ivToolbarBg);
 
         Glide.with(this).load(movieBean.getImages().getLarge()).crossFade().into(ivMovie);
@@ -165,11 +168,20 @@ public class MovieDetailActivity extends BaseActivity<DoubanContract.Presenter> 
 
     @Override
     public void setData(HotMovieBean bean, boolean isClear) {
-
     }
 
     @Override
     public void loadMovieDetail(MovieDetailBean bean) {
+        tvCountry.setText(bean.getCountries().toString().replace("[", "").replace("]", "").replaceAll(",", "/"));
+        tvAlias.setText(bean.getAka().toString().replace("[", "").replace("]", "").replaceAll(",", "/"));
+        tvIntro.setText(bean.getSummary());
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ActivityCompat.finishAfterTransition(this);
+        }
+        return true;
     }
 }

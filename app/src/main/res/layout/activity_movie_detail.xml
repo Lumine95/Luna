@@ -202,15 +202,15 @@
                 android:gravity="center"
                 android:text="别称"
                 android:textColor="@color/color_3"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tv_alias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_size_12"
-                android:textColor="@color/color_3"
-                android:textSize="@dimen/text_size_14" />
+                android:textColor="@color/color_6"
+                android:textSize="@dimen/text_size_15" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -221,15 +221,16 @@
                 android:gravity="center"
                 android:text="剧情简介"
                 android:textColor="@color/color_3"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tv_intro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_size_12"
-                android:textColor="@color/color_3"
-                android:textSize="@dimen/text_size_14" />
+                android:lineSpacingExtra="7dp"
+                android:textColor="@color/color_6"
+                android:textSize="@dimen/text_size_15" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -240,7 +241,7 @@
                 android:gravity="center"
                 android:text="导演/演员"
                 android:textColor="@color/color_3"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="17sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"

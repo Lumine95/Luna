@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.HotMovieBean;
+import com.mm.luna.bean.MovieDetailBean;
 import com.mm.luna.ui.adapter.HotMovieAdapter;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 import com.scwang.smartrefresh.header.PhoenixHeader;
@@ -95,5 +96,10 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
         }
         listData.addAll(bean.getSubjects());
         refreshLayout.finishRefresh(true);
+    }
+
+    @Override
+    public void loadMovieDetail(MovieDetailBean bean) {
+
     }
 }

@@ -1,5 +1,7 @@
 package com.mm.luna.ui.douban;
 
+import android.annotation.SuppressLint;
+
 import com.mm.luna.api.Api;
 import com.mm.luna.base.BasePresenterImpl;
 
@@ -57,6 +59,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
         }
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void getMovieDetail(String id) {
         Api.getInstance().getMovieDetail(id)
