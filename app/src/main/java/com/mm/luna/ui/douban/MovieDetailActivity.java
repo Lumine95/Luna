@@ -100,7 +100,7 @@ public class MovieDetailActivity extends BaseActivity<DoubanContract.Presenter> 
         Glide.with(this).load(movieBean.getImages().getLarge()).crossFade().into(ivMovie);
         tvDirector.setText(list2Str(movieBean.getDirectors()));
         tvActor.setText(list2Str(movieBean.getCasts()));
-        tvType.setText(movieBean.getGenres().toString().replace("[", "").replace("]", "").replaceAll(",", "/"));
+        tvType.setText(extractStrList(movieBean.getGenres()));
         tvDate.setText(movieBean.getYear());
         ratingBar.setStar((float) (movieBean.getRating().getAverage() / 2));
         tvScore.setText(movieBean.getRating().getAverage() + getString(R.string.score));
@@ -172,9 +172,13 @@ public class MovieDetailActivity extends BaseActivity<DoubanContract.Presenter> 
 
     @Override
     public void loadMovieDetail(MovieDetailBean bean) {
-        tvCountry.setText(bean.getCountries().toString().replace("[", "").replace("]", "").replaceAll(",", "/"));
-        tvAlias.setText(bean.getAka().toString().replace("[", "").replace("]", "").replaceAll(",", "/"));
+        tvCountry.setText(extractStrList(bean.getCountries()));
+        tvAlias.setText(extractStrList(bean.getAka()));
         tvIntro.setText(bean.getSummary());
+    }
+
+    private String extractStrList(List<String> stringList) {
+        return stringList.toString().replace("[", "").replace("]", "").replaceAll(",", "/").replaceAll(" ", "");
     }
 
     @Override

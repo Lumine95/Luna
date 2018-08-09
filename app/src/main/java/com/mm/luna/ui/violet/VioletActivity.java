@@ -94,7 +94,7 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
         //设置视频时长
         // controller.setLength(0);
         //设置5秒不操作后则隐藏头部和底部布局视图
-        controller.setHideTime(5000);
+        controller.setHideTime(4000);
         //controller.setImage(R.mipmap.violet);
         Glide.with(this).load(cover).crossFade().centerCrop().into(controller.imageView());
         //设置视频控制器

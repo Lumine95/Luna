@@ -1,8 +1,5 @@
 package com.mm.luna;
 
-import android.app.Application;
-import android.content.Context;
-
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
@@ -13,8 +10,7 @@ import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
  * Created by ZMM on 2018/2/5.
  */
 
-public class MyApplication extends Application {
-    public static Context mContext;
+public class MyApplication extends com.android.library.MyApplication {
     private static MyApplication mApplication;
 
     public static MyApplication getInstance() {
@@ -25,19 +21,9 @@ public class MyApplication extends Application {
         return mApplication;
     }
 
-    /**
-     * 返回Application的Context
-     *
-     * @return
-     */
-    public Context getAppContext() {
-        return mContext;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this.getApplicationContext();
 
         Logger.addLogAdapter(new AndroidLogAdapter());
         //  CrashReport.initCrashReport(getApplicationContext(), "e18d5ba117", false);
