@@ -26,8 +26,7 @@ public class MyApplication extends com.android.library.MyApplication {
         super.onCreate();
 
         Logger.addLogAdapter(new AndroidLogAdapter());
-        //  CrashReport.initCrashReport(getApplicationContext(), "e18d5ba117", false);
-        Bugly.init(getApplicationContext(), "e18d5ba117", true);
         BGASwipeBackHelper.init(this, null);
+        Bugly.init(getApplicationContext(), "e18d5ba117", true);
     }
 }

@@ -1,37 +1,37 @@
 package com.mm.luna.ui.gank;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
-import com.mm.luna.bean.ZhiHuEntity;
-import com.mm.luna.ui.zhihu.ZhiHuContract;
-import com.mm.luna.ui.zhihu.ZhiHuPresenter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import butterknife.BindView;
 
 /**
- * Created by ZMM on 2018/5/3 11:43.
+ * Created by ZMM on 2018/8/10 15:32.
  */
+public class GankFragment extends BaseFragment<GankContract.Presenter> implements GankContract.View {
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout) SmartRefreshLayout refreshLayout;
+    private int type;
 
-public class GankFragment extends BaseFragment<ZhiHuContract.Presenter> implements ZhiHuContract.View {
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_douban;
+        return R.layout.fragment_movie;
     }
-
 
     @Override
-    protected ZhiHuContract.Presenter initPresenter() {
-        return new ZhiHuPresenter(this);
+    protected GankContract.Presenter initPresenter() {
+        return new GankPresenter(this);
     }
-
 
     @Override
     protected void initView(View view) {
-
-    }
-
-    @Override
-    public void setData(ZhiHuEntity zhiHuEntity, boolean isClear) {
+        if (getArguments() != null) {
+            type = getArguments().getInt("type");
+        }
 
     }
 

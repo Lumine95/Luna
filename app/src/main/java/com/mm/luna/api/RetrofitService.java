@@ -49,4 +49,8 @@ public interface RetrofitService {
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/subject/{id}")
     Observable<MovieDetailBean> getMovieDetail(@Path("id") String id);
+
+    @Headers({"Domain-Name: gank"})
+    @GET("data/{type}/{count}/{page}")
+    Observable<MovieDetailBean> getGankList(@Path("type") String type, @Path("count") int count, @Path("page") int page);
 }

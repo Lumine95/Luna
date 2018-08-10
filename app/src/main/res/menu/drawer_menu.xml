@@ -14,7 +14,7 @@
                 android:title="@string/douban_movie" />
         </menu>
     </item>
-    <!--<item android:title="开发">-->
+    <item android:title="开发">
         <!--<menu>-->
             <!--<item-->
                 <!--android:id="@+id/drawer_play_android"-->
@@ -22,5 +22,13 @@
                 <!--android:icon="@mipmap/ic_android"-->
                 <!--android:title="@string/play_android" />-->
         <!--</menu>-->
-    <!--</item>-->
+        <menu>
+            <item
+                android:id="@+id/drawer_gank"
+                android:checkable="true"
+                android:icon="@mipmap/ic_gank"
+                android:title="@string/gank_io" />
+         </menu>
+
+    </item>
 </menu>

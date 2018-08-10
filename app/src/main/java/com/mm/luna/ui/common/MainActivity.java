@@ -15,6 +15,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.ui.douban.DoubanFragment;
+import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.zhihu.ZhiHuContract;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity {
     private Fragment mContent;
     private ZhiHuFragment zhiHuFragment;
     private DoubanFragment doubanFragment;
+    private GankMainFragment gankFragment;
 
     @Override
     public int getLayoutId() {
@@ -65,7 +67,7 @@ public class MainActivity extends BaseActivity {
         MenuItem itemZhihu = navigationView.getMenu().findItem(R.id.drawer_zhihu);
         navigationView.setCheckedItem(R.id.drawer_zhihu);
         navigationView.getHeaderView(0).setOnClickListener(v -> violet());
-        navigationView.setNavigationItemSelectedListener(item -> {
+        navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
             switch (item.getItemId()) {
                 case R.id.drawer_zhihu:
                     toolbar.setTitle(R.string.zhihu_daily);
@@ -76,6 +78,11 @@ public class MainActivity extends BaseActivity {
                     toolbar.setTitle(R.string.douban_movie);
                     if (doubanFragment == null) doubanFragment = new DoubanFragment();
                     switchContentFragment(doubanFragment);
+                    break;
+                case R.id.drawer_gank:
+                    toolbar.setTitle(R.string.gank_io);
+                    if (gankFragment == null) gankFragment = new GankMainFragment();
+                    switchContentFragment(gankFragment);
                     break;
             }
             drawer.closeDrawers();
@@ -127,7 +134,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initRetrofitDomain() {
-        RetrofitUrlManager.getInstance().putDomain("zhihu", "https://news-at.zhihu.com");
-        RetrofitUrlManager.getInstance().putDomain("douban", "https://api.douban.com");
+        RetrofitUrlManager.getInstance().putDomain("zhihu", "https://news-at.zhihu.com/");
+        RetrofitUrlManager.getInstance().putDomain("douban", "https://api.douban.com/");
+        RetrofitUrlManager.getInstance().putDomain("gank", "http://gank.io/api/");
     }
 }

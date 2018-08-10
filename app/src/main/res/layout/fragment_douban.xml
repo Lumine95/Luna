@@ -13,6 +13,7 @@
         app:elevation="0dp"
         app:tabIndicatorColor="@color/black"
         app:tabIndicatorHeight="@dimen/margin_size_2"
+        app:tabMode="fixed"
         app:tabSelectedTextColor="@color/black"
         app:tabTextColor="@color/color_9" />
 
