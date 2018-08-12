@@ -11,16 +11,6 @@ import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
  */
 
 public class MyApplication extends com.android.library.MyApplication {
-    private static MyApplication mApplication;
-
-    public static MyApplication getInstance() {
-        if (mApplication == null) {
-            mApplication = new MyApplication();
-
-        }
-        return mApplication;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();

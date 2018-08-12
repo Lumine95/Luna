@@ -21,10 +21,10 @@ import java.util.List;
  * Created by ZMM on 2018/8/2 15:29.
  */
 
-public class HotMovieAdapter extends BaseQuickAdapter<HotMovieBean.SubjectsBean, BaseViewHolder> {
+public class MovieAdapter extends BaseQuickAdapter<HotMovieBean.SubjectsBean, BaseViewHolder> {
     private int position;
 
-    public HotMovieAdapter(int layoutResId, @Nullable List<HotMovieBean.SubjectsBean> data, int position) {
+    public MovieAdapter(int layoutResId, @Nullable List<HotMovieBean.SubjectsBean> data, int position) {
         super(layoutResId, data);
         this.position = position;
     }

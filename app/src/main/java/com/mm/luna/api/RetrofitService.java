@@ -1,6 +1,7 @@
 package com.mm.luna.api;
 
 import com.mm.luna.bean.ComicEntity;
+import com.mm.luna.bean.GankBean;
 import com.mm.luna.bean.HotMovieBean;
 import com.mm.luna.bean.MovieDetailBean;
 import com.mm.luna.bean.ZhiHuDetailEntity;
@@ -52,5 +53,5 @@ public interface RetrofitService {
 
     @Headers({"Domain-Name: gank"})
     @GET("data/{type}/{count}/{page}")
-    Observable<MovieDetailBean> getGankList(@Path("type") String type, @Path("count") int count, @Path("page") int page);
+    Observable<GankBean> getGankList(@Path("type") String type, @Path("count") int count, @Path("page") int page);
 }

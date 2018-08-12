@@ -33,9 +33,13 @@
             android:name=".ui.violet.VioletActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-        <!--电影详情页-->
+        <!--电影详情-->
         <activity
             android:name=".ui.douban.MovieDetailActivity"
+            android:screenOrientation="portrait" />
+        <!--电影搜索-->
+        <activity
+            android:name=".ui.douban.MovieSearchActivity"
             android:screenOrientation="portrait" />
         <!--WebView-->
         <activity

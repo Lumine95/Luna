@@ -1,15 +1,21 @@
 package com.mm.luna.util;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.annotation.ColorRes;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +31,7 @@ public class DisplayUtils {
      * 将px值转换为dp值
      */
     public static int px2dp(float pxValue) {
-        final float scale = MyApplication.getInstance().getAppContext().getResources().getDisplayMetrics().density;
+        final float scale = MyApplication.getAppContext().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -33,7 +39,7 @@ public class DisplayUtils {
      * 将dp值转换为px值
      */
     public static int dp2px(float dpValue) {
-        final float scale = MyApplication.getInstance().getAppContext().getResources().getDisplayMetrics().density;
+        final float scale = MyApplication.getAppContext().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -41,7 +47,7 @@ public class DisplayUtils {
      * 将px值转换为sp值
      */
     public static int px2sp(float pxValue) {
-        final float scale =MyApplication.getInstance().getAppContext().getResources().getDisplayMetrics().scaledDensity;
+        final float scale = MyApplication.getAppContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -49,7 +55,7 @@ public class DisplayUtils {
      * 将sp值转换为px值
      */
     public static int sp2px(float dpValue) {
-        final float scale =MyApplication.getInstance().getAppContext().getResources().getDisplayMetrics().scaledDensity;
+        final float scale = MyApplication.getAppContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -102,7 +108,7 @@ public class DisplayUtils {
      * @param bitmap 要模糊的图片
      * @param radius 模糊等级 >=0 && <=25
      */
-    public static Bitmap blurBitmap(Context context, Bitmap bitmap, int radius) {
+    private static Bitmap blurBitmap(Context context, Bitmap bitmap, int radius) {
         //Let's create an empty bitmap with the same size of the bitmap we want to blur
         Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap
                 .Config.ARGB_8888);
@@ -179,5 +185,36 @@ public class DisplayUtils {
                 .crossFade(300)
                 .bitmapTransform(new BlurTransformation(context, 23, 4))
                 .into(imageView);
+    }
+
+    public static void navigateWithRippleCompat(final Activity activity, final Intent intent, final View triggerView, @ColorRes int color) {
+        int[] location = new int[2];
+        triggerView.getLocationInWindow(location);
+        final int cx = location[0] + triggerView.getWidth() / 2;
+        final int cy = location[1] + triggerView.getHeight() / 2;
+        final ImageView view = new ImageView(activity);
+        view.setImageResource(color);
+        final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        int w = decorView.getWidth();
+        int h = decorView.getHeight();
+        decorView.addView(view, w, h);
+        int finalRadius = (int) Math.sqrt(w * w + h * h) + 1;
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        anim.setDuration(500);
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                decorView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        decorView.removeView(view);
+                    }
+                }, 500);
+            }
+        });
+        anim.start();
     }
 }

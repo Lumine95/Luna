@@ -13,7 +13,6 @@ import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.base.BasePresenter;
 import com.mm.luna.ui.adapter.CommonFragmentAdapter;
-import com.mm.luna.ui.douban.MovieFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class GankMainFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         titleList.add("Android");
-        titleList.add("IOS");
+        titleList.add("iOS");
         titleList.add("前端");
         titleList.add("福利");
 
@@ -55,7 +54,7 @@ public class GankMainFragment extends BaseFragment {
             fragmentList.add(createFragments(i));
         }
         if (fragmentAdapter == null) {
-            fragmentAdapter = new CommonFragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, titleList);
+            fragmentAdapter = new CommonFragmentAdapter(getChildFragmentManager(), fragmentList, titleList);
         } else {
             fragmentAdapter.setFragments(mActivity.getSupportFragmentManager(), fragmentList);
         }
@@ -64,14 +63,14 @@ public class GankMainFragment extends BaseFragment {
         for (int i = 0; i < titleList.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(titleList.get(i)));
         }
-         setWidth();  // 通过反射设置tabLayout的宽度
+        setWidth();  // 通过反射设置tabLayout的宽度
         tabLayout.setupWithViewPager(viewPager);
-     }
+    }
 
     private Fragment createFragments(int type) {
-        MovieFragment fragment = new MovieFragment();
+        GankFragment fragment = new GankFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("position", type);
+        bundle.putInt("type", type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -84,10 +83,9 @@ public class GankMainFragment extends BaseFragment {
                 Field mTabStripField = tabLayout.getClass().getDeclaredField("mTabStrip");
                 mTabStripField.setAccessible(true);
                 LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(tabLayout);
-                int dp = DensityUtil.dip2px(mContext, 24);
+                int dp = DensityUtil.dip2px(mContext, 16);
                 for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                     View tabView = mTabStrip.getChildAt(i);
-
                     // 拿到tabView的mTextView属性
                     Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
                     mTextViewField.setAccessible(true);

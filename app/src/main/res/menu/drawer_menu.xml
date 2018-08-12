@@ -15,20 +15,18 @@
         </menu>
     </item>
     <item android:title="开发">
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/drawer_play_android"-->
-                <!--android:checkable="true"-->
-                <!--android:icon="@mipmap/ic_android"-->
-                <!--android:title="@string/play_android" />-->
-        <!--</menu>-->
         <menu>
+            <item
+                android:id="@+id/drawer_play_android"
+                android:checkable="true"
+                android:icon="@mipmap/ic_android"
+                android:title="@string/play_android" />
             <item
                 android:id="@+id/drawer_gank"
                 android:checkable="true"
                 android:icon="@mipmap/ic_gank"
                 android:title="@string/gank_io" />
-         </menu>
+        </menu>
 
     </item>
 </menu>

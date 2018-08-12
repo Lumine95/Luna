@@ -56,7 +56,7 @@ public class CompatNestedScrollView extends NestedScrollView {
             //如果上滑超过toolbar高度，开启伴随动画
             //Logger.e("t = " + t);
             //Logger.e("headView.getHeight = " + headView.getHeight());
-            float slideValue = t - (DensityUtil.dp2px(56) + StatusBarUtils.getStatusBarHeight(MyApplication.getInstance().getAppContext()));
+            float slideValue = t - (DensityUtil.dp2px(56) + StatusBarUtils.getStatusBarHeight(MyApplication.getAppContext()));
 
             if (slideValue < 0)
                 slideValue = 0;

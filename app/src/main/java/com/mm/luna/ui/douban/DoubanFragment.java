@@ -55,7 +55,7 @@ public class DoubanFragment extends BaseFragment {
             fragmentList.add(createFragments(i));
         }
         if (fragmentAdapter == null) {
-            fragmentAdapter = new CommonFragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, titleList);
+            fragmentAdapter = new CommonFragmentAdapter(getChildFragmentManager(), fragmentList, titleList);
         } else {
             fragmentAdapter.setFragments(mActivity.getSupportFragmentManager(), fragmentList);
         }
@@ -64,7 +64,7 @@ public class DoubanFragment extends BaseFragment {
         for (int i = 0; i < titleList.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(titleList.get(i)));
         }
-         setWidth();  // 通过反射设置tabLayout的宽度
+        setWidth();  // 通过反射设置tabLayout的宽度
         tabLayout.setupWithViewPager(viewPager);
 //        viewPager.setOffscreenPageLimit(3);
     }

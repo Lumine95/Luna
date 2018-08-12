@@ -9,16 +9,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jaeger.library.StatusBarUtil;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.ui.douban.DoubanFragment;
+import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.zhihu.ZhiHuContract;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
+import com.mm.luna.util.DisplayUtils;
 
 import butterknife.BindView;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
@@ -31,6 +35,8 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
+    @BindView(R.id.search_view)
+    MaterialSearchView searchView;
 
     private int which = 0;
     private Fragment mContent;
@@ -64,7 +70,7 @@ public class MainActivity extends BaseActivity {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
-        MenuItem itemZhihu = navigationView.getMenu().findItem(R.id.drawer_zhihu);
+
         navigationView.setCheckedItem(R.id.drawer_zhihu);
         navigationView.getHeaderView(0).setOnClickListener(v -> violet());
         navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
@@ -88,6 +94,24 @@ public class MainActivity extends BaseActivity {
             drawer.closeDrawers();
             return true;
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                DisplayUtils.navigateWithRippleCompat(this, new Intent(this, MovieSearchActivity.class), toolbar, R.color.colorPrimary);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void violet() {

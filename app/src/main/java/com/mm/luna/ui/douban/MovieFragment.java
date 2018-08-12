@@ -9,7 +9,7 @@ import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.HotMovieBean;
 import com.mm.luna.bean.MovieDetailBean;
-import com.mm.luna.ui.adapter.HotMovieAdapter;
+import com.mm.luna.ui.adapter.MovieAdapter;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -29,7 +29,8 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
     @BindView(R.id.refresh_layout) SmartRefreshLayout refreshLayout;
     private StatusLayoutManager statusLayoutManager;
     private int position;
-    private HotMovieAdapter mAdapter;
+    private int pageIndex = 0;
+    private MovieAdapter mAdapter;
     private List<HotMovieBean.SubjectsBean> listData = new ArrayList<>();
 
     @Override
@@ -57,7 +58,7 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
         recyclerView.setLayoutManager(layoutManager);
         presenter.getMovieList(pageIndex, true, position);
 
-        mAdapter = new HotMovieAdapter(R.layout.item_movie, listData,position);
+        mAdapter = new MovieAdapter(R.layout.item_movie, listData,position);
         recyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mAdapter.setOnLoadMoreListener(() -> {
