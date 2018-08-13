@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jaeger.library.StatusBarUtil;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.ui.douban.DoubanFragment;
@@ -22,7 +21,6 @@ import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.zhihu.ZhiHuContract;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
-import com.mm.luna.util.DisplayUtils;
 
 import butterknife.BindView;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
@@ -35,14 +33,13 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
-    @BindView(R.id.search_view)
-    MaterialSearchView searchView;
 
     private int which = 0;
     private Fragment mContent;
     private ZhiHuFragment zhiHuFragment;
     private DoubanFragment doubanFragment;
     private GankMainFragment gankFragment;
+    private MenuItem itemSearch;
 
     @Override
     public int getLayoutId() {
@@ -74,6 +71,7 @@ public class MainActivity extends BaseActivity {
         navigationView.setCheckedItem(R.id.drawer_zhihu);
         navigationView.getHeaderView(0).setOnClickListener(v -> violet());
         navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
+            itemSearch.setVisible(false);
             switch (item.getItemId()) {
                 case R.id.drawer_zhihu:
                     toolbar.setTitle(R.string.zhihu_daily);
@@ -82,6 +80,7 @@ public class MainActivity extends BaseActivity {
                     break;
                 case R.id.drawer_douban:
                     toolbar.setTitle(R.string.douban_movie);
+                    itemSearch.setVisible(true);
                     if (doubanFragment == null) doubanFragment = new DoubanFragment();
                     switchContentFragment(doubanFragment);
                     break;
@@ -99,8 +98,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
+        itemSearch = menu.findItem(R.id.action_search);itemSearch.setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -108,7 +106,7 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                DisplayUtils.navigateWithRippleCompat(this, new Intent(this, MovieSearchActivity.class), toolbar, R.color.colorPrimary);
+                startActivity(new Intent(this, MovieSearchActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -56,8 +56,19 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                             view.setData(entity, isClear);
                         }, throwable -> view.onError());
                 break;
+            case 3:
+                Api.getInstance().searchMovie("", pageIndex * 25, 20)
+                        .subscribeOn(Schedulers.io())
+                        .map(entity -> entity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(entity -> {
+                            view.onFinish();
+                            view.setData(entity, isClear);
+                        }, throwable -> view.onError());
+                break;
         }
     }
+
 
     @SuppressLint("CheckResult")
     @Override

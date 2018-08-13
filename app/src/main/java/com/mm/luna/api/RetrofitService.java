@@ -48,6 +48,10 @@ public interface RetrofitService {
     Observable<HotMovieBean> getMovieTop(@Query("start") int start, @Query("count") int count);
 
     @Headers({"Domain-Name: douban"})
+    @GET("v2/movie/search")
+    Observable<HotMovieBean> searchMovie(@Query("q") String keyword, @Query("start") int start, @Query("count") int count);
+
+    @Headers({"Domain-Name: douban"})
     @GET("v2/movie/subject/{id}")
     Observable<MovieDetailBean> getMovieDetail(@Path("id") String id);
 
