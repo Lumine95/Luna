@@ -12,6 +12,7 @@ import com.mm.luna.bean.MovieDetailBean;
 public interface DoubanContract {
     interface View extends BaseView {
         void setData(HotMovieBean bean, boolean isClear);
+
         void loadMovieDetail(MovieDetailBean bean);
     }
 
@@ -19,5 +20,7 @@ public interface DoubanContract {
         void getMovieList(int pageIndex, boolean isClear, int position);
 
         void getMovieDetail(String id);
+
+        void searchMovie(String keyword, int pageIndex, boolean isClear);
     }
 }

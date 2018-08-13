@@ -56,16 +56,6 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                             view.setData(entity, isClear);
                         }, throwable -> view.onError());
                 break;
-            case 3:
-                Api.getInstance().searchMovie("", pageIndex * 25, 20)
-                        .subscribeOn(Schedulers.io())
-                        .map(entity -> entity)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(entity -> {
-                            view.onFinish();
-                            view.setData(entity, isClear);
-                        }, throwable -> view.onError());
-                break;
         }
     }
 
@@ -81,5 +71,19 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                     view.onFinish();
                     view.loadMovieDetail(entity);
                 }, throwable -> view.onError());
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void searchMovie(String keyword, int pageIndex, boolean isClear) {
+        Api.getInstance().searchMovie(keyword, pageIndex * 20, 20)
+                .subscribeOn(Schedulers.io())
+                .map(entity -> entity)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(entity -> {
+                    view.onFinish();
+                    view.setData(entity, isClear);
+                }, throwable -> view.onError());
+
     }
 }

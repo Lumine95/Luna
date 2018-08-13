@@ -18,7 +18,7 @@ import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView, BGASwipeBackHelper.Delegate {
     public P presenter;
     private Unbinder unbinder;
-    private BGASwipeBackHelper mSwipeBackHelper;
+    public BGASwipeBackHelper mSwipeBackHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +39,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public abstract void initView();
 
     public void setStatusBarColor() {
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
+     //  StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
+        StatusBarUtil.setColorForSwipeBack(this, getResources().getColor(R.color.colorPrimary), 0);
     }
 
     private void initSwipeBackFinish() {

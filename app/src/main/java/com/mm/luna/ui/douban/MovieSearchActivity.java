@@ -1,16 +1,11 @@
 package com.mm.luna.ui.douban;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.speech.RecognizerIntent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.library.utils.U;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mm.luna.R;
@@ -37,10 +32,10 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
     @BindView(R.id.search_view) MaterialSearchView searchView;
 
     private StatusLayoutManager statusLayoutManager;
-    private int position = 3;
     private int pageIndex = 0;
     private MovieAdapter mAdapter;
     private List<HotMovieBean.SubjectsBean> listData = new ArrayList<>();
+    private String keyword;
 
     @Override
     public int getLayoutId() {
@@ -57,52 +52,57 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
         setStatusBarColor();
         initToolbar();
         initSearchView();
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
         statusLayoutManager = new StatusLayoutManager.Builder(refreshLayout)
+                .setDefaultEmptyImg(R.mipmap.ic_movie_search)
                 .setOnStatusChildClickListener(v -> {
-                    presenter.getMovieList(pageIndex, true, position);
+                    pageIndex = 0;
+                    presenter.searchMovie(keyword, pageIndex, true);
                 }).build();
-        statusLayoutManager.showLoadingLayout();
+        statusLayoutManager.showEmptyLayout();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        presenter.getMovieList(pageIndex, true, position);
 
-        mAdapter = new MovieAdapter(R.layout.item_movie, listData, position);
+        mAdapter = new MovieAdapter(R.layout.item_movie, listData, 3);
         recyclerView.setAdapter(mAdapter);
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mAdapter.setOnLoadMoreListener(() -> {
             pageIndex++;
-            presenter.getMovieList(pageIndex, false, position);
+            presenter.searchMovie(keyword, pageIndex, false);
         }, recyclerView);
         refreshLayout.setRefreshHeader(new PhoenixHeader(this));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             pageIndex = 0;
-            presenter.getMovieList(pageIndex, true, position);
+            presenter.searchMovie(keyword, pageIndex, true);
         });
     }
 
     private void initSearchView() {
-        searchView.showVoice(true);
-        searchView.setVoiceSearch(true);
-        searchView.setCursorDrawable(R.drawable.color_cursor_white);
+        searchView.setVoiceSearch(false);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Do some magic
+                pageIndex = 0;
+                keyword = query;
+                statusLayoutManager.showLoadingLayout();
+                presenter.searchMovie(keyword, pageIndex, true);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Do some magic
+
                 return false;
             }
         });
     }
 
     private void initToolbar() {
-        U.showToast(isVoiceAvailable() + "");
-        toolbar.setTitle("电影搜索");
+        toolbar.setTitle(getString(R.string.movie_search));
         toolbar.setNavigationIcon(R.mipmap.ic_left_arrow_white);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -113,7 +113,11 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
     @Override
     public void setData(HotMovieBean bean, boolean isClear) {
         if (bean.getSubjects().size() == 0) {
-            mAdapter.loadMoreEnd();
+            if (isClear) {
+                statusLayoutManager.showEmptyLayout();
+            } else {
+                mAdapter.loadMoreEnd();
+            }
         } else {
             if (isClear) {
                 listData.clear();
@@ -141,14 +145,6 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
     public void onError() {
         statusLayoutManager.showErrorLayout();
     }
-
-    private boolean isVoiceAvailable() {
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(
-                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        return activities.size() == 0;
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

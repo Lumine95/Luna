@@ -20,7 +20,8 @@
         android:gravity="center"
         android:text="@string/status_layout_manager_empty"
         android:textColor="@color/status_layout_tip_text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/bt_status_empty_click"

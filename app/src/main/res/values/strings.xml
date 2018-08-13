@@ -20,4 +20,5 @@
     <string name="gank_io">干货集中营</string>
     <string name="search">搜索</string>
     <string name="movie_search">电影搜索</string>
+    <string name="search_movie_hint">电影/演员/导演</string>
 </resources>
