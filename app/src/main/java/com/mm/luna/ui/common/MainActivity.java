@@ -19,6 +19,7 @@ import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.violet.VioletActivity;
+import com.mm.luna.ui.wan.ArticleFragment;
 import com.mm.luna.ui.zhihu.ZhiHuContract;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
 
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity {
     private DoubanFragment doubanFragment;
     private GankMainFragment gankFragment;
     private MenuItem itemSearch;
+    private ArticleFragment androidFragment;
 
     @Override
     public int getLayoutId() {
@@ -84,6 +86,11 @@ public class MainActivity extends BaseActivity {
                     if (doubanFragment == null) doubanFragment = new DoubanFragment();
                     switchContentFragment(doubanFragment);
                     break;
+                case R.id.drawer_wan_android:
+                    toolbar.setTitle(R.string.wan_android);
+                    if (androidFragment == null) androidFragment = new ArticleFragment();
+                    switchContentFragment(androidFragment);
+                    break;
                 case R.id.drawer_gank:
                     toolbar.setTitle(R.string.gank_io);
                     if (gankFragment == null) gankFragment = new GankMainFragment();
@@ -98,7 +105,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        itemSearch = menu.findItem(R.id.action_search);itemSearch.setVisible(false);
+        itemSearch = menu.findItem(R.id.action_search);
+        itemSearch.setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -159,5 +167,6 @@ public class MainActivity extends BaseActivity {
         RetrofitUrlManager.getInstance().putDomain("zhihu", "https://news-at.zhihu.com/");
         RetrofitUrlManager.getInstance().putDomain("douban", "https://api.douban.com/");
         RetrofitUrlManager.getInstance().putDomain("gank", "http://gank.io/api/");
+        RetrofitUrlManager.getInstance().putDomain("wan", "http://www.wanandroid.com/");
     }
 }

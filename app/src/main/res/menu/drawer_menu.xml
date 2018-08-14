@@ -17,10 +17,10 @@
     <item android:title="开发">
         <menu>
             <item
-                android:id="@+id/drawer_play_android"
+                android:id="@+id/drawer_wan_android"
                 android:checkable="true"
                 android:icon="@mipmap/ic_android"
-                android:title="@string/play_android" />
+                android:title="@string/wan_android" />
             <item
                 android:id="@+id/drawer_gank"
                 android:checkable="true"

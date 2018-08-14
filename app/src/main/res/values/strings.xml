@@ -16,9 +16,13 @@
     <string name="status_layout_manager_retry">重新加载</string>
     <string name="transition_movie_img">transition_movie_img</string>
     <string name="score">分</string>
-    <string name="play_android">玩安卓</string>
+    <string name="wan_android">玩安卓</string>
     <string name="gank_io">干货集中营</string>
     <string name="search">搜索</string>
     <string name="movie_search">电影搜索</string>
     <string name="search_movie_hint">电影/演员/导演</string>
+    <string name="menu">菜单</string>
+    <string name="open_with_browser">浏览器打开</string>
+    <string name="copy_url">复制链接</string>
+    <string name="share">分享</string>
 </resources>

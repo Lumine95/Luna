@@ -90,12 +90,12 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
                 keyword = query;
                 statusLayoutManager.showLoadingLayout();
                 presenter.searchMovie(keyword, pageIndex, true);
+                recyclerView.scrollToPosition(0);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 return false;
             }
         });
@@ -105,8 +105,6 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
         toolbar.setTitle(getString(R.string.movie_search));
         toolbar.setNavigationIcon(R.mipmap.ic_left_arrow_white);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
     }
 
@@ -151,6 +149,7 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
         getMenuInflater().inflate(R.menu.menu_search_movie, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
+        searchView.showSearch();
         return true;
     }
 

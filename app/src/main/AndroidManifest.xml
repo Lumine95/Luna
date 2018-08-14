@@ -40,7 +40,8 @@
         <!--电影搜索-->
         <activity
             android:name=".ui.douban.MovieSearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <!--WebView-->
         <activity
             android:name=".ui.common.WebViewActivity"

@@ -2,8 +2,11 @@ package com.mm.luna.ui.common;
 
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebView;
 import com.mm.luna.R;
@@ -59,6 +62,23 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_web_view, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_web_menu:
+                showBottomSheet();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onFinish() {
 
     }
@@ -66,6 +86,20 @@ public class WebViewActivity extends BaseActivity {
     @Override
     public void onError() {
 
+    }
+
+    private void showBottomSheet() {
+        new BottomSheet.Builder(this)
+                .title("选择分类")
+                .sheet(R.menu.menu_web_more)
+                .listener((dialog, which) -> {
+                    switch (which) {
+//                        case R.id.item_gank_all:
+//                            mCustomType = "all";
+//                            tvHeadName.setText("全部");
+//                            break;
+                    }
+                }).show();
     }
 
     @Override
