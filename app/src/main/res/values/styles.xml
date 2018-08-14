@@ -41,4 +41,18 @@
         <!-- Hint for edit text -->
         <item name="android:hint">@string/search_movie_hint</item>
     </style>
+
+    <style name="BottomSheet.StyleDialog" parent="BottomSheet.Dialog">
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowAnimationStyle">@style/BottomSheet.Animation</item>
+        <item name="android:textColorPrimary">@color/color_6</item>
+        <item name="android:textColorSecondary">@color/color_6</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColorHint">#42ffffff</item>
+        <item name="bs_dialogBackground">@color/white</item>
+        <item name="bs_dividerColor">@color/color_6</item>
+        <item name="bs_numColumns">5</item>
+        <item name="bs_listStyle">@style/BottomSheet.List</item>
+    </style>
+
 </resources>

@@ -14,6 +14,7 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by ZMM on 2018/8/8 13:54.
@@ -89,17 +90,16 @@ public class WebViewActivity extends BaseActivity {
     }
 
     private void showBottomSheet() {
-        new BottomSheet.Builder(this)
-                .title("选择分类")
+
+        new BottomSheet.Builder(this,R.style.BottomSheet_StyleDialog)
                 .sheet(R.menu.menu_web_more)
                 .listener((dialog, which) -> {
-                    switch (which) {
-//                        case R.id.item_gank_all:
-//                            mCustomType = "all";
-//                            tvHeadName.setText("全部");
-//                            break;
-                    }
-                }).show();
+            switch (which) {
+                case R.id.item_share:
+                    Toasty.info(this, "test").show();
+                    break;
+            }
+        }).show();
     }
 
     @Override

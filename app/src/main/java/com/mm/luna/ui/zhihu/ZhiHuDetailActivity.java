@@ -82,8 +82,7 @@ public class ZhiHuDetailActivity extends BaseActivity {
                     onFinish();
                     setData(ZhiHuDetailEntity);
                 }, throwable -> onError());
-
-    }
+     }
 
     private void setData(ZhiHuDetailEntity entity) {
         Glide.with(this).load(entity.getImage()).crossFade().into(ivHeader);
