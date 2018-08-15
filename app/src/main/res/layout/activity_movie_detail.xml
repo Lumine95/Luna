@@ -34,7 +34,7 @@
 
                     <ImageView
                         android:id="@+id/iv_movie"
-                        android:layout_width="125dp"
+                        android:layout_width="123.75dp"
                         android:layout_height="165dp"
                         android:layout_marginStart="@dimen/margin_size_20"
                         android:layout_marginTop="95dp"

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2f90b9</color>
+    <color name="colorPrimary">#3170a7</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#2f90b9</color>
+    <color name="colorAccent">#3170a7</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="blueLight">#713b3b</color>
 
     <color name="status_layout_background_color">#EBEBEB</color>
     <color name="status_layout_tip_text_color">#BFBFBF</color>
@@ -15,7 +14,6 @@
     <color name="itemBackground">#DD7D7D7D</color>
     <color name="colorPageBg">#f2f4f5</color>
     <color name="color_8">#888888</color>
-
 
 
     <!-- google's material design colours from

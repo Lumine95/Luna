@@ -48,7 +48,7 @@ public class GankMainFragment extends BaseFragment {
         titleList.add("Android");
         titleList.add("iOS");
         titleList.add("前端");
-        titleList.add("福利");
+        titleList.add("妹子");
 
         for (int i = 0; i < titleList.size(); i++) {
             fragmentList.add(createFragments(i));

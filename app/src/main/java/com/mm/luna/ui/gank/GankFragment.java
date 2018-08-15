@@ -15,9 +15,6 @@ import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 
 /**
@@ -28,7 +25,6 @@ public class GankFragment extends BaseFragment<GankContract.Presenter> implement
     @BindView(R.id.refresh_layout) SmartRefreshLayout refreshLayout;
     private int type;
     private int pageIndex = 1;
-    private List<GankBean.ResultsBean> listData = new ArrayList<>();
     private StatusLayoutManager statusLayoutManager;
     private BaseQuickAdapter<GankBean.ResultsBean, BaseViewHolder> mAdapter;
 
@@ -57,7 +53,7 @@ public class GankFragment extends BaseFragment<GankContract.Presenter> implement
         recyclerView.setLayoutManager(layoutManager);
         presenter.getArticleList(pageIndex, true, type);
 
-        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<GankBean.ResultsBean, BaseViewHolder>(R.layout.item_gank, listData) {
+        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<GankBean.ResultsBean, BaseViewHolder>(R.layout.item_gank) {
             @Override
             protected void convert(BaseViewHolder helper, GankBean.ResultsBean item) {
                 helper.setText(R.id.tv_title, item.getDesc());
@@ -86,14 +82,12 @@ public class GankFragment extends BaseFragment<GankContract.Presenter> implement
             mAdapter.loadMoreEnd();
         } else {
             if (isClear) {
-                listData.clear();
                 mAdapter.setNewData(bean.getResults());
             } else {
                 mAdapter.addData(bean.getResults());
             }
             mAdapter.loadMoreComplete();
         }
-        listData.addAll(bean.getResults());
         refreshLayout.finishRefresh(true);
     }
 

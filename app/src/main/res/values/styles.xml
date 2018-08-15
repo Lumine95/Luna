@@ -50,7 +50,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColorHint">#42ffffff</item>
         <item name="bs_dialogBackground">@color/white</item>
-        <item name="bs_dividerColor">@color/color_6</item>
+        <item name="bs_dividerColor">@color/transparent</item>
         <item name="bs_numColumns">5</item>
         <item name="bs_listStyle">@style/BottomSheet.List</item>
     </style>

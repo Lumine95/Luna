@@ -12,9 +12,9 @@ import com.just.agentweb.AgentWebView;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
+import com.mm.luna.util.SystemUtil;
 
 import butterknife.BindView;
-import es.dmoral.toasty.Toasty;
 
 /**
  * Created by ZMM on 2018/8/8 13:54.
@@ -24,6 +24,7 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.container) AgentWebView container;
     private AgentWeb mAgentWeb;
+    private String url;
 
     @Override
     public int getLayoutId() {
@@ -39,7 +40,7 @@ public class WebViewActivity extends BaseActivity {
     public void initView() {
         setStatusBarColor();
         String title = getIntent().getStringExtra("title");
-        String url = getIntent().getStringExtra("url");
+        url = getIntent().getStringExtra("url");
         initToolbar(title);
         loadUrl(url);
     }
@@ -90,16 +91,21 @@ public class WebViewActivity extends BaseActivity {
     }
 
     private void showBottomSheet() {
-
-        new BottomSheet.Builder(this,R.style.BottomSheet_StyleDialog)
+        new BottomSheet.Builder(this, R.style.BottomSheet_StyleDialog)
                 .sheet(R.menu.menu_web_more)
                 .listener((dialog, which) -> {
-            switch (which) {
-                case R.id.item_share:
-                    Toasty.info(this, "test").show();
-                    break;
-            }
-        }).show();
+                    switch (which) {
+                        case R.id.item_share:
+                            SystemUtil.share(this, url);
+                            break;
+                        case R.id.item_copy:
+                            SystemUtil.copyText(this, url);
+                            break;
+                        case R.id.item_browser:
+                            SystemUtil.openWithBrowser(this, url);
+                            break;
+                    }
+                }).show();
     }
 
     @Override
