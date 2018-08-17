@@ -12,6 +12,11 @@
                 android:checkable="true"
                 android:icon="@mipmap/ic_douban"
                 android:title="@string/douban_movie" />
+            <item
+                android:id="@+id/drawer_orange"
+                android:checkable="true"
+                android:icon="@mipmap/ic_orange"
+                android:title="@string/orange_title" />
         </menu>
     </item>
     <item android:title="开发">

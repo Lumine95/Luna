@@ -7,7 +7,7 @@ import com.mm.luna.bean.GankBean;
 /**
  * Created by ZMM on 2018/8/10 15:32.
  */
-public class GankContract {
+class GankContract {
     interface View extends BaseView {
         void setData(GankBean bean, boolean isClear);
     }

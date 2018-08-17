@@ -6,7 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.orhanobut.logger.Logger;
+
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ import java.util.List;
  */
 
 public class CommonFragmentAdapter extends FragmentPagerAdapter {
-    private List<Fragment> fragmentList = new ArrayList<>();
-    private List<String> titleList = new ArrayList<>();
+    private List<Fragment> fragmentList;
+    private List<String> titleList;
 
     public CommonFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {
         super(fm);
@@ -39,6 +40,7 @@ public class CommonFragmentAdapter extends FragmentPagerAdapter {
     }
 
     public void setFragments(FragmentManager fm, List<Fragment> fragments) {
+        Logger.d( "setFragmentssetFragments");
         if (fragmentList != null) {
             FragmentTransaction ft = fm.beginTransaction();
             for (Fragment f : fragmentList) {

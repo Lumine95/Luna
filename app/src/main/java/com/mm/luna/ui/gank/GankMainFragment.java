@@ -115,14 +115,4 @@ public class GankMainFragment extends BaseFragment {
             }
         });
     }
-
-    @Override
-    public void onFinish() {
-
-    }
-
-    @Override
-    public void onError() {
-
-    }
 }

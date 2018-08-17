@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.ComicEntity;
@@ -51,7 +52,7 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
     @Override
     public void initView() {
         tag = getIntent().getIntExtra("tag", 0);
-        setStatusBarColor();
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

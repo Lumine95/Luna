@@ -9,6 +9,7 @@ import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.bean.ZhiHuEntity;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
@@ -59,6 +60,10 @@ public interface RetrofitService {
     @Headers({"Domain-Name: gank"})
     @GET("data/{type}/{count}/{page}")
     Observable<GankBean> getGankList(@Path("type") String type, @Path("count") int count, @Path("page") int page);
+
+    @Headers({"Domain-Name: orange"})
+    @GET("meitumeiju")
+    Observable<ResponseBody> getSentenceList(@Query("page") int page);
 
     @Headers({"Domain-Name: wan"})
     @GET("article/list/{page}/json")

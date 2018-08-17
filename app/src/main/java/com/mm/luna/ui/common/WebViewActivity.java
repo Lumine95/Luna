@@ -25,6 +25,7 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.container) AgentWebView container;
     private AgentWeb mAgentWeb;
     private String url;
+    private String title;
 
     @Override
     public int getLayoutId() {
@@ -39,7 +40,7 @@ public class WebViewActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarColor();
-        String title = getIntent().getStringExtra("title");
+        title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
         initToolbar(title);
         loadUrl(url);
@@ -96,7 +97,7 @@ public class WebViewActivity extends BaseActivity {
                 .listener((dialog, which) -> {
                     switch (which) {
                         case R.id.item_share:
-                            SystemUtil.share(this, url);
+                            SystemUtil.share(this, title, url);
                             break;
                         case R.id.item_copy:
                             SystemUtil.copyText(this, url);

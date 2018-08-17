@@ -18,6 +18,7 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
+import com.mm.luna.ui.orange.OrangeFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.wan.ArticleFragment;
 import com.mm.luna.ui.zhihu.ZhiHuContract;
@@ -37,11 +38,13 @@ public class MainActivity extends BaseActivity {
 
     private int which = 0;
     private Fragment mContent;
+
     private ZhiHuFragment zhiHuFragment;
     private DoubanFragment doubanFragment;
     private GankMainFragment gankFragment;
     private MenuItem itemSearch;
     private ArticleFragment androidFragment;
+    private OrangeFragment orangeFragment;
 
     @Override
     public int getLayoutId() {
@@ -85,6 +88,11 @@ public class MainActivity extends BaseActivity {
                     itemSearch.setVisible(true);
                     if (doubanFragment == null) doubanFragment = new DoubanFragment();
                     switchContentFragment(doubanFragment);
+                    break;
+                case R.id.drawer_orange:
+                    toolbar.setTitle(R.string.orange_title);
+                    if (orangeFragment == null) orangeFragment = new OrangeFragment();
+                    switchContentFragment(orangeFragment);
                     break;
                 case R.id.drawer_wan_android:
                     toolbar.setTitle(R.string.wan_android);
@@ -168,5 +176,6 @@ public class MainActivity extends BaseActivity {
         RetrofitUrlManager.getInstance().putDomain("douban", "https://api.douban.com/");
         RetrofitUrlManager.getInstance().putDomain("gank", "http://gank.io/api/");
         RetrofitUrlManager.getInstance().putDomain("wan", "http://www.wanandroid.com/");
+        RetrofitUrlManager.getInstance().putDomain("orange", "https://www.juzimi.com/");
     }
 }
