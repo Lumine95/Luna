@@ -10,10 +10,14 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.SentenceBean;
+import com.mm.luna.ui.common.ImagePreviewActivity;
 import com.mm.luna.util.GlideUtil;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -25,11 +29,12 @@ public class SentenceFragment extends BaseFragment<OrangeContract.Presenter> imp
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.refresh_layout) SmartRefreshLayout refreshLayout;
 
-    private int pageIndex =  0;
+    private int pageIndex = 0;
     private int type;
     private StatusLayoutManager statusLayoutManager;
     private BaseQuickAdapter<SentenceBean.ResultBean, BaseViewHolder> mAdapter;
     private int totalPage = 0;
+    private List<String> imageUrls = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -48,7 +53,7 @@ public class SentenceFragment extends BaseFragment<OrangeContract.Presenter> imp
         }
         statusLayoutManager = new StatusLayoutManager.Builder(refreshLayout)
                 .setOnStatusChildClickListener(v -> {
-                    // presenter.getArticleList(pageIndex, true, type);
+                    presenter.getSentenceList(pageIndex, true, type);
                 }).build();
         statusLayoutManager.showLoadingLayout();
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
@@ -60,11 +65,15 @@ public class SentenceFragment extends BaseFragment<OrangeContract.Presenter> imp
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<SentenceBean.ResultBean, BaseViewHolder>(R.layout.item_sentence) {
             @Override
             protected void convert(BaseViewHolder helper, SentenceBean.ResultBean item) {
+                helper.setGone(R.id.tv_title, !TextUtils.isEmpty(item.getText()));
                 helper.setText(R.id.tv_title, item.getText());
-                GlideUtil.loadImage(mContext, item.getPic(), helper.getView(R.id.iv_card), R.mipmap.ic_image_default);
-//                helper.itemView.setOnClickListener(v -> startActivity(new Intent(mContext, WebViewActivity.class)
-//                        .putExtra("title", item.getDesc())
-//                        .putExtra("url", item.getPic())));
+                GlideUtil.loadImage(mContext, item.getPic(), helper.getView(R.id.iv_card), R.mipmap.ic_default_bilibili_h);
+
+                helper.itemView.setOnClickListener(v -> {
+                    imageUrls.clear();
+                    imageUrls.add(item.getPic());
+                    ImagePreviewActivity.startImagePagerActivity(mActivity, imageUrls, 0);
+                });
             }
         });
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);

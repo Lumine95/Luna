@@ -17,7 +17,7 @@ public class SentenceBean {
         private String pic;
 
         public String getText() {
-            return text == null ? "" : text;
+            return text == null ? "" : text.trim();
         }
 
         public void setText(String text) {

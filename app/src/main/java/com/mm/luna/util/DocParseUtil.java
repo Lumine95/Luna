@@ -1,6 +1,7 @@
 package com.mm.luna.util;
 
 import com.mm.luna.bean.SentenceBean;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ public class DocParseUtil {
                     String data = bdshare.attr("data");
                     try {
                         JSONObject jsonObject = new JSONObject(data);
+                        Logger.json(jsonObject.toString());
                         SentenceBean.ResultBean bean = new SentenceBean.ResultBean();
                         bean.setText(jsonObject.get("text").toString());
                         bean.setDesc(jsonObject.get("desc").toString());

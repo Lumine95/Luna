@@ -46,6 +46,13 @@
         <activity
             android:name=".ui.common.WebViewActivity"
             android:screenOrientation="portrait" />
+        <!--图片预览-->
+        <activity
+            android:name=".ui.common.ImagePreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.common.OrangeActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

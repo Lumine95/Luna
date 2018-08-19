@@ -65,6 +65,14 @@ public interface RetrofitService {
     @GET("meitumeiju")
     Observable<ResponseBody> getSentenceList(@Query("page") int page);
 
+    @Headers({"Domain-Name: orange"})
+    @GET("meitumeiju/shouxiemeiju")
+    Observable<ResponseBody> getHandWriting(@Query("page") int page);
+
+    @Headers({"Domain-Name: orange"})
+    @GET("meitumeiju/jingdianduibai")
+    Observable<ResponseBody> getMovieDialog(@Query("page") int page);
+
     @Headers({"Domain-Name: wan"})
     @GET("article/list/{page}/json")
     Observable<ArticleBean> getArticleList(@Path("page") int page);

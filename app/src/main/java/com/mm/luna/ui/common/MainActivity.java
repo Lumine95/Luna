@@ -93,6 +93,7 @@ public class MainActivity extends BaseActivity {
                     toolbar.setTitle(R.string.orange_title);
                     if (orangeFragment == null) orangeFragment = new OrangeFragment();
                     switchContentFragment(orangeFragment);
+                   // startActivity(new Intent(this, OrangeActivity.class));
                     break;
                 case R.id.drawer_wan_android:
                     toolbar.setTitle(R.string.wan_android);

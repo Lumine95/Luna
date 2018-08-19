@@ -22,16 +22,43 @@ public class OrangePresenter extends BasePresenterImpl<OrangeContract.View> impl
     @SuppressLint("CheckResult")
     @Override
     public void getSentenceList(int pageIndex, boolean isClear, int type) {
-        Api.getInstance().getSentenceList(pageIndex)
-                .subscribeOn(Schedulers.io())
-                .map(entity -> entity)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseBody -> {
-                    view.onFinish();
-                    String html = SystemUtil.is2Str(responseBody.byteStream());
-                    SentenceBean sentenceBean = DocParseUtil.parseOrangeSentence(isClear, html);
-                    view.setData(sentenceBean, isClear);
-                }, throwable -> view.onError());
-
+        switch (type) {
+            case 0:
+                Api.getInstance().getSentenceList(pageIndex)
+                        .subscribeOn(Schedulers.io())
+                        .map(entity -> entity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(responseBody -> {
+                            view.onFinish();
+                            String html = SystemUtil.is2Str(responseBody.byteStream());
+                            SentenceBean sentenceBean = DocParseUtil.parseOrangeSentence(isClear, html);
+                            view.setData(sentenceBean, isClear);
+                        }, throwable -> view.onError());
+                break;
+            case 1:
+                Api.getInstance().getHandWriting(pageIndex)
+                        .subscribeOn(Schedulers.io())
+                        .map(entity -> entity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(responseBody -> {
+                            view.onFinish();
+                            String html = SystemUtil.is2Str(responseBody.byteStream());
+                            SentenceBean sentenceBean = DocParseUtil.parseOrangeSentence(isClear, html);
+                            view.setData(sentenceBean, isClear);
+                        }, throwable -> view.onError());
+                break;
+            case 2:
+                Api.getInstance().getMovieDialog(pageIndex)
+                        .subscribeOn(Schedulers.io())
+                        .map(entity -> entity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(responseBody -> {
+                            view.onFinish();
+                            String html = SystemUtil.is2Str(responseBody.byteStream());
+                            SentenceBean sentenceBean = DocParseUtil.parseOrangeSentence(isClear, html);
+                            view.setData(sentenceBean, isClear);
+                        }, throwable -> view.onError());
+                break;
+        }
     }
 }
