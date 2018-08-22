@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.android.library.utils.DensityUtil;
 import com.mm.luna.ui.adapter.CommonFragmentAdapter;
-import com.mm.luna.ui.orange.OrangeFragment;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -87,7 +86,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     }
 
-    public void createVPFragment(OrangeFragment fragment, ViewPager viewPager, TabLayout tabLayout, List<String> titleList, List<Fragment> fragmentList) {
+    public void createVPFragment( Fragment fragment, ViewPager viewPager, TabLayout tabLayout, List<String> titleList, List<Fragment> fragmentList) {
         viewPager.setAdapter(new CommonFragmentAdapter(fragment.getChildFragmentManager(), fragmentList, titleList));
         for (int i = 0; i < titleList.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(titleList.get(i)));

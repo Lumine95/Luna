@@ -76,4 +76,24 @@ public interface RetrofitService {
     @Headers({"Domain-Name: wan"})
     @GET("article/list/{page}/json")
     Observable<ArticleBean> getArticleList(@Path("page") int page);
+
+    @Headers({"Domain-Name: cfan"})
+    @GET("{page}.shtml")
+    Observable<ResponseBody> getCFanHome(@Path("page") int page);
+
+    @Headers({"Domain-Name: cfan"})
+    @GET("news/{page}.shtml")
+    Observable<ResponseBody> getCFanNews(@Path("page") int page);
+
+    @Headers({"Domain-Name: cfan"})
+    @GET("product/{page}.shtml")
+    Observable<ResponseBody> getCFanProduct(@Path("page") int page);
+
+    @Headers({"Domain-Name: cfan"})
+    @GET("technic/{page}.shtml")
+    Observable<ResponseBody> getCFanTech(@Path("page") int page);
+
+    @Headers({"Domain-Name: cfan"})
+    @GET("special/{page}.shtml")
+    Observable<ResponseBody> getCFanSpecial(@Path("page") int page);
 }

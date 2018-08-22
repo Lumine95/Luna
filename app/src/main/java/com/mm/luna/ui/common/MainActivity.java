@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
+import com.mm.luna.ui.computer.ComputerFragment;
 import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity {
     private MenuItem itemSearch;
     private ArticleFragment androidFragment;
     private OrangeFragment orangeFragment;
+    private ComputerFragment computerFragment;
 
     @Override
     public int getLayoutId() {
@@ -93,7 +95,11 @@ public class MainActivity extends BaseActivity {
                     toolbar.setTitle(R.string.orange_title);
                     if (orangeFragment == null) orangeFragment = new OrangeFragment();
                     switchContentFragment(orangeFragment);
-                   // startActivity(new Intent(this, OrangeActivity.class));
+                    break;
+                case R.id.drawer_computer:
+                    toolbar.setTitle(R.string.computer_fan);
+                    if (computerFragment == null) computerFragment = new ComputerFragment();
+                    switchContentFragment(computerFragment);
                     break;
                 case R.id.drawer_wan_android:
                     toolbar.setTitle(R.string.wan_android);
@@ -178,5 +184,6 @@ public class MainActivity extends BaseActivity {
         RetrofitUrlManager.getInstance().putDomain("gank", "http://gank.io/api/");
         RetrofitUrlManager.getInstance().putDomain("wan", "http://www.wanandroid.com/");
         RetrofitUrlManager.getInstance().putDomain("orange", "https://www.juzimi.com/");
+        RetrofitUrlManager.getInstance().putDomain("cfan", "http://www.cfan.com.cn/");
     }
 }

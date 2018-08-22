@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,8 +18,10 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
 import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.util.HtmlUtils;
+import com.mm.luna.util.SystemUtil;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -43,12 +46,12 @@ public class ZhiHuDetailActivity extends BaseActivity {
     NestedScrollView nestedView;
     @BindView(R.id.iv_star)
     ImageView ivStar;
-    @BindView(R.id.iv_comment)
-    ImageView ivComment;
     @BindView(R.id.iv_share)
     ImageView ivShare;
     @BindView(R.id.tap_bar)
     TapBarMenu tapBar;
+    private String title;
+    private String shareUrl;
 
     @Override
     public int getLayoutId() {
@@ -82,15 +85,16 @@ public class ZhiHuDetailActivity extends BaseActivity {
                     onFinish();
                     setData(ZhiHuDetailEntity);
                 }, throwable -> onError());
-     }
+    }
 
     private void setData(ZhiHuDetailEntity entity) {
         Glide.with(this).load(entity.getImage()).crossFade().into(ivHeader);
-        tvTitle.setText(entity.getTitle());
+        tvTitle.setText(title = entity.getTitle());
         tvSource.setText(entity.getImage_source());
         webView.setDrawingCacheEnabled(true);
         String htmlData = HtmlUtils.createHtmlData(entity.getBody(), entity.getCss(), entity.getJs());
         webView.loadData(htmlData, HtmlUtils.MIME_TYPE, HtmlUtils.ENCODING);
+        shareUrl = entity.getShare_url();
     }
 
     @Override
@@ -101,5 +105,18 @@ public class ZhiHuDetailActivity extends BaseActivity {
     @Override
     public void onError() {
 
+    }
+
+    @OnClick({R.id.iv_star, R.id.iv_share})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_star:
+                ivStar.setSelected(!ivStar.isSelected());
+                break;
+            case R.id.iv_share:
+                SystemUtil.share(this, title, shareUrl);
+                tapBar.toggle();
+                break;
+        }
     }
 }

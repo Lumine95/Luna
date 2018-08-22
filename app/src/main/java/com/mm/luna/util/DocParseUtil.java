@@ -1,7 +1,7 @@
 package com.mm.luna.util;
 
+import com.mm.luna.bean.CFanBean;
 import com.mm.luna.bean.SentenceBean;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +37,6 @@ public class DocParseUtil {
                     String data = bdshare.attr("data");
                     try {
                         JSONObject jsonObject = new JSONObject(data);
-                        Logger.json(jsonObject.toString());
                         SentenceBean.ResultBean bean = new SentenceBean.ResultBean();
                         bean.setText(jsonObject.get("text").toString());
                         bean.setDesc(jsonObject.get("desc").toString());
@@ -52,5 +51,25 @@ public class DocParseUtil {
         }
         sentenceBean.setList(sentenceList);
         return sentenceBean;
+    }
+
+    public static List<CFanBean> parseCFanNews(String html) {
+        List<CFanBean> list = new ArrayList<>();
+
+        Document document = Jsoup.parse(html);
+        Elements elements = document.getElementsByClass("left-post");
+        for (int i = 0; i < elements.size(); i++) {
+            Element element = elements.get(i);
+            if (element != null) {
+                String type = element.select("div.new-item").text();
+                String detailUrl = element.select("a").attr("href");
+                String title = element.select("a").attr("title");
+                String image = SystemUtil.getStrFromParen(element.select("div.left-post-pic").attr("style"));
+                String intro = element.select("div.left-post-txt").text();
+                String author = element.select("div.author").text();
+                list.add(new CFanBean(type, title, image, detailUrl, intro, author));
+            }
+        }
+        return list;
     }
 }

@@ -5,9 +5,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.mm.luna.R;
 
@@ -18,6 +20,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import es.dmoral.toasty.Toasty;
 
@@ -33,7 +37,7 @@ public class SystemUtil {
      * @param url
      */
     public static void share(Context context, String title, String url) {
-        String shareText = "【" + title + "】\n" + url;
+        String shareText = "【" + title + "】\n" + url + "\nvia:Luna";
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
@@ -89,11 +93,11 @@ public class SystemUtil {
         if (!appDir.exists()) {
             appDir.mkdir();
         }
-        String fileName = System.currentTimeMillis() + ".jpg";
+        String fileName = System.currentTimeMillis() + ".png";
         File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, fos);
             fos.flush();
             fos.close();
             Toasty.info(context, "图片保存成功").show();
@@ -101,7 +105,6 @@ public class SystemUtil {
             Toasty.error(context, "图片保存失败").show();
             e.printStackTrace();
         }
-
         // 其次把文件插入到系统图库
         try {
             MediaStore.Images.Media.insertImage(context.getContentResolver(),
@@ -111,5 +114,26 @@ public class SystemUtil {
         }
         // 最后通知图库更新
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + Uri.fromFile(file))));
+    }
+
+    public static Bitmap getBitmapFromUrl(String url) {
+        URL myFileUrl;
+        Bitmap bitmap = null;
+        try {
+            myFileUrl = new URL(url);
+            HttpURLConnection conn;
+            conn = (HttpURLConnection) myFileUrl.openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    public static String getStrFromParen(String str) {
+        return TextUtils.isEmpty(str) ? "" : str.substring(str.indexOf("(") + 1, str.indexOf(")"));
     }
 }

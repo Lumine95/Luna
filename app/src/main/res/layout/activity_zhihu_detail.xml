@@ -67,8 +67,8 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:minHeight="?attr/actionBarSize"
+                android:layout_height="?android:attr/actionBarSize"
+                android:minHeight="?android:attr/actionBarSize"
                 app:contentInsetStart="7dp"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
@@ -107,27 +107,16 @@
             android:id="@+id/iv_star"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:src="@mipmap/ic_star" />
-
-        <ImageView
-            android:id="@+id/iv_comment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:src="@mipmap/ic_comment" />
+            android:src="@drawable/selector_star" />
 
         <ImageView
             android:id="@+id/iv_share"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+
             android:layout_weight="1"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"

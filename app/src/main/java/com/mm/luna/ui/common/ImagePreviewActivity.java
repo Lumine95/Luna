@@ -1,5 +1,6 @@
 package com.mm.luna.ui.common;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.library.utils.U;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -26,11 +28,17 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mm.luna.R;
 import com.mm.luna.util.StatusBarUtils;
+import com.mm.luna.util.SystemUtil;
 import com.mm.luna.view.ViewPagerFixed;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import uk.co.senab.photoview.PhotoView;
 
 
@@ -44,6 +52,7 @@ public class ImagePreviewActivity extends Activity {
     private TextView tvIndicator;
     private Button btnSaveImage;
     private GlideDrawable glideDrawable;
+    private int position = 0;
 
     public static void startImagePagerActivity(Activity activity, List<String> imgUrls, int position) {
         Intent intent = new Intent(activity, ImagePreviewActivity.class);
@@ -81,17 +90,15 @@ public class ImagePreviewActivity extends Activity {
 
     @SuppressLint("SetTextI18n")
     public void initView() {
+        int startPos = getIntent().getIntExtra(INTENT_POSITION, 0);
+        ArrayList<String> imgUrls = getIntent().getStringArrayListExtra(INTENT_IMGURLS);
+
         StatusBarUtils.setTransparent(this);
         ViewPager viewPager = (ViewPagerFixed) findViewById(R.id.pager);
         tvIndicator = findViewById(R.id.tv_indicator);
         btnSaveImage = findViewById(R.id.btn_save_image);
-        btnSaveImage.setOnClickListener(v -> {
-            if (glideDrawable != null) {
-//                SystemUtil.saveImageToGallery(this,glideDrawable);
-            }
-        });
-        int startPos = getIntent().getIntExtra(INTENT_POSITION, 0);
-        ArrayList<String> imgUrls = getIntent().getStringArrayListExtra(INTENT_IMGURLS);
+        btnSaveImage.setOnClickListener(v -> saveImage(imgUrls));
+
         if (imgUrls.size() > 1) {
             tvIndicator.setText((startPos + 1) + "/" + imgUrls.size());
         }
@@ -107,6 +114,7 @@ public class ImagePreviewActivity extends Activity {
 
             @Override
             public void onPageSelected(int position) {
+                ImagePreviewActivity.this.position = position;
                 tvIndicator.setText((position + 1) + "/" + imgUrls.size());
             }
 
@@ -116,6 +124,21 @@ public class ImagePreviewActivity extends Activity {
             }
         });
         viewPager.setCurrentItem(startPos);
+    }
+
+    @SuppressLint("CheckResult")
+    private void saveImage(ArrayList<String> imgUrls) {
+        new RxPermissions(this).request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(granted -> {
+            if (granted) {
+                Observable.just(imgUrls.get(position))
+                        .subscribeOn(Schedulers.io())
+                        .map(SystemUtil::getBitmapFromUrl)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(bitmap -> SystemUtil.saveImageToGallery(this, bitmap), throwable -> Toasty.error(this, "保存图片失败").show());
+            } else {
+                U.showToast("没有获取到权限");
+            }
+        });
     }
 
     private class ImageAdapter extends PagerAdapter {
@@ -179,7 +202,6 @@ public class ImagePreviewActivity extends Activity {
 
                             @Override
                             public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-
                                 glideDrawable = resource;
                                 loading.setVisibility(View.GONE);
                                 btnSaveImage.setVisibility(View.VISIBLE);
@@ -211,7 +233,6 @@ public class ImagePreviewActivity extends Activity {
         public Parcelable saveState() {
             return null;
         }
-
 
     }
 }

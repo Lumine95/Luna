@@ -4,6 +4,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.cocosw.bottomsheet.BottomSheet;
@@ -53,6 +54,7 @@ public class WebViewActivity extends BaseActivity {
                 .createAgentWeb()
                 .ready()
                 .go(url);
+        mAgentWeb.getWebCreator().getWebView().setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
     private void initToolbar(String title) {
