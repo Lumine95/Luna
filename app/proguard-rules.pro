@@ -182,5 +182,7 @@
      <init>(...);
 }
 
+# Banner
+-keep class com.youth.banner.** { *;}
 
 

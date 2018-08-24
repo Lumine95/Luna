@@ -92,8 +92,4 @@ public interface RetrofitService {
     @Headers({"Domain-Name: cfan"})
     @GET("technic/{page}.shtml")
     Observable<ResponseBody> getCFanTech(@Path("page") int page);
-
-    @Headers({"Domain-Name: cfan"})
-    @GET("special/{page}.shtml")
-    Observable<ResponseBody> getCFanSpecial(@Path("page") int page);
 }

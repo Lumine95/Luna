@@ -19,7 +19,7 @@ import okhttp3.ResponseBody;
  * Created by ZMM on 2018/8/22 16:10.
  */
 public class FanPresenter extends BasePresenterImpl<FanContract.View> implements FanContract.Presenter {
-    public FanPresenter(FanContract.View view) {
+    FanPresenter(FanContract.View view) {
         super(view);
     }
 
@@ -40,19 +40,19 @@ public class FanPresenter extends BasePresenterImpl<FanContract.View> implements
             case 3:
                 observableApi = Api.getInstance().getCFanTech(pageIndex);
                 break;
-            case 4:
-                observableApi = Api.getInstance().getCFanSpecial(pageIndex);
-                break;
         }
         observableApi.subscribeOn(Schedulers.io())
                 .map(entity -> entity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(responseBody -> {
-                    view.onFinish();
                     String html = SystemUtil.is2Str(responseBody.byteStream());
+                    if (type == 0 && isClear) {
+                        List<CFanBean> bannerList = DocParseUtil.parseCFanBanner(html);
+                        view.setBannerData(bannerList);
+                    }
                     List<CFanBean> list = DocParseUtil.parseCFanNews(html);
                     view.setData(list, isClear);
+                    view.onFinish();
                 }, throwable -> view.onError());
-
     }
 }

@@ -5,12 +5,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.android.library.view.LabelView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseFragment;
 import com.mm.luna.bean.CFanBean;
 import com.mm.luna.ui.common.WebViewActivity;
+import com.mm.luna.util.GlideUtil;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
 import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -31,6 +33,7 @@ public class FanFragment extends BaseFragment<FanContract.Presenter> implements 
     private int type;
     private StatusLayoutManager statusLayoutManager;
     private BaseQuickAdapter<CFanBean, BaseViewHolder> mAdapter;
+    private FanHeaderView headerView;
 
     @Override
     public int getLayoutId() {
@@ -58,11 +61,13 @@ public class FanFragment extends BaseFragment<FanContract.Presenter> implements 
 
         presenter.getArticleList(pageIndex, true, type);
 
-        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<CFanBean, BaseViewHolder>(R.layout.item_article) {
+        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<CFanBean, BaseViewHolder>(R.layout.item_computer_fan) {
             @Override
             protected void convert(BaseViewHolder helper, CFanBean item) {
                 helper.setText(R.id.tv_title, item.getTitle());
-//                GlideUtil.loadImage(mContext, item.getPic(), helper.getView(R.id.iv_card), R.mipmap.ic_default_bilibili_h);
+                helper.setText(R.id.tv_intro, item.getIntro());
+                ((LabelView) helper.getView(R.id.label_view)).setText(item.getCategory());
+                GlideUtil.loadImage(mContext, item.getImage(), helper.getView(R.id.iv_card), R.mipmap.ic_default_bilibili);
                 helper.itemView.setOnClickListener(v -> startActivity(new Intent(mContext, WebViewActivity.class)
                         .putExtra("title", getString(R.string.computer_fan))
                         .putExtra("url", item.getUrl())));
@@ -100,6 +105,13 @@ public class FanFragment extends BaseFragment<FanContract.Presenter> implements 
     }
 
     @Override
+    public void setBannerData(List<CFanBean> bannerList) {
+        if (bannerList.size() > 0 && headerView == null) {
+            mAdapter.addHeaderView(headerView = new FanHeaderView(mContext, bannerList));
+        }
+    }
+
+    @Override
     public void onFinish() {
         statusLayoutManager.showSuccessLayout();
     }
@@ -107,5 +119,21 @@ public class FanFragment extends BaseFragment<FanContract.Presenter> implements 
     @Override
     public void onError() {
         statusLayoutManager.showErrorLayout();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (headerView != null) {
+            headerView.banner.startAutoPlay();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (headerView != null) {
+            headerView.banner.stopAutoPlay();
+        }
     }
 }

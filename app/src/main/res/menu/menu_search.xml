@@ -5,5 +5,12 @@
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_search"
         android:title="@string/search"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_ticket"
+        android:icon="@mipmap/ic_search"
+        android:title="@string/box_office"
+        android:visible="false"
         app:showAsAction="always" />
 </menu>

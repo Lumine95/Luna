@@ -2,6 +2,7 @@ package com.mm.luna.ui.common;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
@@ -39,14 +41,17 @@ public class MainActivity extends BaseActivity {
 
     private int which = 0;
     private Fragment mContent;
+    private Fragment targetFragment;
 
     private ZhiHuFragment zhiHuFragment;
     private DoubanFragment doubanFragment;
     private GankMainFragment gankFragment;
-    private MenuItem itemSearch;
     private ArticleFragment androidFragment;
     private OrangeFragment orangeFragment;
     private ComputerFragment computerFragment;
+
+    private MenuItem itemSearch;
+    private MenuItem itemTicket;
 
     @Override
     public int getLayoutId() {
@@ -64,7 +69,7 @@ public class MainActivity extends BaseActivity {
         StatusBarUtil.setColorForDrawerLayout(this, drawer, Color.TRANSPARENT, 0);
         if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
         switchContentFragment(zhiHuFragment);
-
+        targetFragment = zhiHuFragment;
         toolbar.setTitle(R.string.zhihu_daily);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -78,42 +83,68 @@ public class MainActivity extends BaseActivity {
         navigationView.setCheckedItem(R.id.drawer_zhihu);
         navigationView.getHeaderView(0).setOnClickListener(v -> violet());
         navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
+            itemTicket.setVisible(false);
             itemSearch.setVisible(false);
+            // drawer.closeDrawers();
             switch (item.getItemId()) {
                 case R.id.drawer_zhihu:
                     toolbar.setTitle(R.string.zhihu_daily);
-                    if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
-                    switchContentFragment(zhiHuFragment);
+                    if (zhiHuFragment == null) {
+                        targetFragment = zhiHuFragment = new ZhiHuFragment();
+                    } else {
+                        switchContentFragment(zhiHuFragment);
+                    }
                     break;
                 case R.id.drawer_douban:
                     toolbar.setTitle(R.string.douban_movie);
                     itemSearch.setVisible(true);
+                    itemTicket.setVisible(true);
                     if (doubanFragment == null) doubanFragment = new DoubanFragment();
                     switchContentFragment(doubanFragment);
                     break;
                 case R.id.drawer_orange:
                     toolbar.setTitle(R.string.orange_title);
-                    if (orangeFragment == null) orangeFragment = new OrangeFragment();
-                    switchContentFragment(orangeFragment);
+                    if (orangeFragment == null) {
+                        targetFragment = orangeFragment = new OrangeFragment();
+                    } else {
+                        switchContentFragment(orangeFragment);
+                    }
                     break;
                 case R.id.drawer_computer:
                     toolbar.setTitle(R.string.computer_fan);
-                    if (computerFragment == null) computerFragment = new ComputerFragment();
-                    switchContentFragment(computerFragment);
+                    if (computerFragment == null) {
+                        targetFragment = computerFragment = new ComputerFragment();
+                    } else {
+                        switchContentFragment(computerFragment);
+                    }
                     break;
                 case R.id.drawer_wan_android:
                     toolbar.setTitle(R.string.wan_android);
-                    if (androidFragment == null) androidFragment = new ArticleFragment();
-                    switchContentFragment(androidFragment);
+                    if (androidFragment == null) {
+                        targetFragment = androidFragment = new ArticleFragment();
+                    } else {
+                        switchContentFragment(androidFragment);
+                    }
                     break;
                 case R.id.drawer_gank:
                     toolbar.setTitle(R.string.gank_io);
-                    if (gankFragment == null) gankFragment = new GankMainFragment();
-                    switchContentFragment(gankFragment);
+                    if (gankFragment == null) {
+                        targetFragment = gankFragment = new GankMainFragment();
+                    } else {
+                        switchContentFragment(gankFragment);
+                    }
                     break;
             }
             drawer.closeDrawers();
             return true;
+        });
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                if (!targetFragment.isAdded()) {
+                    switchContentFragment(targetFragment);
+                }
+            }
         });
     }
 
@@ -121,7 +152,7 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         itemSearch = menu.findItem(R.id.action_search);
-        itemSearch.setVisible(false);
+        itemTicket = menu.findItem(R.id.action_ticket);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -129,6 +160,9 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
+                startActivity(new Intent(this, MovieSearchActivity.class));
+                break;
+            case R.id.action_ticket:
                 startActivity(new Intent(this, MovieSearchActivity.class));
                 break;
         }
@@ -185,5 +219,6 @@ public class MainActivity extends BaseActivity {
         RetrofitUrlManager.getInstance().putDomain("wan", "http://www.wanandroid.com/");
         RetrofitUrlManager.getInstance().putDomain("orange", "https://www.juzimi.com/");
         RetrofitUrlManager.getInstance().putDomain("cfan", "http://www.cfan.com.cn/");
+        RetrofitUrlManager.getInstance().putDomain("mob", "http://apicloud.mob.com/");
     }
 }

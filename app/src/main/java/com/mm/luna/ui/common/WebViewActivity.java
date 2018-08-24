@@ -14,6 +14,7 @@ import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.base.BasePresenter;
 import com.mm.luna.util.SystemUtil;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 
@@ -78,6 +79,11 @@ public class WebViewActivity extends BaseActivity {
         switch (id) {
             case R.id.action_web_menu:
                 showBottomSheet();
+
+                String ourl = mAgentWeb.getWebCreator().getWebView().getOriginalUrl();
+                String url = mAgentWeb.getWebCreator().getWebView().getUrl();
+                Logger.d("ourl: " + ourl);
+                Logger.d("url: " + url);
                 break;
         }
         return super.onOptionsItemSelected(item);

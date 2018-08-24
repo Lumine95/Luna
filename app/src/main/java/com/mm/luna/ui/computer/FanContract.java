@@ -12,9 +12,11 @@ import java.util.List;
 class FanContract {
     interface View extends BaseView {
         void setData(List<CFanBean> list, boolean isClear);
+
+        void setBannerData(List<CFanBean> bannerList);
     }
 
     interface Presenter extends BasePresenter {
-        void getArticleList(int pageIndex,boolean isClear,int type);
+        void getArticleList(int pageIndex, boolean isClear, int type);
     }
 }

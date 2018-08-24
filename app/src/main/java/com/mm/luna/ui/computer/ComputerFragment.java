@@ -42,8 +42,6 @@ public class ComputerFragment extends BaseFragment {
         titleList.add("新闻");
         titleList.add("产品");
         titleList.add("应用");
-        titleList.add("专题");
-
 
         for (int i = 0; i < titleList.size(); i++) {
             fragmentList.add(createFragments(i));

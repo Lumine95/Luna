@@ -1,5 +1,7 @@
 package com.mm.luna.util;
 
+import android.text.TextUtils;
+
 import com.mm.luna.bean.CFanBean;
 import com.mm.luna.bean.SentenceBean;
 
@@ -55,21 +57,38 @@ public class DocParseUtil {
 
     public static List<CFanBean> parseCFanNews(String html) {
         List<CFanBean> list = new ArrayList<>();
-
         Document document = Jsoup.parse(html);
         Elements elements = document.getElementsByClass("left-post");
         for (int i = 0; i < elements.size(); i++) {
             Element element = elements.get(i);
             if (element != null) {
-                String type = element.select("div.new-item").text();
+                String category = element.select("div.new-item").text();
                 String detailUrl = element.select("a").attr("href");
                 String title = element.select("a").attr("title");
                 String image = SystemUtil.getStrFromParen(element.select("div.left-post-pic").attr("style"));
                 String intro = element.select("div.left-post-txt").text();
                 String author = element.select("div.author").text();
-                list.add(new CFanBean(type, title, image, detailUrl, intro, author));
+                list.add(new CFanBean(category, title, image, detailUrl, intro, author));
             }
         }
         return list;
+    }
+
+    public static List<CFanBean> parseCFanBanner(String html) {
+        List<CFanBean> bannerList = new ArrayList<>();
+        Document document = Jsoup.parse(html);
+        Elements elements = document.getElementsByClass("focusimg");
+        Element element = elements.get(0);
+        if (element != null) {
+            Elements item = element.select("a");
+            for (Element e : item) {
+                String url = e.attr("href");
+                String title = e.attr("title");
+                String imageLeft = SystemUtil.getStrFromParen(e.select("div.focusimg_left").attr("style"));
+                String imageRight = SystemUtil.getStrFromParen(e.select("div.right_list").attr("style"));
+                bannerList.add(new CFanBean("", title, TextUtils.isEmpty(imageLeft) ? imageRight : imageLeft, url, "", ""));
+            }
+        }
+        return bannerList;
     }
 }
