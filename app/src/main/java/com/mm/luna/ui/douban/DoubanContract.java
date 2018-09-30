@@ -22,5 +22,7 @@ public interface DoubanContract {
         void getMovieDetail(String id);
 
         void searchMovie(String keyword, int pageIndex, boolean isClear);
+
+        void getBoxOffice();
     }
 }

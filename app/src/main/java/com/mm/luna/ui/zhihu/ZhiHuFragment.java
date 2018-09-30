@@ -52,7 +52,6 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     private int mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     private boolean isTop;
     private StatusLayoutManager statusLayoutManager;
-    private Calendar calendar;
 
     @Override
     public int getLayoutId() {
@@ -122,7 +121,7 @@ public class ZhiHuFragment extends BaseFragment<ZhiHuContract.Presenter> impleme
     }
 
     private void selectData() {
-        calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.set(mYear, mMonth, mDay);
         DatePickerDialog datePickerDialog = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
             mYear = year;

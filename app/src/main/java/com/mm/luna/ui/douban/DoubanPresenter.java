@@ -84,6 +84,19 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                     view.onFinish();
                     view.setData(entity, isClear);
                 }, throwable -> view.onError());
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getBoxOffice() {
+        Api.getInstance().getMovieBoxOffice("2764aa36b1b8a", "CN")
+                .subscribeOn(Schedulers.io())
+                .map(entity -> entity)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(entity -> {
+                    view.onFinish();
+                    view.setData(entity, true);
+                }, throwable -> view.onError());
 
     }
 }

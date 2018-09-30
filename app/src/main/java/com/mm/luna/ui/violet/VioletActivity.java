@@ -81,7 +81,7 @@ public class VioletActivity extends BaseActivity<VioletContract.Presenter> imple
     private void videoPlayer(int position, boolean isPlay) {
         VideoPlayerManager.instance().releaseVideoPlayer();
         //设置播放类型 :IjkPlayer or MediaPlayer
-        videoPlayer.setPlayerType(VideoPlayer.TYPE_NATIVE);
+        videoPlayer.setPlayerType(VideoPlayer.TYPE_IJK);
         //网络视频地址
         //设置视频地址和请求头部
         videoPlayer.setUp(listData.get(position).getVideoUrl(), null);

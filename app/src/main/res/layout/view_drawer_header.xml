@@ -4,8 +4,10 @@
     android:layout_height="180dp">
 
     <ImageView
+        android:id="@+id/iv_month"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/ic_month"
+        android:background="@mipmap/ic_default_bilibili_h"
+        android:contentDescription="@string/app_name"
         android:scaleType="centerCrop" />
 </android.support.constraint.ConstraintLayout>

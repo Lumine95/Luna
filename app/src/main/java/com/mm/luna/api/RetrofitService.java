@@ -3,6 +3,7 @@ package com.mm.luna.api;
 import com.mm.luna.bean.ArticleBean;
 import com.mm.luna.bean.ComicEntity;
 import com.mm.luna.bean.GankBean;
+import com.mm.luna.bean.HomeBean;
 import com.mm.luna.bean.HotMovieBean;
 import com.mm.luna.bean.MovieDetailBean;
 import com.mm.luna.bean.ZhiHuDetailEntity;
@@ -36,6 +37,9 @@ public interface RetrofitService {
 
     @GET("http://www.wanandroid.com/tools/mockapi/4060/comics")
     Observable<ComicEntity> getComicsList();
+
+    @GET("http://www.wanandroid.com/tools/mockapi/4060/monthPicture")
+    Observable<HomeBean> getMonthPicture();
 
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/in_theaters")
@@ -92,4 +96,8 @@ public interface RetrofitService {
     @Headers({"Domain-Name: cfan"})
     @GET("technic/{page}.shtml")
     Observable<ResponseBody> getCFanTech(@Path("page") int page);
+
+    @Headers({"Domain-Name: mob"})
+    @GET("/boxoffice/day/query")
+    Observable<HotMovieBean> getMovieBoxOffice(@Query("key") String mobKey, @Query("area") String area);
 }

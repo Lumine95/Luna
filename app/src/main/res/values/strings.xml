@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Luna</string>
+    <string name="app_name">半亩</string>
     <string name="image_source">图片来源</string>
     <string name="zhihu_daily">知乎日报</string>
     <string name="violet_evergarden">紫罗兰永恒花园</string>
@@ -30,4 +30,7 @@
     <string name="save">保存</string>
     <string name="computer_fan">电脑爱好者</string>
     <string name="box_office">票房</string>
+    <string name="development">开发</string>
+    <string name="setting">设置</string>
+    <string name="no_finish">还没写好呢</string>
 </resources>

@@ -3,40 +3,50 @@
     <item android:title="日常">
         <menu>
             <item
-                android:id="@+id/drawer_zhihu"
+                android:id="@+id/item_zhihu"
                 android:checkable="true"
                 android:icon="@mipmap/ic_drawer_zhihu"
                 android:title="@string/zhihu_daily" />
             <item
-                android:id="@+id/drawer_douban"
+                android:id="@+id/item_douban"
                 android:checkable="true"
                 android:icon="@mipmap/ic_douban"
                 android:title="@string/douban_movie" />
             <item
-                android:id="@+id/drawer_orange"
+                android:id="@+id/item_orange"
                 android:checkable="true"
                 android:icon="@mipmap/ic_orange"
-                android:title="@string/orange_title" />
+                android:title="@string/orange_title"
+                android:visible="false" />
             <item
-                android:id="@+id/drawer_computer"
+                android:id="@+id/item_computer"
                 android:checkable="true"
                 android:icon="@mipmap/ic_computer"
                 android:title="@string/computer_fan" />
         </menu>
     </item>
-    <item android:title="开发">
+    <item android:title="@string/development">
         <menu>
             <item
-                android:id="@+id/drawer_wan_android"
+                android:id="@+id/item_wan_android"
                 android:checkable="true"
                 android:icon="@mipmap/ic_android"
                 android:title="@string/wan_android" />
             <item
-                android:id="@+id/drawer_gank"
+                android:id="@+id/item_gank"
                 android:checkable="true"
                 android:icon="@mipmap/ic_gank"
                 android:title="@string/gank_io" />
         </menu>
+    </item>
 
+    <item android:title="@string/setting">
+        <menu>
+            <item
+                android:id="@+id/item_setting"
+                android:checkable="true"
+                android:icon="@mipmap/ic_setting"
+                android:title="@string/setting" />
+        </menu>
     </item>
 </menu>

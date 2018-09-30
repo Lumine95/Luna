@@ -1,8 +1,9 @@
-package com.mm.luna.ui.common;
+package com.mm.luna.ui.main;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,24 +14,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
+import com.mm.luna.bean.HomeBean;
 import com.mm.luna.ui.computer.ComputerFragment;
 import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.orange.OrangeFragment;
+import com.mm.luna.ui.setting.SettingFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.wan.ArticleFragment;
-import com.mm.luna.ui.zhihu.ZhiHuContract;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
 
 import butterknife.BindView;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 
     @BindView(R.id.drawer)
     DrawerLayout drawer;
@@ -49,9 +53,9 @@ public class MainActivity extends BaseActivity {
     private ArticleFragment androidFragment;
     private OrangeFragment orangeFragment;
     private ComputerFragment computerFragment;
+    private SettingFragment settingFragment;
 
     private MenuItem itemSearch;
-    private MenuItem itemTicket;
 
     @Override
     public int getLayoutId() {
@@ -59,13 +63,14 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public ZhiHuContract.Presenter initPresenter() {
-        return null;
+    public MainContract.Presenter initPresenter() {
+        return new MainPresenter(this);
     }
 
     @Override
     public void initView() {
         initRetrofitDomain();
+        presenter.getMonthPicture();
         StatusBarUtil.setColorForDrawerLayout(this, drawer, Color.TRANSPARENT, 0);
         if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
         switchContentFragment(zhiHuFragment);
@@ -79,15 +84,17 @@ public class MainActivity extends BaseActivity {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
-
-        navigationView.setCheckedItem(R.id.drawer_zhihu);
-        navigationView.getHeaderView(0).setOnClickListener(v -> violet());
+        NavigationMenuView navigationMenuItemView = (NavigationMenuView) navigationView.getChildAt(0);
+        if (navigationMenuItemView != null) {
+            navigationMenuItemView.setVerticalScrollBarEnabled(false);
+        }
+        navigationView.setCheckedItem(R.id.item_zhihu);
+        //    navigationView.getHeaderView(0).setOnClickListener(v -> violet());
         navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
-            itemTicket.setVisible(false);
             itemSearch.setVisible(false);
             // drawer.closeDrawers();
             switch (item.getItemId()) {
-                case R.id.drawer_zhihu:
+                case R.id.item_zhihu:
                     toolbar.setTitle(R.string.zhihu_daily);
                     if (zhiHuFragment == null) {
                         targetFragment = zhiHuFragment = new ZhiHuFragment();
@@ -95,14 +102,13 @@ public class MainActivity extends BaseActivity {
                         switchContentFragment(zhiHuFragment);
                     }
                     break;
-                case R.id.drawer_douban:
+                case R.id.item_douban:
                     toolbar.setTitle(R.string.douban_movie);
                     itemSearch.setVisible(true);
-                    itemTicket.setVisible(true);
                     if (doubanFragment == null) doubanFragment = new DoubanFragment();
                     switchContentFragment(doubanFragment);
                     break;
-                case R.id.drawer_orange:
+                case R.id.item_orange:
                     toolbar.setTitle(R.string.orange_title);
                     if (orangeFragment == null) {
                         targetFragment = orangeFragment = new OrangeFragment();
@@ -110,7 +116,7 @@ public class MainActivity extends BaseActivity {
                         switchContentFragment(orangeFragment);
                     }
                     break;
-                case R.id.drawer_computer:
+                case R.id.item_computer:
                     toolbar.setTitle(R.string.computer_fan);
                     if (computerFragment == null) {
                         targetFragment = computerFragment = new ComputerFragment();
@@ -118,7 +124,7 @@ public class MainActivity extends BaseActivity {
                         switchContentFragment(computerFragment);
                     }
                     break;
-                case R.id.drawer_wan_android:
+                case R.id.item_wan_android:
                     toolbar.setTitle(R.string.wan_android);
                     if (androidFragment == null) {
                         targetFragment = androidFragment = new ArticleFragment();
@@ -126,12 +132,20 @@ public class MainActivity extends BaseActivity {
                         switchContentFragment(androidFragment);
                     }
                     break;
-                case R.id.drawer_gank:
+                case R.id.item_gank:
                     toolbar.setTitle(R.string.gank_io);
                     if (gankFragment == null) {
                         targetFragment = gankFragment = new GankMainFragment();
                     } else {
                         switchContentFragment(gankFragment);
+                    }
+                    break;
+                case R.id.item_setting:
+                    toolbar.setTitle(R.string.setting);
+                    if (settingFragment == null) {
+                        targetFragment = settingFragment = new SettingFragment();
+                    } else {
+                        switchContentFragment(settingFragment);
                     }
                     break;
             }
@@ -152,7 +166,6 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         itemSearch = menu.findItem(R.id.action_search);
-        itemTicket = menu.findItem(R.id.action_ticket);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -160,9 +173,6 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                startActivity(new Intent(this, MovieSearchActivity.class));
-                break;
-            case R.id.action_ticket:
                 startActivity(new Intent(this, MovieSearchActivity.class));
                 break;
         }
@@ -220,5 +230,10 @@ public class MainActivity extends BaseActivity {
         RetrofitUrlManager.getInstance().putDomain("orange", "https://www.juzimi.com/");
         RetrofitUrlManager.getInstance().putDomain("cfan", "http://www.cfan.com.cn/");
         RetrofitUrlManager.getInstance().putDomain("mob", "http://apicloud.mob.com/");
+    }
+
+    @Override
+    public void setMonthPicture(HomeBean bean) {
+        Glide.with(this).load(bean.getMonth()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
     }
 }

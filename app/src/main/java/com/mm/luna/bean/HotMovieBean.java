@@ -13,10 +13,24 @@ public class HotMovieBean {
     private int count;
     private int start;
     private int total;
+
     private List<SubjectsBean> subjects;
+    private String retCode;
+    private List<TicketBean> result;
 
     public int getCount() {
         return count;
+    }
+
+    public String getRetCode() {
+        return retCode == null ? "" : retCode;
+    }
+
+    public List<TicketBean> getResult() {
+        if (result == null) {
+            return new ArrayList<>();
+        }
+        return result;
     }
 
     public void setCount(int count) {
@@ -296,6 +310,29 @@ public class HotMovieBean {
                     this.medium = medium;
                 }
             }
+        }
+    }
+
+    public class TicketBean {
+        private double cur;
+        private int days;
+        private String name;
+        private double sum;
+
+        public double getCur() {
+            return cur;
+        }
+
+        public int getDays() {
+            return days;
+        }
+
+        public String getName() {
+            return name == null ? "" : name;
+        }
+
+        public double getSum() {
+            return sum;
         }
     }
 }

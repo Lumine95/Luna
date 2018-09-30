@@ -3,6 +3,7 @@ package com.mm.luna.ui.douban;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -153,12 +154,22 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
         return true;
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        if (searchView.isSearchOpen()) {
+//            searchView.closeSearch();
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
+
     @Override
-    public void onBackPressed() {
-        if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
-        } else {
-            super.onBackPressed();
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (searchView.isSearchOpen()) {
+                searchView.closeSearch();
+            }
         }
+        return super.dispatchKeyEvent(event);
     }
 }
