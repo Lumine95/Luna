@@ -30,6 +30,7 @@ import com.mm.luna.ui.setting.SettingFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.wan.ArticleFragment;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
+import com.mm.luna.view.TodayEnglishView;
 
 import butterknife.BindView;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
@@ -80,7 +81,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
-
+        presenter.getTodayEnglish();
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
@@ -235,5 +236,15 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     @Override
     public void setMonthPicture(HomeBean bean) {
         Glide.with(this).load(bean.getMonth()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
+    }
+
+    @Override
+    public void showTodayEnglish(HomeBean bean) {
+//        AlertDialog dialog = new AlertDialog.Builder(this).create();
+//        View view = LayoutInflater.from(this).inflate(R.layout.dialog_today_english, null);
+//        dialog.setCancelable(false);
+//        dialog.setContentView(R.layout.dialog_today_english );
+//        dialog.show();
+        new TodayEnglishView(this,bean).showDialog();
     }
 }

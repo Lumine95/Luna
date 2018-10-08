@@ -7,12 +7,16 @@ import com.mm.luna.bean.HomeBean;
 /**
  * Created by ZMM on 2018/9/29 15:59.
  */
-  class MainContract {
+class MainContract {
     interface View extends BaseView {
-        void setMonthPicture(HomeBean bean );
+        void setMonthPicture(HomeBean bean);
+
+        void showTodayEnglish(HomeBean bean);
     }
 
     interface Presenter extends BasePresenter {
         void getMonthPicture();
+
+        void getTodayEnglish();
     }
 }

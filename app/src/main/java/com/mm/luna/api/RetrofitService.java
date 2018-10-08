@@ -41,6 +41,9 @@ public interface RetrofitService {
     @GET("http://www.wanandroid.com/tools/mockapi/4060/monthPicture")
     Observable<HomeBean> getMonthPicture();
 
+    @GET("http://open.iciba.com/dsapi/")
+    Observable<HomeBean> getTodayEnglish();
+
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/in_theaters")
     Observable<HotMovieBean> getMovieInTheater(@Query("start") int start, @Query("count") int count);

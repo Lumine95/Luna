@@ -55,4 +55,9 @@
         <item name="bs_listStyle">@style/BottomSheet.List</item>
     </style>
 
+    <!-- dialog动画 -->
+    <style name="anim_dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_popup_zoom_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_popup_zoom_exit</item>
+    </style>
 </resources>
