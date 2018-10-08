@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.android.library.utils.DateUtil;
+import com.android.library.utils.U;
 import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
@@ -81,7 +83,11 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
-        presenter.getTodayEnglish();
+        String date = DateUtil.getCurrentStrDate("yyyyMMdd");
+        if (!U.getPreferences("today", "").equals(date)) {
+            presenter.getTodayEnglish();
+            U.savePreferences("today", date);
+        }
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
@@ -245,6 +251,6 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
 //        dialog.setCancelable(false);
 //        dialog.setContentView(R.layout.dialog_today_english );
 //        dialog.show();
-        new TodayEnglishView(this,bean).showDialog();
+        new TodayEnglishView(this, bean).showDialog();
     }
 }
