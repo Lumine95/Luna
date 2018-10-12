@@ -1,8 +1,10 @@
 package com.mm.luna.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.mm.luna.bean.CFanBean;
+import com.mm.luna.bean.NBABean;
 import com.mm.luna.bean.SentenceBean;
 
 import org.json.JSONException;
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * Created by ZMM on 2018/8/17 11:56.
  */
-public class DocParseUtil {
+public class HtmlParseUtil {
 
     public static SentenceBean parseOrangeSentence(boolean isClear, String html) {
         SentenceBean sentenceBean = new SentenceBean();
@@ -90,5 +92,30 @@ public class DocParseUtil {
             }
         }
         return bannerList;
+    }
+
+    public static List<NBABean> parseNBASchedule(String d) {
+        List<NBABean> scheduleList = new ArrayList<>();
+        try {
+            Document document = Jsoup.connect("https://nba.hupu.com/schedule/" + d).get();
+            String date = "";
+            Elements elements = document.getElementsByClass("left");
+            for (Element element : elements) {
+                if (element.text().contains("vs") || element.text().contains("星期")) {
+                    if (element.text().contains("星期")) {
+                        if (!element.text().equals(date)) {
+                            scheduleList.add(new NBABean(element.text(), NBABean.DATE));
+                        }
+                        date = element.text();
+                    } else {
+                        scheduleList.add(new NBABean(element.text().split(" "), NBABean.NORMAL));
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            Log.i("mytag", e.toString());
+        }
+        return scheduleList;
     }
 }

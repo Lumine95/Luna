@@ -37,7 +37,7 @@ public class SystemUtil {
      * @param url
      */
     public static void share(Context context, String title, String url) {
-        String shareText = "【" + title + "】\n" + url + "\nvia:Luna";
+        String shareText = "【" + title + "】\n" + url;
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
@@ -133,7 +133,7 @@ public class SystemUtil {
         return bitmap;
     }
 
-    public static String getStrFromParen(String str) {
+    static String getStrFromParen(String str) {
         return TextUtils.isEmpty(str) ? "" : str.substring(str.indexOf("(") + 1, str.indexOf(")"));
     }
 }

@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import com.mm.luna.api.Api;
 import com.mm.luna.base.BasePresenterImpl;
 import com.mm.luna.bean.CFanBean;
-import com.mm.luna.util.DocParseUtil;
+import com.mm.luna.util.HtmlParseUtil;
 import com.mm.luna.util.SystemUtil;
 
 import java.util.List;
@@ -47,10 +47,10 @@ public class FanPresenter extends BasePresenterImpl<FanContract.View> implements
                 .subscribe(responseBody -> {
                     String html = SystemUtil.is2Str(responseBody.byteStream());
                     if (type == 0 && isClear) {
-                        List<CFanBean> bannerList = DocParseUtil.parseCFanBanner(html);
+                        List<CFanBean> bannerList = HtmlParseUtil.parseCFanBanner(html);
                         view.setBannerData(bannerList);
                     }
-                    List<CFanBean> list = DocParseUtil.parseCFanNews(html);
+                    List<CFanBean> list = HtmlParseUtil.parseCFanNews(html);
                     view.setData(list, isClear);
                     view.onFinish();
                 }, throwable -> view.onError());

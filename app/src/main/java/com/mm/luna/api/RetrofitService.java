@@ -103,4 +103,7 @@ public interface RetrofitService {
     @Headers({"Domain-Name: mob"})
     @GET("/boxoffice/day/query")
     Observable<HotMovieBean> getMovieBoxOffice(@Query("key") String mobKey, @Query("area") String area);
+
+    @GET("https://nba.hupu.com/schedule/{date}")
+    Observable<ResponseBody> getNBASchedule(@Path("date") String date);
 }

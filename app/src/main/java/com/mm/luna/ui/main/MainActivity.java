@@ -27,6 +27,7 @@ import com.mm.luna.ui.computer.ComputerFragment;
 import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
+import com.mm.luna.ui.nba.ScheduleFragment;
 import com.mm.luna.ui.orange.OrangeFragment;
 import com.mm.luna.ui.setting.SettingFragment;
 import com.mm.luna.ui.violet.VioletActivity;
@@ -57,6 +58,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     private OrangeFragment orangeFragment;
     private ComputerFragment computerFragment;
     private SettingFragment settingFragment;
+    private ScheduleFragment scheduleFragment;
 
     private MenuItem itemSearch;
 
@@ -121,6 +123,14 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
                         targetFragment = orangeFragment = new OrangeFragment();
                     } else {
                         switchContentFragment(orangeFragment);
+                    }
+                    break;
+                case R.id.item_basketball:
+                    toolbar.setTitle(R.string.nba_schedule);
+                    if (scheduleFragment == null) {
+                        targetFragment = scheduleFragment = new ScheduleFragment();
+                    } else {
+                        switchContentFragment(scheduleFragment);
                     }
                     break;
                 case R.id.item_computer:

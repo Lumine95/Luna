@@ -19,6 +19,11 @@
                 android:title="@string/orange_title"
                 android:visible="false" />
             <item
+                android:id="@+id/item_basketball"
+                android:checkable="true"
+                android:icon="@mipmap/ic_basketball"
+                android:title="@string/nba_schedule" />
+            <item
                 android:id="@+id/item_computer"
                 android:checkable="true"
                 android:icon="@mipmap/ic_computer"
