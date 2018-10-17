@@ -16,5 +16,7 @@ class NBAContract {
 
     interface Presenter extends BasePresenter {
         void getScheduleList(String date, boolean isClear);
+
+        void initTeamLogos();
     }
 }

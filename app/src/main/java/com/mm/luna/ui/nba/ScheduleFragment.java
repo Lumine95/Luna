@@ -51,6 +51,7 @@ public class ScheduleFragment extends BaseFragment<NBAContract.Presenter> implem
 
     @Override
     protected void initView(View view) {
+        presenter.initTeamLogos();
         initRecyclerView();
         currentDate = DateUtil.getCurrentStrDate("yyyy-MM-dd");
         presenter.getScheduleList(currentDate, true);
@@ -84,7 +85,6 @@ public class ScheduleFragment extends BaseFragment<NBAContract.Presenter> implem
             Log.d("schedule: ", bean.getDate() + "  " + bean.getTime() + bean.getVisitingTeam());
             if (!TextUtils.isEmpty(bean.getDate())) {
                 getNextDay(bean.getDate());
-                ;
             }
         }
         if (beanList.size() == 0) {

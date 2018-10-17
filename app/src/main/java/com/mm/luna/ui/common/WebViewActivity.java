@@ -44,6 +44,7 @@ public class WebViewActivity extends BaseActivity {
         setStatusBarColor();
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
+        initToolbar(title);
         loadUrl(url);
     }
 
