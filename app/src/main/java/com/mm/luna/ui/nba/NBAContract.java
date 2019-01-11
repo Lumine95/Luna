@@ -18,5 +18,7 @@ class NBAContract {
         void getScheduleList(String date, boolean isClear);
 
         void initTeamLogos();
+
+        void getLiveList(boolean isClear);
     }
 }

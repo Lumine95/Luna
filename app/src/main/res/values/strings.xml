@@ -35,4 +35,5 @@
     <string name="no_finish">还没写好呢</string>
     <string name="nba_schedule">NBA赛程</string>
     <string name="basketball_team">球队</string>
+    <string name="live">直播</string>
 </resources>

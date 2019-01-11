@@ -16,7 +16,7 @@ public class GlideUtil {
             Glide.with(context)
                     .load(url)
                     .crossFade()
-                    .placeholder(defaultImage)
+                    // .placeholder(defaultImage)
                     .error(defaultImage)
                     .into(view);
         }

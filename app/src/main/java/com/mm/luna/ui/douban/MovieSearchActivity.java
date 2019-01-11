@@ -88,7 +88,7 @@ public class MovieSearchActivity extends BaseActivity<DoubanContract.Presenter> 
             @Override
             public boolean onQueryTextSubmit(String query) {
                 pageIndex = 0;
-                keyword = query;
+                toolbar.setTitle(keyword = query);
                 statusLayoutManager.showLoadingLayout();
                 presenter.searchMovie(keyword, pageIndex, true);
                 recyclerView.scrollToPosition(0);

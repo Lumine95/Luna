@@ -27,6 +27,7 @@ import com.mm.luna.ui.computer.ComputerFragment;
 import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
+import com.mm.luna.ui.nba.LiveActivity;
 import com.mm.luna.ui.nba.ScheduleFragment;
 import com.mm.luna.ui.orange.OrangeFragment;
 import com.mm.luna.ui.setting.SettingFragment;
@@ -61,6 +62,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     private ScheduleFragment scheduleFragment;
 
     private MenuItem itemSearch;
+    private MenuItem itemLive;
 
     @Override
     public int getLayoutId() {
@@ -101,6 +103,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         //    navigationView.getHeaderView(0).setOnClickListener(v -> violet());
         navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
             itemSearch.setVisible(false);
+            itemLive.setVisible(false);
             // drawer.closeDrawers();
             switch (item.getItemId()) {
                 case R.id.item_zhihu:
@@ -127,6 +130,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
                     break;
                 case R.id.item_basketball:
                     toolbar.setTitle(R.string.nba_schedule);
+                    itemLive.setVisible(true);
                     if (scheduleFragment == null) {
                         targetFragment = scheduleFragment = new ScheduleFragment();
                     } else {
@@ -183,6 +187,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         itemSearch = menu.findItem(R.id.action_search);
+        itemLive = menu.findItem(R.id.action_live);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -191,6 +196,9 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         switch (item.getItemId()) {
             case R.id.action_search:
                 startActivity(new Intent(this, MovieSearchActivity.class));
+                break;
+            case R.id.action_live:
+                startActivity(new Intent(this, LiveActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -1,10 +1,10 @@
 package com.mm.luna.ui.nba;
 
 import android.annotation.SuppressLint;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.android.library.utils.DateUtil;
@@ -33,6 +33,7 @@ import butterknife.BindView;
 public class ScheduleFragment extends BaseFragment<NBAContract.Presenter> implements NBAContract.View {
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.refresh_layout) SmartRefreshLayout refreshLayout;
+    @BindView(R.id.fab_top) FloatingActionButton fabTop;
     private StatusLayoutManager statusLayoutManager;
     private String currentDate;
     private String currentYear = DateUtil.getCurrentStrDate("yyyy");
@@ -55,6 +56,14 @@ public class ScheduleFragment extends BaseFragment<NBAContract.Presenter> implem
         initRecyclerView();
         currentDate = DateUtil.getCurrentStrDate("yyyy-MM-dd");
         presenter.getScheduleList(currentDate, true);
+        fabTop.setOnClickListener(v -> recyclerView.scrollToPosition(0));
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                fabTop.setVisibility(dy > 0 ? View.VISIBLE : View.GONE);
+//            }
+//        });
     }
 
     private void initRecyclerView() {
@@ -82,7 +91,7 @@ public class ScheduleFragment extends BaseFragment<NBAContract.Presenter> implem
     @Override
     public void setData(boolean isClear, List<NBABean> beanList) {
         for (NBABean bean : beanList) {
-            Log.d("schedule: ", bean.getDate() + "  " + bean.getTime() + bean.getVisitingTeam());
+            // Log.d("schedule: ", bean.getDate() + "  " + bean.getTime() + bean.getVisitingTeam());
             if (!TextUtils.isEmpty(bean.getDate())) {
                 getNextDay(bean.getDate());
             }

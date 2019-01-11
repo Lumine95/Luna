@@ -36,6 +36,20 @@ public class NBAPresenter extends BasePresenterImpl<NBAContract.View> implements
                 }, throwable -> view.onError());
     }
 
+    @SuppressLint("CheckResult")
+    @Override
+    public void getLiveList(boolean isClear) {
+        Observable.create((ObservableOnSubscribe<List<NBABean>>) e -> {
+            e.onNext(HtmlParseUtil.parseLive());
+            e.onComplete();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> {
+                    view.onFinish();
+                    view.setData(isClear, list);
+                }, throwable -> view.onError());
+    }
+
     @Override
     public void initTeamLogos() {
         Constant.teamLogos.clear();
@@ -70,4 +84,5 @@ public class NBAPresenter extends BasePresenterImpl<NBAContract.View> implements
         Constant.teamLogos.put("灰熊", "http://mat1.gtimg.com/sports/nba/logo/1602/29.png");
         Constant.teamLogos.put("猛龙", "http://img1.gtimg.com/sports/pics/hv1/133/21/2268/147482188.png");
     }
+
 }

@@ -16,8 +16,7 @@
                 android:id="@+id/item_orange"
                 android:checkable="true"
                 android:icon="@mipmap/ic_orange"
-                android:title="@string/orange_title"
-                android:visible="false" />
+                android:title="@string/orange_title" />
             <item
                 android:id="@+id/item_basketball"
                 android:checkable="true"
