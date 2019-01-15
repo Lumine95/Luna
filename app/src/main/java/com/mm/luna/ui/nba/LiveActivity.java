@@ -11,7 +11,7 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.NBABean;
 import com.mm.luna.ui.adapter.LiveAdapter;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
-import com.scwang.smartrefresh.header.PhoenixHeader;
+import com.scwang.smartrefresh.header.DropboxHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -58,7 +58,9 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter = new LiveAdapter(new ArrayList()));
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        refreshLayout.setRefreshHeader(new PhoenixHeader(this));
+        mAdapter.setOnLoadMoreListener(() -> {
+        }, recyclerView);
+        refreshLayout.setRefreshHeader(new DropboxHeader(this));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             presenter.getLiveList(true);
         });
@@ -68,6 +70,7 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
     public void setData(boolean isClear, List<NBABean> beanList) {
         if (beanList.size() > 0) {
             mAdapter.setNewData(beanList);
+            mAdapter.loadMoreEnd();
         } else {
             statusLayoutManager.showEmptyLayout();
         }
