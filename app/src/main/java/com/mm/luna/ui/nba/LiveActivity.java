@@ -4,12 +4,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.NBABean;
+import com.mm.luna.ui.adapter.LiveAdapter;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
+import com.scwang.smartrefresh.header.PhoenixHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +27,7 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
     @BindView(R.id.refresh_layout) SmartRefreshLayout refreshLayout;
     @BindView(R.id.toolbar) Toolbar toolbar;
     private StatusLayoutManager statusLayoutManager;
+    private BaseQuickAdapter<NBABean, BaseViewHolder> mAdapter;
 
     @Override
     public int getLayoutId() {
@@ -50,26 +56,27 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-
-        // recyclerView.setAdapter(mAdapter = new ScheduleAdapter(list));
-//        mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-//        mAdapter.setOnLoadMoreListener(() -> {
-//            presenter.getScheduleList(currentDate, false);
-//        }, recyclerView);
-//        refreshLayout.setRefreshHeader(new PhoenixHeader(mContext));
-//        refreshLayout.setOnRefreshListener(refreshLayout -> {
-//
-//        });
+        recyclerView.setAdapter(mAdapter = new LiveAdapter(new ArrayList()));
+        mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        refreshLayout.setRefreshHeader(new PhoenixHeader(this));
+        refreshLayout.setOnRefreshListener(refreshLayout -> {
+            presenter.getLiveList(true);
+        });
     }
 
     @Override
     public void setData(boolean isClear, List<NBABean> beanList) {
-
+        if (beanList.size() > 0) {
+            mAdapter.setNewData(beanList);
+        } else {
+            statusLayoutManager.showEmptyLayout();
+        }
     }
 
     @Override
     public void onFinish() {
         statusLayoutManager.showSuccessLayout();
+        refreshLayout.finishRefresh(true);
     }
 
     @Override

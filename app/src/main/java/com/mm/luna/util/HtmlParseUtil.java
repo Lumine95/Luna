@@ -128,16 +128,23 @@ public class HtmlParseUtil {
             Elements elements = document.getElementsByClass("content");
             Element element = elements.get(0);
             if (element != null) {
-                Elements item = element.select("a");
+                Elements item = element.select("a,p.date.myTime");
                 item.remove(0);// Delete first useless item.
                 for (Element e : item) {
-                    String url = e.attr("href");
-                    String titleTime = e.select("h2.tlt").text();
-                    String time = titleTime.split(" ")[0];
-                    String title = titleTime.split(" ")[1];
-                    String homeTem = e.select("div.left-team").text();
-                    String visitingTeam = e.select("div.right-team").text();
-                    dataList.add(new NBABean(time, title, homeTem, visitingTeam, url));
+                    if (e.text().contains("vs")) {
+                        String url = e.attr("href");
+                        String titleTime = e.select("h2.tlt").text();
+                        String time = titleTime.split(" ")[0];
+                        String title = titleTime.split(" ")[1];
+                        String homeTem = e.select("div.left-team").text();
+                        String visitingTeam = e.select("div.right-team").text();
+                        dataList.add(new NBABean(time, title, homeTem, visitingTeam, url, NBABean.NORMAL));
+                    } else {
+                        dataList.add(new NBABean(e.text(), NBABean.DATE));
+                    }
+                }
+                if (dataList.size() > 2 && dataList.get(0).getItemType() == dataList.get(1).getItemType()) {
+                    dataList.remove(0);
                 }
             }
 

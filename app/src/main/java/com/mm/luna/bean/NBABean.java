@@ -29,12 +29,13 @@ public class NBABean implements MultiItemEntity {
         this.itemType = itemType;
     }
 
-    public NBABean(String time, String title, String homeTem, String visitingTeam, String url) {
+    public NBABean(String time, String title, String homeTem, String visitingTeam, String url, int itemType) {
         this.time = time;
         this.title = title;
         this.homeTem = homeTem;
         this.visitingTeam = visitingTeam;
         this.url = url;
+        this.itemType = itemType;
     }
 
     public String getHomeTem() {
