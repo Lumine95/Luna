@@ -50,6 +50,20 @@ public class NBAPresenter extends BasePresenterImpl<NBAContract.View> implements
                 }, throwable -> view.onError());
     }
 
+    @SuppressLint("CheckResult")
+    @Override
+    public void getLiveSignalList(String url) {
+        Observable.create((ObservableOnSubscribe<List<NBABean>>) e -> {
+            e.onNext(HtmlParseUtil.parseLiveSignal(url,e));
+            e.onComplete();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> {
+                    view.onFinish();
+                    view.setData(true, list);
+                }, throwable -> view.onError());
+    }
+
     @Override
     public void initTeamLogos() {
         Constant.teamLogos.clear();

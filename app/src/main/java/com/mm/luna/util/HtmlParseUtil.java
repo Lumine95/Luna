@@ -15,8 +15,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.ObservableEmitter;
 
 /**
  * Created by ZMM on 2018/8/17 11:56.
@@ -150,6 +154,28 @@ public class HtmlParseUtil {
 
         } catch (Exception e) {
             Log.i("Exception: ", e.toString());
+        }
+        return dataList;
+    }
+
+    public static List<NBABean> parseLiveSignal(String url, ObservableEmitter<List<NBABean>> emitter) {
+        List<NBABean> dataList = new ArrayList<>();
+        try {
+            Document document = Jsoup.connect(url).get();
+            Elements elements = document.select("button");
+            for (Element element : elements) {
+                if (!element.text().contains("备用") && !element.text().contains("复制信号地址")) {
+                    String decodeUrl = URLDecoder.decode(SystemUtil.getStrFromParen(element.toString()).split(",")[1].replaceAll("'", ""), "GBK");
+
+                    NBABean bean = new NBABean();
+                    bean.setTitle(element.text());
+                    bean.setUrl(decodeUrl);
+                    dataList.add(bean);
+                }
+            }
+        } catch (IOException e) {
+            emitter.onError(e);
+            e.printStackTrace();
         }
         return dataList;
     }

@@ -38,6 +38,9 @@ public class NBABean implements MultiItemEntity {
         this.itemType = itemType;
     }
 
+    public NBABean() {
+    }
+
     public String getHomeTem() {
         return homeTem == null ? "" : homeTem;
     }
@@ -60,6 +63,34 @@ public class NBABean implements MultiItemEntity {
 
     public String getUrl() {
         return url == null ? "" : url;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+    public void setHomeTem(String homeTem) {
+        this.homeTem = homeTem;
+    }
+
+    public void setVisitingTeam(String visitingTeam) {
+        this.visitingTeam = visitingTeam;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
