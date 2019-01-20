@@ -45,9 +45,14 @@
         <activity
             android:name=".ui.douban.BoxOfficeActivity"
             android:screenOrientation="portrait" />
-        <!--比赛直播-->
+        <!--比赛直播列表-->
         <activity
             android:name=".ui.nba.LiveActivity"
+            android:screenOrientation="portrait" />
+        <!--比赛直播-->
+        <activity
+            android:name=".ui.nba.LiveDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <!--WebView-->
         <activity

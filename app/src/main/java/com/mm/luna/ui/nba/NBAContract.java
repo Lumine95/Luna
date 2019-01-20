@@ -19,8 +19,8 @@ class NBAContract {
 
         void initTeamLogos();
 
-        void getLiveList(boolean isClear);
-
         void getLiveSignalList(String url);
+
+        void getLiveList();
     }
 }

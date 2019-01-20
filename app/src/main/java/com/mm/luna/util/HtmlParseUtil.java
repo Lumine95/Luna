@@ -100,7 +100,7 @@ public class HtmlParseUtil {
         return bannerList;
     }
 
-    public static List<NBABean> parseNBASchedule(String d) {
+    public static List<NBABean> parseNBASchedule(String d, ObservableEmitter<List<NBABean>> emitter) {
         List<NBABean> scheduleList = new ArrayList<>();
         try {
             Document document = Jsoup.connect("https://nba.hupu.com/schedule/" + d).get();
@@ -118,17 +118,17 @@ public class HtmlParseUtil {
                     }
                 }
             }
-
         } catch (Exception e) {
+            emitter.onError(e);
             Log.i("Exception: ", e.toString());
         }
         return scheduleList;
     }
 
-    public static List<NBABean> parseLive() {
+    public static List<NBABean> parseLive(ObservableEmitter<List<NBABean>> emitter) {
         List<NBABean> dataList = new ArrayList<>();
         try {
-            Document document = Jsoup.connect("http://feisuzhibo.com/").get();
+            Document document = Jsoup.connect("http://feisuzhibo.com").timeout(30000).get();
             Elements elements = document.getElementsByClass("content");
             Element element = elements.get(0);
             if (element != null) {
@@ -152,6 +152,21 @@ public class HtmlParseUtil {
                 }
             }
 
+        } catch (Exception e) {
+            emitter.onError(e);
+            Log.i("Exception: ", e.toString());
+        }
+        return dataList;
+    }
+
+    public static List<NBABean> parseLiveDetail(String url) {
+        List<NBABean> dataList = new ArrayList<>();
+        try {
+            Document document = Jsoup.connect(url).get();
+            Elements elements = document.getElementsByAttribute("p");
+            for (Element element : elements) {
+                Logger.d(element.text());
+            }
         } catch (Exception e) {
             Log.i("Exception: ", e.toString());
         }

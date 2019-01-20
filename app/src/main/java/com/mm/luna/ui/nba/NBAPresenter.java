@@ -26,27 +26,29 @@ public class NBAPresenter extends BasePresenterImpl<NBAContract.View> implements
     @Override
     public void getScheduleList(String date, boolean isClear) {
         Observable.create((ObservableOnSubscribe<List<NBABean>>) e -> {
-            e.onNext(HtmlParseUtil.parseNBASchedule(date));
+            e.onNext(HtmlParseUtil.parseNBASchedule(date, e));
             e.onComplete();
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(list -> {
                     view.onFinish();
                     view.setData(isClear, list);
-                }, throwable -> view.onError());
+                }, throwable -> {
+                    view.onError();
+                });
     }
 
     @SuppressLint("CheckResult")
     @Override
-    public void getLiveList(boolean isClear) {
+    public void getLiveList() {
         Observable.create((ObservableOnSubscribe<List<NBABean>>) e -> {
-            e.onNext(HtmlParseUtil.parseLive());
+            e.onNext(HtmlParseUtil.parseLive(e));
             e.onComplete();
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(list -> {
                     view.onFinish();
-                    view.setData(isClear, list);
+                    view.setData(true, list);
                 }, throwable -> view.onError());
     }
 
@@ -54,7 +56,7 @@ public class NBAPresenter extends BasePresenterImpl<NBAContract.View> implements
     @Override
     public void getLiveSignalList(String url) {
         Observable.create((ObservableOnSubscribe<List<NBABean>>) e -> {
-            e.onNext(HtmlParseUtil.parseLiveSignal(url,e));
+            e.onNext(HtmlParseUtil.parseLiveSignal(url, e));
             e.onComplete();
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

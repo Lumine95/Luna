@@ -13,7 +13,6 @@
         app:contentInsetStart="7dp"
         app:navigationIcon="@mipmap/ic_left_arrow_white"
         app:popupTheme="@style/AppTheme.ToolbarPopupOverlay"
-        app:title="体育直播"
         app:titleTextColor="@color/white" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

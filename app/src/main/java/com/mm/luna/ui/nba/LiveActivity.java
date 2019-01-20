@@ -1,11 +1,11 @@
 package com.mm.luna.ui.nba;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.NBABean;
@@ -27,7 +27,7 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
     @BindView(R.id.refresh_layout) SmartRefreshLayout refreshLayout;
     @BindView(R.id.toolbar) Toolbar toolbar;
     private StatusLayoutManager statusLayoutManager;
-    private BaseQuickAdapter<NBABean, BaseViewHolder> mAdapter;
+    private LiveAdapter mAdapter;
 
     @Override
     public int getLayoutId() {
@@ -42,16 +42,16 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
     @Override
     public void initView() {
         setStatusBarColor();
+        toolbar.setTitle("体育直播");
         toolbar.setNavigationOnClickListener(view -> finish());
         initRecyclerView();
-        presenter.getLiveList(true);
+        presenter.getLiveList();
     }
 
     private void initRecyclerView() {
-        statusLayoutManager = new StatusLayoutManager.Builder(refreshLayout)
-                .setOnStatusChildClickListener(v -> {
-
-                }).build();
+        statusLayoutManager = new StatusLayoutManager.Builder(refreshLayout).setOnStatusChildClickListener(v -> {
+            presenter.getLiveList();
+        }).build();
         statusLayoutManager.showLoadingLayout();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -62,7 +62,17 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
         }, recyclerView);
         refreshLayout.setRefreshHeader(new DropboxHeader(this));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
-            presenter.getLiveList(true);
+            presenter.getLiveList();
+        });
+
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            NBABean item = (NBABean) adapter.getItem(position);
+            startActivity(new Intent(LiveActivity.this, LiveDetailActivity.class)
+                    .putExtra("data", item));
+        });
+        refreshLayout.setRefreshHeader(new DropboxHeader(this));
+        refreshLayout.setOnRefreshListener(refreshLayout -> {
+            presenter.getLiveList();
         });
     }
 
@@ -73,13 +83,12 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
             mAdapter.loadMoreEnd();
         } else {
             statusLayoutManager.showEmptyLayout();
-        }
+        }  refreshLayout.finishRefresh(true);
     }
 
     @Override
     public void onFinish() {
         statusLayoutManager.showSuccessLayout();
-        refreshLayout.finishRefresh(true);
     }
 
     @Override

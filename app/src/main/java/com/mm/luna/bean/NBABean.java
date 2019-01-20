@@ -2,10 +2,12 @@ package com.mm.luna.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.io.Serializable;
+
 /**
  * Created by ZMM on 2018/10/11 9:42.
  */
-public class NBABean implements MultiItemEntity {
+public class NBABean implements MultiItemEntity,Serializable {
     public static final int DATE = 1;
     public static final int NORMAL = 2;
     private int itemType;

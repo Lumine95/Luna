@@ -14,7 +14,7 @@ import com.mm.luna.bean.CFanBean;
 import com.mm.luna.ui.common.WebViewActivity;
 import com.mm.luna.util.GlideUtil;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
-import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
@@ -82,7 +82,7 @@ public class FanFragment extends BaseFragment<FanContract.Presenter> implements 
                 presenter.getArticleList(pageIndex, false, type);
             }
         }, recyclerView);
-        refreshLayout.setRefreshHeader(new MaterialHeader(mContext));
+        refreshLayout.setRefreshHeader(new DeliveryHeader(mContext));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             pageIndex = 1;
             presenter.getArticleList(pageIndex, true, type);

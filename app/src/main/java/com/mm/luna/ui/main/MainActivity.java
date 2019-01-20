@@ -28,6 +28,7 @@ import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.nba.LiveActivity;
+import com.mm.luna.ui.nba.LiveDetailActivity;
 import com.mm.luna.ui.nba.ScheduleFragment;
 import com.mm.luna.ui.orange.OrangeFragment;
 import com.mm.luna.ui.setting.SettingFragment;

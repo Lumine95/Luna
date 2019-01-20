@@ -11,7 +11,7 @@ import com.mm.luna.bean.HotMovieBean;
 import com.mm.luna.bean.MovieDetailBean;
 import com.mm.luna.ui.adapter.MovieAdapter;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
-import com.scwang.smartrefresh.header.PhoenixHeader;
+import com.scwang.smartrefresh.header.DropboxHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class MovieFragment extends BaseFragment<DoubanContract.Presenter> implem
             pageIndex++;
             presenter.getMovieList(pageIndex, false, position);
         }, recyclerView);
-        refreshLayout.setRefreshHeader(new PhoenixHeader(mContext));
+        refreshLayout.setRefreshHeader(new DropboxHeader(mContext));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             pageIndex = 0;
             presenter.getMovieList(pageIndex, true, position);
