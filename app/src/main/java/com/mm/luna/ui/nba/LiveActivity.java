@@ -83,7 +83,8 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
             mAdapter.loadMoreEnd();
         } else {
             statusLayoutManager.showEmptyLayout();
-        }  refreshLayout.finishRefresh(true);
+        }
+        refreshLayout.finishRefresh(true);
     }
 
     @Override
