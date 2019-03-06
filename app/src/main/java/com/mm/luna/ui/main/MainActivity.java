@@ -16,8 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.android.library.utils.DateUtil;
-import com.android.library.utils.U;
 import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
@@ -28,14 +26,13 @@ import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.nba.LiveActivity;
-import com.mm.luna.ui.nba.LiveDetailActivity;
 import com.mm.luna.ui.nba.ScheduleFragment;
 import com.mm.luna.ui.orange.OrangeFragment;
 import com.mm.luna.ui.setting.SettingFragment;
+import com.mm.luna.ui.today.TodayFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.wan.ArticleFragment;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
-import com.mm.luna.view.TodayEnglishView;
 
 import butterknife.BindView;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
@@ -53,6 +50,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     private Fragment mContent;
     private Fragment targetFragment;
 
+    private TodayFragment todayFragment;
     private ZhiHuFragment zhiHuFragment;
     private DoubanFragment doubanFragment;
     private GankMainFragment gankFragment;
@@ -80,19 +78,15 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         initRetrofitDomain();
         presenter.getMonthPicture();
         StatusBarUtil.setColorForDrawerLayout(this, drawer, Color.TRANSPARENT, 0);
-        if (zhiHuFragment == null) zhiHuFragment = new ZhiHuFragment();
-        switchContentFragment(zhiHuFragment);
-        targetFragment = zhiHuFragment;
-        toolbar.setTitle(R.string.zhihu_daily);
+        if (todayFragment == null) todayFragment = new TodayFragment();
+        switchContentFragment(todayFragment);
+        targetFragment = todayFragment;
+        toolbar.setTitle(R.string.today);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
-        String date = DateUtil.getCurrentStrDate("yyyyMMdd");
-        if (!U.getPreferences("today", "").equals(date)) {
-            presenter.getTodayEnglish();
-            U.savePreferences("today", date);
-        }
+
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         drawer.addDrawerListener(drawerToggle);
@@ -100,13 +94,21 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         if (navigationMenuItemView != null) {
             navigationMenuItemView.setVerticalScrollBarEnabled(false);
         }
-        navigationView.setCheckedItem(R.id.item_zhihu);
+        navigationView.setCheckedItem(R.id.item_today);
         //    navigationView.getHeaderView(0).setOnClickListener(v -> violet());
         navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
             itemSearch.setVisible(false);
             itemLive.setVisible(false);
             // drawer.closeDrawers();
             switch (item.getItemId()) {
+                case R.id.item_today:
+                    toolbar.setTitle(R.string.today);
+                    if (todayFragment == null) {
+                        targetFragment = todayFragment = new TodayFragment();
+                    } else {
+                        switchContentFragment(todayFragment);
+                    }
+                    break;
                 case R.id.item_zhihu:
                     toolbar.setTitle(R.string.zhihu_daily);
                     if (zhiHuFragment == null) {
@@ -263,13 +265,13 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         Glide.with(this).load(bean.getMonth()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
     }
 
-    @Override
-    public void showTodayEnglish(HomeBean bean) {
-//        AlertDialog dialog = new AlertDialog.Builder(this).create();
-//        View view = LayoutInflater.from(this).inflate(R.layout.dialog_today_english, null);
-//        dialog.setCancelable(false);
-//        dialog.setContentView(R.layout.dialog_today_english );
-//        dialog.show();
-        new TodayEnglishView(this, bean).showDialog();
-    }
+//    @Override
+//    public void showTodayEnglish(HomeBean bean) {
+////        AlertDialog dialog = new AlertDialog.Builder(this).create();
+////        View view = LayoutInflater.from(this).inflate(R.layout.dialog_today_english, null);
+////        dialog.setCancelable(false);
+////        dialog.setContentView(R.layout.dialog_today_english );
+////        dialog.show();
+//        new TodayEnglishView(this, bean).showDialog();
+//    }
 }

@@ -1,7 +1,9 @@
 package com.mm.luna.api;
 
 import com.mm.luna.bean.ArticleBean;
+import com.mm.luna.bean.BingBean;
 import com.mm.luna.bean.ComicEntity;
+import com.mm.luna.bean.FictionBean;
 import com.mm.luna.bean.GankBean;
 import com.mm.luna.bean.HomeBean;
 import com.mm.luna.bean.HotMovieBean;
@@ -43,6 +45,12 @@ public interface RetrofitService {
 
     @GET("http://open.iciba.com/dsapi/")
     Observable<HomeBean> getTodayEnglish();
+
+    @GET("http://interface.meiriyiwen.com/article/day?dev=1")
+    Observable<FictionBean> getTodayArticle(@Query("date") String date);
+
+    @GET("https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN")
+    Observable<BingBean> getBingWallpaper();
 
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/in_theaters")

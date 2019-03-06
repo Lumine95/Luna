@@ -10,13 +10,9 @@ import com.mm.luna.bean.HomeBean;
 class MainContract {
     interface View extends BaseView {
         void setMonthPicture(HomeBean bean);
-
-        void showTodayEnglish(HomeBean bean);
     }
 
     interface Presenter extends BasePresenter {
         void getMonthPicture();
-
-        void getTodayEnglish();
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -13,20 +14,25 @@
         app:contentInsetStart="7dp"
         app:navigationIcon="@mipmap/ic_left_arrow_white"
         app:popupTheme="@style/AppTheme.ToolbarPopupOverlay"
-        app:titleTextColor="@color/white">
-
-    </android.support.v7.widget.Toolbar>
+        app:titleTextColor="@color/white" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_f6" />
+            android:layout_height="match_parent">
+
+            <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+                android:id="@+id/video_player"
+                android:layout_width="match_parent"
+                android:layout_height="240dp" />
+
+
+        </android.support.constraint.ConstraintLayout>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

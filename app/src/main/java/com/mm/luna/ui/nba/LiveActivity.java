@@ -46,6 +46,7 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
         toolbar.setNavigationOnClickListener(view -> finish());
         initRecyclerView();
         presenter.getLiveList();
+
     }
 
     private void initRecyclerView() {
@@ -97,3 +98,4 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
         statusLayoutManager.showErrorLayout();
     }
 }
+

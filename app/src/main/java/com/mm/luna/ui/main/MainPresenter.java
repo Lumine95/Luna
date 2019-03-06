@@ -28,16 +28,4 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
                     view.setMonthPicture(entity);
                 }, throwable -> view.onError());
     }
-
-    @SuppressLint("CheckResult")
-    @Override
-    public void getTodayEnglish() {
-        Api.getInstance().getTodayEnglish()
-                .subscribeOn(Schedulers.io())
-                .map(entity -> entity)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(entity -> {
-                    view.showTodayEnglish(entity);
-                }, throwable -> view.onError());
-    }
 }

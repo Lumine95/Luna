@@ -3,6 +3,11 @@
     <item android:title="日常">
         <menu>
             <item
+                android:id="@+id/item_today"
+                android:checkable="true"
+                android:icon="@mipmap/ic_drawer_today"
+                android:title="@string/today" />
+            <item
                 android:id="@+id/item_zhihu"
                 android:checkable="true"
                 android:icon="@mipmap/ic_drawer_zhihu"

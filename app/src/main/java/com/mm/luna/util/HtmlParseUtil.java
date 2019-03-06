@@ -194,4 +194,26 @@ public class HtmlParseUtil {
         }
         return dataList;
     }
+
+    public static String[] parseOneImage(ObservableEmitter<String[]> emitter) {
+        String[] array = new String[4];
+        try {
+            Document document = Jsoup.connect("http://wufazhuce.com/").get();
+            Element element = document.selectFirst("div.item.active");
+            String image = element.select("img.fp-one-imagen").attr("src");
+            String type = element.getElementsByClass("fp-one-imagen-footer").text();
+            String sentence = element.getElementsByTag("a").text();
+            String number = element.getElementsByClass("titulo").text();
+
+            array[0] = image;
+            array[1] = type;
+            array[2] = sentence;
+            array[3] = number;
+
+        } catch (IOException e) {
+            emitter.onError(e);
+            e.printStackTrace();
+        }
+        return array;
+    }
 }

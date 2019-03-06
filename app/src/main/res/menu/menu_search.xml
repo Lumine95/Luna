@@ -22,7 +22,13 @@
     <item
         android:id="@+id/action_switch"
         android:icon="@mipmap/ic_switch"
-        android:title="@string/live"
+        android:title="@string/switch_signal"
         android:visible="false"
         app:showAsAction="ifRoom" />
-</menu>
+    <item
+        android:id="@+id/action_random"
+        android:icon="@mipmap/ic_random"
+        android:title="@string/random"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+ </menu>

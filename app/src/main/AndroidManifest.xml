@@ -62,6 +62,10 @@
         <activity
             android:name=".ui.common.ImagePreviewActivity"
             android:screenOrientation="portrait" />
+        <!--每日一文-->
+        <activity
+            android:name=".ui.today.DailyArticleActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

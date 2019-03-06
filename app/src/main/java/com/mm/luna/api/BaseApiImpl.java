@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -28,7 +30,11 @@ public class BaseApiImpl implements BaseApi {
         retrofitBuilder.addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(okHttpBuilder.addInterceptor(getLogInterceptor()).build())
+                .client(okHttpBuilder.addInterceptor(getLogInterceptor())
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(10, TimeUnit.SECONDS)
+                        .writeTimeout(10, TimeUnit.SECONDS)
+                        .build())
                 .baseUrl(baseUrl);
     }
 
