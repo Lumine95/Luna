@@ -31,7 +31,8 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:background="@color/md_pink_400" />
+                        android:background="@color/md_pink_800"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_count"
@@ -42,6 +43,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_13"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/app_name" />
 
                     <TextView
@@ -52,7 +54,8 @@
                         android:text="@string/today_article"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_digest"

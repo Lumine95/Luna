@@ -129,29 +129,47 @@ public class HtmlParseUtil {
         List<NBABean> dataList = new ArrayList<>();
         try {
             Document document = Jsoup.connect("http://feisuzhibo.com").timeout(30000).get();
-            Elements elements = document.getElementsByClass("content");
-            Element element = elements.get(0);
+            Element element = document.getElementsByClass("rightTab").first();
             if (element != null) {
-                Elements item = element.select("a,p.date.myTime");
-                item.remove(0);// Delete first useless item.
-                for (Element e : item) {
-                    if (e.text().contains("vs")) {
-                        String url = e.attr("href");
-                        String titleTime = e.select("h2.tlt").text();
-                        String time = titleTime.split(" ")[0];
-                        String title = titleTime.split(" ")[1];
-                        String homeTem = e.select("div.left-team").text();
-                        String visitingTeam = e.select("div.right-team").text();
-                        dataList.add(new NBABean(time, title, homeTem, visitingTeam, url, NBABean.NORMAL));
-                    } else {
-                        dataList.add(new NBABean(e.text(), NBABean.DATE));
+                Elements elements = element.getElementsByTag("div");
+                for (Element e : elements) {
+                    if (e.attr("class").equals("tab") || !TextUtils.isEmpty(e.attr("type"))) {
+                        if (e.attr("class").equals("tab")) {
+                            dataList.add(new NBABean(e.text(), NBABean.DATE));
+                        } else {
+                            String url = "http://feisuzhibo.com" + e.select("div.play > a").attr("href");
+                            String time = e.select("div.timer").text();
+                            String title = e.select("div.name").text();
+                            String homeTem = e.select("div.home_team").tagName("p").text();
+                            String visitingTeam = e.select("div.visit_team").tagName("p").text();
+
+                            dataList.add(new NBABean(time, title, homeTem, visitingTeam, url, NBABean.NORMAL));
+                        }
                     }
                 }
-                if (dataList.size() > 2 && dataList.get(0).getItemType() == dataList.get(1).getItemType()) {
-                    dataList.remove(0);
-                }
             }
-
+//            Elements elements = document.getElementsByClass("content");
+//            Element element = elements.get(0);
+//            if (element != null) {
+//                Elements item = element.select("a,p.date.myTime");
+//                item.remove(0);// Delete first useless item.
+//                for (Element e : item) {
+//                    if (e.text().contains("vs")) {
+//                        String url = e.attr("href");
+//                        String titleTime = e.select("h2.tlt").text();
+//                        String time = titleTime.split(" ")[0];
+//                        String title = titleTime.split(" ")[1];
+//                        String homeTem = e.select("div.left-team").text();
+//                        String visitingTeam = e.select("div.right-team").text();
+//                        dataList.add(new NBABean(time, title, homeTem, visitingTeam, url, NBABean.NORMAL));
+//                    } else {
+//                        dataList.add(new NBABean(e.text(), NBABean.DATE));
+//                    }
+//                }
+//                if (dataList.size() > 2 && dataList.get(0).getItemType() == dataList.get(1).getItemType()) {
+//                    dataList.remove(0);
+//                }
+            //  }
         } catch (Exception e) {
             emitter.onError(e);
             Log.i("Exception: ", e.toString());
@@ -179,8 +197,8 @@ public class HtmlParseUtil {
             Document document = Jsoup.connect(url).get();
             Elements elements = document.select("button");
             for (Element element : elements) {
-                if (!element.text().contains("备用") && !element.text().contains("复制信号地址")) {
-                    String decodeUrl = URLDecoder.decode(SystemUtil.getStrFromParen(element.toString()).split(",")[1].replaceAll("'", ""), "GBK");
+                if (!element.text().contains("备用") && !element.text().contains("复制地址")) {
+                    String decodeUrl = URLDecoder.decode(SystemUtil.getStrFromParen(element.toString()).split(",")[2].replaceAll("'", ""), "GBK");
 
                     NBABean bean = new NBABean();
                     bean.setTitle(element.text());

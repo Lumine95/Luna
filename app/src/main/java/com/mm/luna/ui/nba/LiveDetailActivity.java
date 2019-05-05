@@ -205,14 +205,16 @@ public class LiveDetailActivity extends BaseActivity<NBAContract.Presenter> impl
 
     @Override
     protected void onPause() {
-        videoPlayer.getCurrentPlayer().onVideoPause();
+//        videoPlayer.getCurrentPlayer().onVideoPause();
+        GSYVideoManager.onPause();
         super.onPause();
         isPause = true;
     }
 
     @Override
     protected void onResume() {
-        videoPlayer.getCurrentPlayer().onVideoResume(false);
+//        videoPlayer.getCurrentPlayer().onVideoResume(false);
+        GSYVideoManager.onResume();
         super.onResume();
         isPause = false;
     }
@@ -220,9 +222,10 @@ public class LiveDetailActivity extends BaseActivity<NBAContract.Presenter> impl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (isPlay && videoPlayer != null) {
-            videoPlayer.getCurrentPlayer().release();
-        }
+//        if (isPlay && videoPlayer != null) {
+//            videoPlayer.getCurrentPlayer().release();
+//        }
+        GSYVideoManager.releaseAllVideos();
         if (orientationUtils != null)
             orientationUtils.releaseListener();
     }

@@ -12,6 +12,7 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="?android:attr/colorPrimary"
         app:contentInsetStart="7dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@mipmap/ic_left_arrow_white"
         app:popupTheme="@style/AppTheme.ToolbarPopupOverlay"
         app:titleTextColor="@color/white" />

@@ -39,7 +39,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public abstract void initView();
 
     public void setStatusBarColor() {
-     //  StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
+        //  StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary), 0);
         StatusBarUtil.setColorForSwipeBack(this, getResources().getColor(R.color.colorPrimary), 0);
     }
 

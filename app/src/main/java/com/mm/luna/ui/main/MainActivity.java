@@ -262,7 +262,8 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
 
     @Override
     public void setMonthPicture(HomeBean bean) {
-        Glide.with(this).load(bean.getMonth()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
+        // Glide.with(this).load(bean.getMonth()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
+        Glide.with(this).load("http://imgsrc.baidu.com/forum/pic/item/88d13afbfbedab643c3f601ff636afc37b311ef9.jpg").crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
     }
 
 //    @Override
@@ -274,4 +275,5 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
 ////        dialog.show();
 //        new TodayEnglishView(this, bean).showDialog();
 //    }
+
 }
