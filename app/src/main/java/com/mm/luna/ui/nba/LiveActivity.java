@@ -11,7 +11,7 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.NBABean;
 import com.mm.luna.ui.adapter.LiveAdapter;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
-import com.scwang.smartrefresh.header.DropboxHeader;
+import com.scwang.smartrefresh.header.DropBoxHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mAdapter.setOnLoadMoreListener(() -> {
         }, recyclerView);
-        refreshLayout.setRefreshHeader(new DropboxHeader(this));
+        refreshLayout.setRefreshHeader(new DropBoxHeader(this));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             presenter.getLiveList();
         });
@@ -70,7 +70,7 @@ public class LiveActivity extends BaseActivity<NBAContract.Presenter> implements
             startActivity(new Intent(LiveActivity.this, LiveDetailActivity.class)
                     .putExtra("data", item));
         });
-        refreshLayout.setRefreshHeader(new DropboxHeader(this));
+        refreshLayout.setRefreshHeader(new DropBoxHeader(this));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             presenter.getLiveList();
         });

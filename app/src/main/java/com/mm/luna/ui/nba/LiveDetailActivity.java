@@ -15,7 +15,7 @@ import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.NBABean;
 import com.mm.luna.util.StatusBarUtils;
 import com.mm.luna.view.statusLayoutView.StatusLayoutManager;
-import com.scwang.smartrefresh.header.DropboxHeader;
+import com.scwang.smartrefresh.header.DropBoxHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -69,7 +69,7 @@ public class LiveDetailActivity extends BaseActivity<NBAContract.Presenter> impl
             presenter.getLiveSignalList(data.getUrl());
         }).build();
         statusLayoutManager.showLoadingLayout();
-        refreshLayout.setRefreshHeader(new DropboxHeader(this));
+        refreshLayout.setRefreshHeader(new DropBoxHeader(this));
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             presenter.getLiveSignalList(data.getUrl());
         });

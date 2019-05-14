@@ -36,6 +36,7 @@
     <string name="nba_schedule">NBA赛程</string>
     <string name="basketball_team">球队</string>
     <string name="live">直播</string>
+    <string name="sport_live">体育直播</string>
     <string name="match_not_start">比赛暂未开始</string>
     <string name="today">Today</string>
     <string name="switch_signal">切换信号源</string>

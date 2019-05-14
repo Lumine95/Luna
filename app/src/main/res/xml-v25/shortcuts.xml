@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_live"
+        android:shortcutDisabledMessage="@string/live"
+        android:shortcutId="live"
+        android:shortcutLongLabel="@string/sport_live"
+        android:shortcutShortLabel="@string/sport_live">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mm.luna.ui.nba.LiveActivity"
+            android:targetPackage="com.mm.luna" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_article"
+        android:shortcutDisabledMessage="@string/today_article"
+        android:shortcutId="article"
+        android:shortcutLongLabel="@string/today_article"
+        android:shortcutShortLabel="@string/today_article">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mm.luna.ui.today.DailyArticleActivity"
+            android:targetPackage="com.mm.luna" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>
