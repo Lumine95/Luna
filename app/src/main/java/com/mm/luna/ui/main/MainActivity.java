@@ -26,7 +26,7 @@ import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
 import com.mm.luna.ui.gank.GankMainFragment;
 import com.mm.luna.ui.nba.LiveActivity;
-import com.mm.luna.ui.nba.ScheduleFragment;
+import com.mm.luna.ui.nba.LiveFragment;
 import com.mm.luna.ui.orange.OrangeFragment;
 import com.mm.luna.ui.setting.SettingFragment;
 import com.mm.luna.ui.today.TodayFragment;
@@ -58,7 +58,8 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     private OrangeFragment orangeFragment;
     private ComputerFragment computerFragment;
     private SettingFragment settingFragment;
-    private ScheduleFragment scheduleFragment;
+    //  private ScheduleFragment scheduleFragment;
+    private LiveFragment scheduleFragment;
 
     private MenuItem itemSearch;
     private MenuItem itemLive;
@@ -133,9 +134,9 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
                     break;
                 case R.id.item_basketball:
                     toolbar.setTitle(R.string.nba_schedule);
-                    itemLive.setVisible(true);
+                    // itemLive.setVisible(true);
                     if (scheduleFragment == null) {
-                        targetFragment = scheduleFragment = new ScheduleFragment();
+                        targetFragment = scheduleFragment = new LiveFragment();
                     } else {
                         switchContentFragment(scheduleFragment);
                     }
@@ -263,7 +264,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     @Override
     public void setMonthPicture(HomeBean bean) {
         // Glide.with(this).load(bean.getMonth()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
-        Glide.with(this).load("http://imgsrc.baidu.com/forum/pic/item/88d13afbfbedab643c3f601ff636afc37b311ef9.jpg").crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
+        Glide.with(this).load("http://img.netbian.com/file/2019/0509/cfa94b884a089dfa602a97e2e598b029.jpg").crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
     }
 
 //    @Override

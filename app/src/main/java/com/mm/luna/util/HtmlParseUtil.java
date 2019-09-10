@@ -140,10 +140,16 @@ public class HtmlParseUtil {
                             String url = "http://feisuzhibo.com" + e.select("div.play > a").attr("href");
                             String time = e.select("div.timer").text();
                             String title = e.select("div.name").text();
-                            String homeTem = e.select("div.home_team").tagName("p").text();
+                            String score = e.select("div.srcoe").text();
+                            Logger.d("score: " + score);
+                            Logger.d("score: " + score);
+                            String homeTeamImg = e.select("div.home_team > img").attr("src");
+                            String homeTeam = e.select("div.home_team").tagName("p").text();
+
+                            String visitingTeamImg = e.select("div.visit_team > img").attr("src");
                             String visitingTeam = e.select("div.visit_team").tagName("p").text();
 
-                            dataList.add(new NBABean(time, title, homeTem, visitingTeam, url, NBABean.NORMAL));
+                            dataList.add(new NBABean(time, title, score, homeTeam, homeTeamImg, visitingTeam, visitingTeamImg, url, NBABean.NORMAL));
                         }
                     }
                 }

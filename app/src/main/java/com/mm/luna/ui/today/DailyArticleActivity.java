@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.android.library.utils.DateUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
 import com.mm.luna.bean.FictionBean;
@@ -100,7 +99,7 @@ public class DailyArticleActivity extends BaseActivity<ArticleContract.Presenter
         setStatusBarColor();
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
-        date = DateUtil.getCurrentStrDate("yyyyMMdd");
+        // date = DateUtil.getCurrentStrDate("yyyyMMdd");
         presenter.getArticle(date);
         statusLayoutManager = new StatusLayoutManager.Builder(scrollView)
                 .setOnStatusChildClickListener(v -> {

@@ -54,23 +54,23 @@ public interface RetrofitService {
 
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/in_theaters")
-    Observable<HotMovieBean> getMovieInTheater(@Query("start") int start, @Query("count") int count);
+    Observable<HotMovieBean> getMovieInTheater(@Query("start") int start, @Query("count") int count,@Query("apikey") String  apiKey);
 
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/coming_soon")
-    Observable<HotMovieBean> getMovieComing(@Query("start") int start, @Query("count") int count);
+    Observable<HotMovieBean> getMovieComing(@Query("start") int start, @Query("count") int count,@Query("apikey") String  apiKey);
 
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/top250")
-    Observable<HotMovieBean> getMovieTop(@Query("start") int start, @Query("count") int count);
+    Observable<HotMovieBean> getMovieTop(@Query("start") int start, @Query("count") int count,@Query("apikey") String  apiKey);
 
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/search")
-    Observable<HotMovieBean> searchMovie(@Query("q") String keyword, @Query("start") int start, @Query("count") int count);
+    Observable<HotMovieBean> searchMovie(@Query("q") String keyword, @Query("start") int start, @Query("count") int count,@Query("apikey") String  apiKey);
 
     @Headers({"Domain-Name: douban"})
     @GET("v2/movie/subject/{id}")
-    Observable<MovieDetailBean> getMovieDetail(@Path("id") String id);
+    Observable<MovieDetailBean> getMovieDetail(@Path("id") String id,@Query("apikey") String  apiKey);
 
     @Headers({"Domain-Name: gank"})
     @GET("data/{type}/{count}/{page}")

@@ -92,7 +92,7 @@ dependencies {
     // AgentWeb
     implementation 'com.just.agentweb:agentweb:4.0.2'
     // SwipeBack
-    implementation 'cn.bingoogolapple:bga-swipebacklayout:1.1.9@aar'
+    implementation 'cn.bingoogolapple:bga-swipebacklayout:1.2.0@aar'
     // Banner
     implementation 'com.youth.banner:banner:1.4.10'
     // BottomSheet

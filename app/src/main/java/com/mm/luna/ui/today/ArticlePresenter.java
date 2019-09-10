@@ -1,6 +1,7 @@
 package com.mm.luna.ui.today;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.mm.luna.base.BasePresenterImpl;
@@ -28,7 +29,7 @@ public class ArticlePresenter extends BasePresenterImpl<ArticleContract.View> im
     @SuppressLint("CheckResult")
     @Override
     public void getArticle(String date) {
-        String url = "https://interface.meiriyiwen.com/article/day?dev=1&date=" + date;
+        String url = TextUtils.isEmpty(date) ? "https://interface.meiriyiwen.com/article/today?dev=1" : "https://interface.meiriyiwen.com/article/day?dev=1&date=" + date;
         Observable.create((ObservableOnSubscribe<FictionBean>) e -> {
             e.onNext(getTodayArticle(url, e));
             e.onComplete();

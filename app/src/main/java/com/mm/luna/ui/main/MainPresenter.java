@@ -2,11 +2,7 @@ package com.mm.luna.ui.main;
 
 import android.annotation.SuppressLint;
 
-import com.mm.luna.api.Api;
 import com.mm.luna.base.BasePresenterImpl;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -20,12 +16,13 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
     @SuppressLint("CheckResult")
     @Override
     public void getMonthPicture() {
-        Api.getInstance().getMonthPicture()
-                .subscribeOn(Schedulers.io())
-                .map(entity -> entity)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(entity -> {
-                    view.setMonthPicture(entity);
-                }, throwable -> view.onError());
+        view.setMonthPicture(null);
+//        Api.getInstance().getMonthPicture()
+//                .subscribeOn(Schedulers.io())
+//                .map(entity -> entity)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(entity -> {
+//                    view.setMonthPicture(entity);
+//                }, throwable -> view.onError());
     }
 }

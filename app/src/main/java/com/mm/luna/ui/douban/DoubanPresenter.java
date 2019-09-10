@@ -2,6 +2,7 @@ package com.mm.luna.ui.douban;
 
 import android.annotation.SuppressLint;
 
+import com.mm.luna.Constant;
 import com.mm.luna.api.Api;
 import com.mm.luna.base.BasePresenterImpl;
 
@@ -21,7 +22,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
     public void getMovieList(int pageIndex, boolean isClear, int position) {
         switch (position) {
             case 0:
-                Api.getInstance().getMovieInTheater(pageIndex * 20, 20)
+                Api.getInstance().getMovieInTheater(pageIndex * 20, 20, Constant.doubanKey)
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(disposable -> {
                         })
@@ -33,7 +34,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                         }, throwable -> view.onError());
                 break;
             case 1:
-                Api.getInstance().getMovieComing(pageIndex * 20, 20)
+                Api.getInstance().getMovieComing(pageIndex * 20, 20,Constant.doubanKey)
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(disposable -> {
                         })
@@ -45,7 +46,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
                         }, throwable -> view.onError());
                 break;
             case 2:
-                Api.getInstance().getMovieTop(pageIndex * 25, 25)
+                Api.getInstance().getMovieTop(pageIndex * 25, 25,Constant.doubanKey)
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(disposable -> {
                         })
@@ -63,7 +64,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
     @SuppressLint("CheckResult")
     @Override
     public void getMovieDetail(String id) {
-        Api.getInstance().getMovieDetail(id)
+        Api.getInstance().getMovieDetail(id,Constant.doubanKey)
                 .subscribeOn(Schedulers.io())
                 .map(entity -> entity)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -76,7 +77,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanContract.View> impl
     @SuppressLint("CheckResult")
     @Override
     public void searchMovie(String keyword, int pageIndex, boolean isClear) {
-        Api.getInstance().searchMovie(keyword, pageIndex * 20, 20)
+        Api.getInstance().searchMovie(keyword, pageIndex * 20, 20,Constant.doubanKey)
                 .subscribeOn(Schedulers.io())
                 .map(entity -> entity)
                 .observeOn(AndroidSchedulers.mainThread())

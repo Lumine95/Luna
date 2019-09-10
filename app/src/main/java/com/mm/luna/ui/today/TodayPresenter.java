@@ -2,7 +2,6 @@ package com.mm.luna.ui.today;
 
 import android.annotation.SuppressLint;
 
-import com.android.library.utils.DateUtil;
 import com.google.gson.Gson;
 import com.mm.luna.api.Api;
 import com.mm.luna.base.BasePresenterImpl;
@@ -51,7 +50,8 @@ public class TodayPresenter extends BasePresenterImpl<TodayContract.View> implem
 //                    view.showTodayFiction(entity);
 //                }, throwable -> view.onError());
         // TODO: 2019/2/27 Retrofit 请求该链接出现400 Bad Request 错误
-        String url = "https://interface.meiriyiwen.com/article/day?dev=1&date=" + DateUtil.getCurrentStrDate("yyyyMMdd");
+        // String url = "https://interface.meiriyiwen.com/article/day?dev=1&date=" + DateUtil.getCurrentStrDate("yyyyMMdd");
+        String url = "https://interface.meiriyiwen.com/article/today?dev=1";
         Observable.create((ObservableOnSubscribe<FictionBean>) e -> {
             e.onNext(getTodayArticle(url, e));
             e.onComplete();

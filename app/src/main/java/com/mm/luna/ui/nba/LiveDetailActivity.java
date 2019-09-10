@@ -59,7 +59,7 @@ public class LiveDetailActivity extends BaseActivity<NBAContract.Presenter> impl
     public void initView() {
         data = (NBABean) getIntent().getSerializableExtra("data");
         setStatusBarColor();
-        toolbar.setTitle(title = data.getVisitingTeam() + " vs " + data.getHomeTem());
+        toolbar.setTitle(title = data.getVisitingTeam() + " vs " + data.getHomeTeam());
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
         presenter.getLiveSignalList(data.getUrl());

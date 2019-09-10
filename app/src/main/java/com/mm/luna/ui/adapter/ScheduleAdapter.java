@@ -24,11 +24,11 @@ public class ScheduleAdapter extends BaseMultiItemQuickAdapter<NBABean, BaseView
                 helper.setText(R.id.tv_date, item.getDate());
                 break;
             case NBABean.NORMAL:
-                helper.setText(R.id.tv_home_team, item.getHomeTem());
+                helper.setText(R.id.tv_home_team, item.getHomeTeam());
                 helper.setText(R.id.tv_visiting_team, item.getVisitingTeam());
                 helper.setText(R.id.tv_time, item.getTime());
                 GlideUtil.loadImage(mContext, Constant.teamLogos.get(item.getVisitingTeam()), helper.getView(R.id.iv_visiting_team), R.mipmap.ic_default_bilibili);
-                GlideUtil.loadImage(mContext, Constant.teamLogos.get(item.getHomeTem()), helper.getView(R.id.iv_home_team), R.mipmap.ic_default_bilibili);
+                GlideUtil.loadImage(mContext, Constant.teamLogos.get(item.getHomeTeam()), helper.getView(R.id.iv_home_team), R.mipmap.ic_default_bilibili);
                 break;
         }
     }
