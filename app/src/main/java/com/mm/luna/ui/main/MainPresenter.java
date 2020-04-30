@@ -2,7 +2,13 @@ package com.mm.luna.ui.main;
 
 import android.annotation.SuppressLint;
 
+import com.mm.luna.api.Api;
 import com.mm.luna.base.BasePresenterImpl;
+
+import java.util.Random;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -24,5 +30,12 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
 //                .subscribe(entity -> {
 //                    view.setMonthPicture(entity);
 //                }, throwable -> view.onError());
+        Api.getInstance().getMonthPicture(new Random().nextInt(6839))
+                .subscribeOn(Schedulers.io())
+                .map(entity -> entity)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(entity -> {
+                    view.setMonthPicture(entity);
+                }, throwable -> view.onError());
     }
 }

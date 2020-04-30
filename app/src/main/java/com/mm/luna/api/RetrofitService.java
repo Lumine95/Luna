@@ -8,6 +8,7 @@ import com.mm.luna.bean.GankBean;
 import com.mm.luna.bean.HomeBean;
 import com.mm.luna.bean.HotMovieBean;
 import com.mm.luna.bean.MovieDetailBean;
+import com.mm.luna.bean.WallPaperBean;
 import com.mm.luna.bean.ZhiHuDetailEntity;
 import com.mm.luna.bean.ZhiHuEntity;
 
@@ -40,8 +41,8 @@ public interface RetrofitService {
     @GET("http://www.wanandroid.com/tools/mockapi/4060/comics")
     Observable<ComicEntity> getComicsList();
 
-    @GET("http://www.wanandroid.com/tools/mockapi/4060/monthPicture")
-    Observable<HomeBean> getMonthPicture();
+    @GET("http://wallpaper.apc.360.cn/index.php?c=WallPaperAndroid&a=getAppsByCategory&cid=26&count=1")
+    Observable<WallPaperBean> getMonthPicture(@Query("start") int random);
 
     @GET("http://open.iciba.com/dsapi/")
     Observable<HomeBean> getTodayEnglish();

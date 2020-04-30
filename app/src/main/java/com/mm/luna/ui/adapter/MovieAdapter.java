@@ -1,7 +1,6 @@
 package com.mm.luna.ui.adapter;
 
 import android.app.Activity;
-import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.style.LeadingMarginSpan;
 import android.widget.ImageView;
@@ -16,6 +15,8 @@ import com.mm.luna.ui.douban.MovieDetailActivity;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by ZMM on 2018/8/2 15:29.

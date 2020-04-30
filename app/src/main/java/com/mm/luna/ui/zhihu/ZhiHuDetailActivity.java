@@ -2,9 +2,9 @@ package com.mm.luna.ui.zhihu;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;

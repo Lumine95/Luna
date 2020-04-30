@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.style.DynamicDrawableSpan;
 import android.view.Gravity;

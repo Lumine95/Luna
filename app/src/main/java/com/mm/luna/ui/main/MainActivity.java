@@ -2,15 +2,15 @@ package com.mm.luna.ui.main;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
 import com.mm.luna.base.BaseActivity;
-import com.mm.luna.bean.HomeBean;
+import com.mm.luna.bean.WallPaperBean;
 import com.mm.luna.ui.computer.ComputerFragment;
 import com.mm.luna.ui.douban.DoubanFragment;
 import com.mm.luna.ui.douban.MovieSearchActivity;
@@ -33,6 +33,8 @@ import com.mm.luna.ui.today.TodayFragment;
 import com.mm.luna.ui.violet.VioletActivity;
 import com.mm.luna.ui.wan.ArticleFragment;
 import com.mm.luna.ui.zhihu.ZhiHuFragment;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
@@ -84,7 +86,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         targetFragment = todayFragment;
         toolbar.setTitle(R.string.today);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.mipmap.ic_drawer_home);
 
@@ -262,8 +264,9 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     }
 
     @Override
-    public void setMonthPicture(HomeBean bean) {
+    public void setMonthPicture(WallPaperBean bean) {
         // Glide.with(this).load(bean.getMonth()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
+//        Glide.with(this).load(bean.getData().get(0).getUrl()).crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
         Glide.with(this).load("http://img.netbian.com/file/2019/0509/cfa94b884a089dfa602a97e2e598b029.jpg").crossFade().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.iv_month));
     }
 

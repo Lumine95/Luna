@@ -1,8 +1,8 @@
 package com.mm.luna.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.jaeger.library.StatusBarUtil;
 import com.mm.luna.R;
@@ -19,6 +19,25 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public P presenter;
     private Unbinder unbinder;
     public BGASwipeBackHelper mSwipeBackHelper;
+
+//    @Override
+//    public View onCreateView(String name, Context context, AttributeSet attrs) {
+//        if ("FrameLayout".equals(name)) {
+//            int count = attrs.getAttributeCount();
+//            for (int i = 0; i < count; i++) {
+//                String attributeName = attrs.getAttributeName(i);
+//                String attributeValue = attrs.getAttributeValue(i);
+//                if (attributeName.equals("id")) {
+//                    int id = Integer.parseInt(attributeValue.substring(1));
+//                    String idVal = getResources().getResourceName(id);
+//                    if ("android:id/content".equals(idVal)) {
+//                        return new GrayFrameLayout(context, attrs);
+//                    }
+//                }
+//            }
+//        }
+//        return super.onCreateView(name, context, attrs);
+//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
